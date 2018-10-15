@@ -106,13 +106,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
-  ul,li{
-    margin: 0px;
-    padding: 0px;
-  }
-  li{
-    list-style: none
-  }
+
   .page-bar li:first-child>a {
     margin-left: 0px
   }

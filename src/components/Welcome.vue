@@ -3,8 +3,6 @@
     <h1>{{ welcome }}</h1>
     <h2>{{ msg }}</h2>
     <img src="../assets/logo.png">
-    <router-link to="/area/people">查看实时区域人数统计</router-link>
-    <router-link to="/user/order">查看用户订单记录</router-link>
   </div>
 </template>
 

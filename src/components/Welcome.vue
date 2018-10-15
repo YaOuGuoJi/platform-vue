@@ -5,6 +5,7 @@
     <img src="../assets/logo.png">
     <router-link to="/area/people">查看实时区域人数统计</router-link>
     <router-link to="/user/order">查看用户订单记录</router-link>
+    <router-link to="/area/shopRank">查看某个区域内前几名商铺销售量与销售额排名</router-link>
   </div>
 </template>
 

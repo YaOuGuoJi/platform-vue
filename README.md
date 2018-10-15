@@ -1,4 +1,4 @@
-# hello-vue
+# platform-vue
 
 > A Vue.js project
 

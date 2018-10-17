@@ -1,17 +1,25 @@
 <template>
   <div>
+    <h2>区域内商铺的销售量与销售额排名</h2>
    <div>
-     <button type="submit" v-on:click="search()">查询</button>
-     <!--<form method="get">-->
-       <!--<input type="text" v-model="areaId" placeholder="请输入区域id"/>-->
-       <!--<input type="date" v-model="start" placeholder="请输入开始时间"/>-->
-       <!--<input type="date" v-model="end" placeholder="请输入结束时间"/>-->
-       <!--<input type="text" v-model="limit" placeholder="请输入限制"/>-->
-       <!--<button type="submit" v-on:click="search()">查询</button>-->
-     <!--</form>-->
+     <template>
+       <div>
+         <form @submit.prevent="submit">
+           <label>区域id：</label>
+           <input type="text" v-model="areaId" placeholder="请输入区域id"/>
+           <label>开始时间：</label>
+           <input type="text" v-model="start" placeholder="请输入开始时间"/>
+           <label>结束时间：</label>
+           <input type="text" v-model="end" placeholder="请输入结束时间"/>
+           <label>限制：</label>
+           <input type="text" v-model="limit" placeholder="请输入限制"/>
+           <button type="submit" v-on:click="search()">查询</button>
+         </form>
+       </div>
+     </template>
    </div>
    <div id="countchart"></div>
-    <div id="pricechart"></div>
+   <div id="pricechart"></div>
  </div>
 </template>
 <script type="text/javascript">
@@ -24,7 +32,8 @@ export default {
       areaId: 1,
       start: '2018-09-01 00:00:00',
       end: '2018-10-01 00:00:00',
-      limit: 10
+      limit: 10,
+      submit: true
     }
   },
   methods: {

@@ -40,6 +40,9 @@ export default {
       chart.setOption({
         title: {text: '区域人数实时统计'},
         tooltip: {},
+        legend: {
+          data:['区域人数']
+        },
         xAxis: {
           data: names
         },

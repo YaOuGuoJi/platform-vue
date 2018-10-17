@@ -32,7 +32,15 @@
         </p>
       </div>
     </template>
-    <div id="user-report" :style="{ width: '800px', height: '700px'}">
+    <div>
+      <div id="month-times" :style="{ width: '800px', height: '700px'}">
+      </div>
+      <div id="month-price" :style="{ width: '800px', height: '700px'}">
+      </div>
+      <div id="day-times" :style="{ width: '800px', height: '700px'}">
+      </div>
+      <div id="day-price" :style="{ width: '800px', height: '700px'}">
+      </div>
     </div>
     <div id="pay-type">
       <div id="pay-price" align="left" :style="{ width: '800px', height: '700px'}">
@@ -63,7 +71,8 @@ export default {
       rank: null,
       firstOrder: null,
       maxPriceOrder: null,
-      beyondPercent: null
+      beyondPercent: null,
+      switchModel: 1
     }
   },
   methods: {
@@ -98,53 +107,96 @@ export default {
       this.maxPriceOrder = response.data.maxPriceOrder
       this.beyondPercent = response.data.beyondPercent
       if (this.monthReport) {
-        this.drawReport(this.monthReport)
+        this.drawMonthReport(this.monthReport)
+        this.drawMonthReport(this.monthReport)
       } else {
-        this.drawReport(this.dayReport)
+        this.drawDayReport(this.dayReport)
+        this.drawDayReport(this.dayReport)
       }
       this.drawPayPrice(this.payType)
       this.drawPayTimes(this.payType)
     },
-    drawReport: function (userReport) {
+    drawMonthReport: function (userReport) {
+      let divId, titleText, legendData;
+      let payPriceOrTimes = [];
+      if (this.switchModel === 1) {
+        divId = 'month-times'
+        legendData = '支付次数'
+        titleText = '年度' + legendData + '统计'
+      } else if (this.switchModel === 2) {
+        divId = 'month-price'
+        legendData = '支付总额'
+        titleText = '年度' + legendData + '统计'
+      }
       let names = [];
-      let payTimes = [];
-      let payPrice = [];
-      let title = "";
-      if (this.month) {
-        title = '月度'
-      } else {
-        title = '年度'
-      }
       for (let key in userReport) {
-        if (this.month) {
-          names.push(key + '日')
-        } else {
-          names.push(key + '月')
+        names.push(key + '月')
+        if (this.switchModel === 1) {
+          payPriceOrTimes.push(userReport[key].payTimes)
+        } else if (this.switchModel === 2) {
+          payPriceOrTimes.push(userReport[key].payPrice)
         }
-        payPrice.push(userReport[key].payPrice)
-        payTimes.push(userReport[key].payTimes)
       }
-      let chart = echarts.init(document.getElementById('user-report'))
+      this.switchModel = 2
+      let chart = echarts.init(document.getElementById(divId))
       chart.setOption({
         title: {
-          text: title + '消费统计'
+          text: titleText
         },
         tooltip: {},
         legend: {
-          data:['支付次数','支付总额']
+          data:legendData
         },
         xAxis: {
           data: names
         },
         yAxis: {},
         series: [{
-          name: '支付次数',
+          name: legendData,
           type: 'bar',
-          data: payTimes
-        },{
-          name: '支付总额',
+          data: payPriceOrTimes
+        }]
+      })
+    },
+    drawDayReport: function (userReport) {
+      let divId, titleText, legendData;
+      let payPriceOrTimes = [];
+      if (this.switchModel === 1) {
+        divId = 'day-times'
+        legendData = '支付次数'
+        titleText = '月度' + legendData + '统计'
+      } else if (this.switchModel === 2) {
+        divId = 'day-price'
+        legendData = '支付总额'
+        titleText = '月度' + legendData + '统计'
+      }
+      let names = [];
+      for (let key in userReport) {
+        names.push(key + '日')
+        if (this.switchModel === 1) {
+          payPriceOrTimes.push(userReport[key].payTimes)
+        } else if (this.switchModel === 2) {
+          payPriceOrTimes.push(userReport[key].payPrice)
+        }
+      }
+      this.switchModel = 2
+      let chart = echarts.init(document.getElementById(divId))
+      chart.setOption({
+        title: {
+          text: titleText
+        },
+        tooltip: {},
+        legend: {
+          data:legendData
+        },
+        xAxis: {
+          data: names
+        },
+        yAxis: {},
+        series: [{
+          name: legendData,
           type: 'bar',
-          data: payPrice
+          data: payPriceOrTimes
         }]
       })
     },
@@ -218,7 +270,16 @@ export default {
   #pay-times {
     float: left;
   }
-  #user-report {
-    margin:0 auto;
+  #month-times {
+    float: left;
+  }
+  #month-price {
+    float: left;
+  }
+  #day-times {
+    float: left;
+  }
+  #day-price {
+    float: left;
   }
 </style>

@@ -4,6 +4,7 @@ import Welcome from '@/components/Welcome'
 import AreaPeople from '@/components/AreaPeople'
 import UserOrder from '@/components/UserOrder'
 import ShopCount from '@/components/ShopCount'
+import HourOrder from '@/components/HourOrder'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/shop/count',
       name: 'ShopCount',
       component: ShopCount
+    },
+    {
+      path: '/hour/order',
+      name: 'HourOrder',
+      component: HourOrder
     }
   ]
 })

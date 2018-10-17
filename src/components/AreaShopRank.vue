@@ -20,9 +20,9 @@
    </div>
     <div class="shopCountRank">
     <template v-if="shopPriceInfo" class="shopPrice">
-      <table border="1">
+      <table border='1'>
         <tr>
-          <th>排名</th>
+          <th width="100px" bgcolor="#add8e6">排名</th>
           <th>商铺id</th>
           <th>商铺名称</th>
           <th>商铺类型</th>
@@ -30,7 +30,7 @@
           <th>销售额</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
-          <td>{{index+1}}</td>
+          <td bgcolor="#add8e6">{{index+1}}</td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>
@@ -45,7 +45,7 @@
     <template v-if="shopCountInfo" class="shopCount">
       <table border="1">
         <tr>
-          <th>排名</th>
+          <th width="100px" bgcolor="#add8e6">排名</th>
           <th>商铺id</th>
           <th>商铺名称</th>
           <th>商铺类型</th>
@@ -53,7 +53,7 @@
           <th>销售量</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
-          <td>{{index+1}}</td>
+          <td bgcolor="#add8e6">{{index+1}}</td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>

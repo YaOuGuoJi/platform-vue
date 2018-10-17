@@ -257,12 +257,12 @@ methods: {
     text-align: center;
     width: 700px;
     height: 600px;
-    margin-left: 600px;
+    margin-left: 200px;
   }
   #pricechart{
     text-align: center;
     width: 700px;
     height: 600px;
-    margin-left: 600px;
+    margin-left: 200px;
   }
 </style>

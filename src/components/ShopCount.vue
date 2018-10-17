@@ -100,20 +100,20 @@
             console.log(a)
             document.getElementsByClassName('finished-orderName').innerHTML(console.log(a))
           }*/
-          /*window.onload =function() {
+          window.onload =function() {
             for (var b in this.canceled){
               console.log(b)
               document.getElementsByClassName('canceled-orderName').innerHTML("123456");
             }
-          }*/
-          function makeName() {
+          }
+          /*function makeName() {
             return function () {
               for (var b in this.canceled) {
                 console.log(b)
                 document.getElementsByClassName('canceled-orderName').innerHTML("123456");
               }
             };
-          }
+          }*/
         }
       }
 

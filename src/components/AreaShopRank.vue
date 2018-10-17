@@ -18,9 +18,53 @@
        </div>
      </template>
    </div>
-   <div id="countchart"></div>
-   <div id="pricechart"></div>
- </div>
+    <div class="shopCountRank">
+    <template v-if="shopPriceInfo" class="shopPrice">
+      <table border="1">
+        <tr>
+          <th>排名</th>
+          <th>商铺id</th>
+          <th>商铺名称</th>
+          <th>商铺类型</th>
+          <th>商铺地址</th>
+          <th>销售额</th>
+        </tr>
+        <tr v-for="(shopInfo, index) in shopPriceInfo">
+          <td>{{index+1}}</td>
+          <td>{{shopInfo.dtoObject.shopId}}</td>
+          <td>{{shopInfo.dtoObject.shopName}}</td>
+          <td>{{shopInfo.dtoObject.shopType}}</td>
+          <td>{{shopInfo.dtoObject.address}}</td>
+          <td>{{shopInfo.number}}</td>
+        </tr>
+      </table>
+    </template>
+    <div id="pricechart"></div>
+    </div>
+    <div class="shopPriceRank">
+    <template v-if="shopCountInfo" class="shopCount">
+      <table border="1">
+        <tr>
+          <th>排名</th>
+          <th>商铺id</th>
+          <th>商铺名称</th>
+          <th>商铺类型</th>
+          <th>商铺地址</th>
+          <th>销售量</th>
+        </tr>
+        <tr v-for="(shopInfo, index) in shopCountInfo">
+          <td>{{index+1}}</td>
+          <td>{{shopInfo.dtoObject.shopId}}</td>
+          <td>{{shopInfo.dtoObject.shopName}}</td>
+          <td>{{shopInfo.dtoObject.shopType}}</td>
+          <td>{{shopInfo.dtoObject.address}}</td>
+          <td>{{shopInfo.number}}</td>
+        </tr>
+      </table>
+    </template>
+    <div id="countchart"></div>
+    </div>
+    </div>
 </template>
 <script type="text/javascript">
 import axios from 'axios'
@@ -33,6 +77,8 @@ data () {
     start: '2018-09-01 00:00:00',
     end: '2018-10-01 00:00:00',
     limit: 10,
+    shopCountInfo: null,
+    shopPriceInfo: null,
     submit: true
   }
 },
@@ -64,8 +110,8 @@ methods: {
     const countShopName = response.data.orderCount.map(function (shopRank) {
       return shopRank.dtoObject.shopName
     });
-    const shopInfo = response.data.orderCount.map(function (shopRank) {
-      return shopRank.dtoObject
+    this.shopCountInfo = response.data.orderCount.map(function (shopRank) {
+      return shopRank
     });
     let countchart = echarts.init(document.getElementById('countchart'));
     countchart.setOption({
@@ -153,6 +199,9 @@ methods: {
         }
 
       ]
+    });
+    this.shopPriceInfo = response.data.orderPrice.map(function (shopRank) {
+      return shopRank
     });
     const price = response.data.orderPrice.map(function (shop) {
       return shop.number;
@@ -257,12 +306,24 @@ methods: {
     text-align: center;
     width: 700px;
     height: 600px;
-    margin-left: 200px;
   }
   #pricechart{
     text-align: center;
     width: 700px;
     height: 600px;
-    margin-left: 200px;
+  }
+  .shopCountRank{
+    width: 700px;
+    height: 800px;
+    margin-left: 0px;
+    margin-top: 50px;
+  }
+  .shopPriceRank{
+    width: 700px;
+    height: 800px;
+    margin-top: 50px;
+    float: left;
+    margin-left: 850px;
+    margin-top: -800px;
   }
 </style>

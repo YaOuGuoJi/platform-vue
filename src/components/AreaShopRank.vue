@@ -306,11 +306,13 @@ methods: {
     text-align: center;
     width: 700px;
     height: 600px;
+    margin-top: 50px;
   }
   #pricechart{
     text-align: center;
     width: 700px;
     height: 600px;
+    margin-top: 50px;
   }
   .shopCountRank{
     width: 700px;

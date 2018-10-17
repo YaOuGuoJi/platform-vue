@@ -66,7 +66,6 @@ export default {
             name: '区域人数',
             type: 'pie',
             radius: '80%',
-            roseType: 'angle',
             data: seriesData
           }
         ]

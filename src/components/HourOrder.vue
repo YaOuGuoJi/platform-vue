@@ -1,11 +1,9 @@
 <template>
   <div>
-    <template v-if="byHour">
-      <div class="hour_order_chart">
-        <div id="chart" :style="{ width: '800px', height: '700px'}"></div>
-      </div>
-    </template>
-    <template v-else>
+    <div class="hour_order_chart">
+      <div id="chart" :style="{ width: '800px', height: '700px'}"></div>
+    </div>
+    <template v-if="byHour===null">
       <p>请输入ShopId: </p>
       <input v-model="shopId"
              placeholder="在这里单击输入..."/><br>

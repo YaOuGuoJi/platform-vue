@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Welcome from '@/components/Welcome'
 import AreaPeople from '@/components/AreaPeople'
 import UserOrder from '@/components/UserOrder'
-import UserReport from '@/component/UserReport'
+import UserReport from '@/components/UserReport'
 Vue.use(Router)
 
 export default new Router({

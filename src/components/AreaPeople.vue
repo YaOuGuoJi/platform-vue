@@ -15,7 +15,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('/api/camera/selectAreaPeopleNumber')
+    axios.get('/api/selectAreaPeopleNumber')
       .then((response) => {
         if (response.status !== 200 || !response.data) {
           window.alert('请求失败')

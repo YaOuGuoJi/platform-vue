@@ -1,17 +1,36 @@
 <template>
   <div class="user-order">
+    <div class="input-form">
+      UserId:<input v-model="userId" type="text"/>
+      开始时间:<input v-model="start" type="date"/>
+      结束时间:<input v-model="end" type="date"/>
+      <button v-on:click="search()">查询</button>
+    </div>
+    <h2></h2>
     <template v-if="userInfo">
       <div class="user-info">
-        <h1>用户信息</h1>
-        <h5 class="user-id">用户Id: {{ userInfo.userId }}</h5>
-        <h5 class="user-name">用户名: {{ userInfo.userName }}</h5>
-        <h5 class="user-sex">性别: {{ userInfo.sex === 1 ? '男' : '女'}}</h5>
-        <h5 class="user-phone">电话号码: {{ userInfo.phone}}</h5>
-        <h5 class="user-email">邮箱: {{ userInfo.email }}</h5>
+        <table border="1">
+          <tr>
+            <th>用户Id</th>
+            <th>用户名</th>
+            <th>性别</th>
+            <th>电话号码</th>
+            <th>邮箱</th>
+          </tr>
+          <tr>
+            <th>{{ userInfo.userId }}</th>
+            <th>{{ userInfo.userName }}</th>
+            <th>{{ userInfo.sex === 1 ? '男' : '女' }}</th>
+            <th>{{ userInfo.phone }}</th>
+            <th>{{ userInfo.email }}</th>
+          </tr>
+        </table>
       </div>
-      <div class="order-record">
-        <template v-if="orderPageInfo.list">
-          <h3 class="order-list">消费记录（{{ start }}——{{ end }}）</h3>
+    </template>
+    <template v-if="userInfo">
+      <template v-if="orderPageInfo.list">
+        <div class="order-record">
+          <h3 class="order-list">消费记录</h3>
           <table>
             <tr>
               <th>商户Id</th>
@@ -34,88 +53,91 @@
             <ul>
               <li v-if="orderPageInfo.isFirstPage"><a class="banclick">上一页</a></li>
               <li v-else><a v-on:click="pageNum--, search()">上一页</a></li>
-              <li v-for="index in orderPageInfo.pages"  v-bind:class="{ 'active': pageNum === index}" :key="index"><a v-on:click="pageNum = index, search()">{{ index }}</a></li>
-
-              <li v-if="orderPageInfo.isLastPage"><a class="banclick">下一页</a> </li>
-              <li v-else><a v-on:click="pageNum++, search()">下一页</a> </li>
+              <li v-for="index in orderPageInfo.pages" v-bind:class="{ 'active': pageNum === index}" :key="index"><a
+                v-on:click="pageNum = index, search()">{{ index }}</a></li>
+              <li v-if="orderPageInfo.isLastPage"><a class="banclick">下一页</a></li>
+              <li v-else><a v-on:click="pageNum++, search()">下一页</a></li>
               <li><a>共<i>{{ orderPageInfo.pages }}</i>页</a></li>
-
             </ul>
           </div>
-        </template>
-      </div>
-    </template>
-    <template v-else>
-      <p>请输入UserId: </p>
-      <input v-model="userId" placeholder="在这里单击输入..."/>
-      <button v-on:click="search()">点我查询</button>
+        </div>
+      </template>
     </template>
   </div>
 </template>
 
 <script type="text/javascript">
-import axios from 'axios'
-export default {
-  name: 'UserOrder',
-  data () {
-    return {
-      userId: null,
-      userInfo: null,
-      orderPageInfo: null,
-      pageNum: 1,
-      pageSize: 10,
-      start: '2018-01-01 00:00:00',
-      end: '2019-01-01 00:00:00'
-    }
-  },
-  methods: {
-    search: function () {
-      axios.get('/api/order/user/page', {
-        params: {
-          userId: this.userId,
-          pageNum: this.pageNum,
-          pageSize: this.pageSize,
-          start: this.start,
-          end: this.end
-        }
-      }).then(response => {
-        if (response.status !== 200 || !response.data) {
-          window.alert('请求失败')
-        }
-        this.dataInvoker(response.data)
-      })
-    },
-    dataInvoker: function (response) {
-      if (!response.success || response.code !== 200) {
-        window.alert(response.message)
-        return
+  import axios from 'axios'
+
+  export default {
+    name: 'UserOrder',
+    data () {
+      return {
+        userId: '100000000',
+        userInfo: null,
+        orderPageInfo: null,
+        pageNum: 1,
+        pageSize: 10,
+        start: '2018-01-01',
+        end: '2019-01-01'
       }
-      console.log(response)
-      this.userInfo = response.data.userInfo
-      this.orderPageInfo = response.data.orderPageInfo
+    },
+    methods: {
+      search: function () {
+        axios.get('/api/order/user/page', {
+          params: {
+            userId: this.userId,
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            start: this.start + ' 00:00:00',
+            end: this.end + ' 00:00:00'
+          }
+        }).then(response => {
+          console.log(response)
+          if (response.status !== 200 || !response.data) {
+            window.alert('请求失败')
+          }
+          this.dataInvoker(response.data)
+        })
+      },
+      dataInvoker: function (response) {
+        if (!response.success || response.code !== 200) {
+          window.alert(response.message)
+          return
+        }
+        console.log(response)
+        this.userInfo = response.data.userInfo
+        this.orderPageInfo = response.data.orderPageInfo
+      }
     }
   }
-}
 </script>
 
-<style>
+<style scoped>
+
+  .order-record {
+    width: 800px;
+    height: 400px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
   body {
     text-align: center;
   }
+
   table {
     margin-left: auto;
     margin-right: auto;
   }
 
-  .page-bar li:first-child>a {
-    margin-left: 0px
-  }
   .page-bar {
     margin: 0 auto;
-    width: 300px;
+    width: 350px;
     height: 100px;
   }
-  .page-bar a{
+
+  .page-bar a {
     border: 1px solid #ddd;
     text-decoration: none;
     position: relative;
@@ -126,20 +148,24 @@ export default {
     color: #337ab7;
     cursor: pointer
   }
-  .page-bar a:hover{
+
+  .page-bar a:hover {
     background-color: #eee;
   }
-  .page-bar a.banclick{
-    cursor:not-allowed;
+
+  .page-bar a.banclick {
+    cursor: not-allowed;
   }
-  .page-bar .active a{
+
+  .page-bar .active a {
     color: #fff;
     cursor: default;
     background-color: #337ab7;
     border-color: #337ab7;
   }
-  .page-bar i{
-    font-style:normal;
+
+  .page-bar i {
+    font-style: normal;
     color: #d44950;
     margin: 0px 4px;
     font-size: 12px;

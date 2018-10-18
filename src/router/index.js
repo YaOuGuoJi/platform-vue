@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Welcome from '@/components/Welcome'
 import AreaPeople from '@/components/AreaPeople'
 import UserOrder from '@/components/UserOrder'
-
+import UserShopInfo from '@/components/UserShopInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +23,11 @@ export default new Router({
       path: '/user/order',
       name: 'UserOrder',
       component: UserOrder
+    },
+    {
+      path: '/user/shopInfo',
+      name: 'UserShopInfo',
+      component: UserShopInfo
     }
   ]
 })

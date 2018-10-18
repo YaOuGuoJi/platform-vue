@@ -6,7 +6,6 @@
         <li><router-link to="/area/people" tag="a">区域人数</router-link></li>
         <li><router-link to="/user/order" tag="a">用户订单</router-link></li>
         <li><router-link to="/shop/count" tag="a">消费统计</router-link></li>
-        <li><router-link to="/hour/order" tag="a">小时订单</router-link></li>
       </ul>
     </div>
     <div class="right-div">

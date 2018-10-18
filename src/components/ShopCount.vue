@@ -1,40 +1,49 @@
 <template>
   <div class="shop-count">
-    <template v-if="shopId === null">
-      <p>请输入UserId: </p>
+    <template>
+      <label>请输入ShopId: </label>
       <input v-model="shopId"
              placeholder="在这里单击输入..."/><br>
-      <input v-model="year"
-             placeholder="请输入年份"/><br>
-      <input v-model="month"
-             placeholder="请输入月份"/><br>
-      <button v-on:click="search()">点我查询</button>
+      <h4>请选择日期：
+        <select v-model="year" name="sel1" id="sel1" :style="{width:'100px',height:'25px' }">
+          <option value="year">年</option>
+        </select>
+        <select v-model="month" name="sel2" id="sel2" :style="{width:'100px',height:'25px' }">
+          <option value="">月</option>
+        </select>
+      <template><button v-on:click="search()">查询</button></template></h4>
     </template>
-    <template v-else>
-      <h1>商户Id: {{ shopId }}</h1>
+    <h1>商户Id: {{ shopId }}</h1>
+    <template v-if="finished">
+      <div id="finished-list" v-if="finished">
+        <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left'}"></div>
+        <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right'}"></div>
+      </div>
+      <div id="canceledList" v-if="canceled">
+        <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left'}" ></div>
+        <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right'}" ></div>
+      </div>
+      <div id="byProductList">
+      <div id="byProductType-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
+      <div id="byProductType-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+    </div>
+      <div id="byHour-list">
+      <div id="byHour-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
+      <div id="byHour-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+    </div>
+      <div id="byMonth-ist">
+        <div id="byMonth-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
+        <div id="byMonth-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+      </div>
+        <div id="byDay-list">
+         <div id="byDay-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
+         <div id="byDay-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+        </div>
     </template>
-      <div id="finished-list" >
-        <div id="finished" :style="{ width: '300px', height: '300px',float: 'left'}"></div>
-        <div id="finished1" :style="{ width: '300px', height: '300px',float: 'right'}"></div>
-      </div>
-      <h1></h1>
-      <div>
-        <div id="canceled" :style="{ width: '300px', height: '300px',float:'left'}" ></div>
-        <div id="canceled1" :style="{ width: '300px', height: '300px',float:'right'}" ></div>
-      </div>
-    <h1></h1>
-    <div>
-      <div id="byProductType" :style="{ width: '300px', height: '300px',float:'left'}"></div>
-      <div id="byProductType1" :style="{ width: '300px', height: '300px',float:'right'}"></div>
-    </div>
-    <div>
-      <div id="byHour-order" :style="{ width: '300px', height: '400px',float:'left'}"></div>
-      <div id="byHour-price" :style="{ width: '300px', height: '400px',float:'right'}"></div>
-    </div>
-    <div id="byDay" :style="{ width: '800px', height: '700px'}"></div>
-    <div id="byMonth" :style="{ width: '800px', height: '700px'}"></div>
+    <template v-else></template>
   </div>
 </template>
+
 
 
 <script>
@@ -44,9 +53,9 @@
     name: "ShopCount",
     data () {
       return {
-        shopId: '100001',
-        year: '2018',
-        month: '9',
+        shopId: 100001,
+        year: 2018,
+        month: 9,
         finished: null,
         canceled: null,
         byProductType: null,
@@ -58,6 +67,24 @@
     created: function() {
       this.search();
     },
+    mounted: function() {
+          // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
+      //生成2000年-2100年
+      for(let i = 2000; i<=2100;i++ ){
+        let option = document.createElement('option');
+        option.setAttribute('value',i);
+        option.innerHTML = i;
+        sel1.appendChild(option);
+      }
+      //生成1月-12月
+
+      for(let i = 1; i <=12; i++) {
+        let option = document.createElement('option');
+        option.setAttribute('value', i);
+        option.innerHTML = i;
+        sel2.appendChild(option);
+      }
+        },
     methods: {
       search: function () {
         axios.get('/api/shop/count', {
@@ -87,9 +114,22 @@
         this.byDay = response.data.byDay
         console.log(document.getElementById('finished'))
         console.log(document.getElementById('canceled'))
-
         const timeRegion = this.month ? this.year + '年' + this.month + '月' : this.year + '年';
-        //成交订单
+//生成2000年-2100年
+        for(let i = 2000; i<=2100;i++ ){
+          let option = document.createElement('option');
+          option.setAttribute('value',i);
+          option.innerHTML = i;
+          sel1.appendChild(option);
+        }
+        //生成1月-12月
+        for(let i = 1; i <=12; i++) {
+          let option = document.createElement('option');
+          option.setAttribute('value', i);
+          option.innerHTML = i;
+          sel2.appendChild(option);
+        }
+          //成交订单
         let finishedData = []
         for (let order in this.finished) {
           finishedData.push({name: order, value: this.finished[order].number,})
@@ -129,9 +169,29 @@
         for(let order in this.byHour){
           byHourDatas1.push({name:order, value: this.byHour[order].price})
         }
+        //月份订单数
+        let byMonthOrder = []
+        for(let order in this.byMonth){
+          byMonthOrder.push({name:order, value: this.byMonth[order].number})
+        }
+        //月份销售额
+        let byMonthPrice = []
+        for(let order in this.byMonth){
+          byMonthPrice.push({name:order, value: this.byMonth[order].price})
+        }
+        //日成交订单数
+        let byDayOrder = []
+        for(let order in this.byDay){
+          byDayOrder.push({name:order, value: this.byDay[order].number})
+        }
+        //日销售额
+        let byDayPrice = []
+        for(let order in this.byDay){
+          byDayPrice.push({name:order, value: this.byDay[order].price})
+        }
 
         //成交订单
-        let finishedChart = echarts.init(document.getElementById('finished'))
+        let finishedChart = echarts.init(document.getElementById('finished-order'))
         finishedChart.setOption({
           title: {
             text: '已成交订单量统计',
@@ -139,8 +199,11 @@
             left: 'center'
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data: finishedData.map(function (data) {return data.name})
           },
           tooltip : {
@@ -157,7 +220,7 @@
           ]
         })
         //已成交金额
-        let finishedChart1 = echarts.init(document.getElementById('finished1'))
+        let finishedChart1 = echarts.init(document.getElementById('finished-price'))
         finishedChart1.setOption({
           title: {
             text: '已成交金额',
@@ -165,8 +228,11 @@
             left: 'center'
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data: finishedData1.map(function (data) {return data.name})
           },
           tooltip : {
@@ -183,7 +249,7 @@
           ]
         })
         //未成交订单
-        let canceledChart = echarts.init(document.getElementById('canceled'))
+        let canceledChart = echarts.init(document.getElementById('canceled-order'))
         canceledChart.setOption({
           title: {
             text: '取消订单量统计',
@@ -191,8 +257,11 @@
             left: 'center'
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data: canceledData.map(function (data) {return data.name})
           },
           tooltip : {
@@ -209,7 +278,7 @@
           ]
         })
         //未成交金额
-        let canceledChart1 = echarts.init(document.getElementById('canceled1'))
+        let canceledChart1 = echarts.init(document.getElementById('canceled-price'))
         canceledChart1.setOption({
           title: {
             text: '取消订单金额统计',
@@ -217,8 +286,11 @@
             left: 'center'
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data: canceledData1.map(function (data) {return data.name})
           },
           tooltip : {
@@ -235,7 +307,7 @@
           ]
         })
         //按销售类别分类
-        let chart = echarts.init(document.getElementById('byProductType'))
+        let chart = echarts.init(document.getElementById('byProductType-order'))
         chart.setOption({
           title: {text: '消费类别统计',
             subtext: timeRegion,
@@ -246,8 +318,11 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data:byProductTypeData.map(function (data) {return data.name})
           },
           series : [
@@ -260,7 +335,7 @@
           ]
         })
         //按销售类别分类
-        let chart1 = echarts.init(document.getElementById('byProductType1'))
+        let chart1 = echarts.init(document.getElementById('byProductType-price'))
         chart1.setOption({
           title: {text: '消费类别统计',
             subtext: timeRegion,
@@ -271,8 +346,11 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
           },
           legend: {
+            orient:'vertical',
+            left: 'right',
+            y:40,
+            align:'left',
             bottom: 10,
-            left: 'center',
             data:byProductTypeData1.map(function (data) {return data.name})
           },
           series : [
@@ -287,10 +365,18 @@
 
         let byHourOrder = echarts.init(document.getElementById('byHour-order'))
         byHourOrder.setOption({
-          title: {text: '单位小时下单量'},
+          title: {text: '单位小时下单量',
+            subtext: timeRegion,
+            left: 'center'},
           tooltip: {},
           legend: {
-            data:['订单数量']
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['订单数量'],
+            show:false,
           },
           xAxis: {
             data: byHourDatas.map(function (data) {return data.name})
@@ -306,10 +392,18 @@
         })
         let byHourPrice = echarts.init(document.getElementById('byHour-price'))
         byHourPrice.setOption({
-          title: {text: '单位小时销售额'},
+          title: {text: '单位小时销售额',
+            subtext: timeRegion,
+            left: 'center'},
           tooltip: {},
           legend: {
-            data:['销售额']
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['销售额'],
+            show:false,
           },
           xAxis: {
             data: byHourDatas1.map(function (data) {return data.name})
@@ -321,6 +415,118 @@
             name: '销售额',
             type: 'bar',
             data: byHourDatas1
+          }]
+        })
+        //按月份查询
+        let byMonthOrderDiv = echarts.init(document.getElementById('byMonth-order'))
+        byMonthOrderDiv.setOption({
+          title: {text: '月份订单数',
+            subtext: timeRegion,
+            left: 'center'},
+          tooltip: {},
+          legend: {
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['订单数量'],
+            show:false,
+          },
+          xAxis: {
+            data: byMonthOrder.map(function (data) {return data.name})
+          },
+          yAxis: {
+
+          },
+          series: [{
+            name: '订单数',
+            type: 'bar',
+            data: byMonthOrder
+          }]
+        })
+        let byMonthPriceDiv = echarts.init(document.getElementById('byMonth-price'))
+        byMonthPriceDiv.setOption({
+          title: {text: '月份销售额',
+            subtext: timeRegion,
+            left: 'center'},
+          tooltip: {},
+          legend: {
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['销售额'],
+            show:false,
+          },
+          xAxis: {
+            data: byMonthPrice.map(function (data) {return data.name})
+          },
+          yAxis: {
+
+          },
+          series: [{
+            name: '销售额',
+            type: 'bar',
+            data: byMonthPrice
+          }]
+        })
+        let byDayPriceDiv = echarts.init(document.getElementById('byDay-price'))
+        byDayPriceDiv.setOption({
+          title: {text: '日销售额',
+            subtext: timeRegion,
+            left: 'center'},
+          tooltip: {},
+          legend: {
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['销售额'],
+            show:false,
+          },
+          xAxis: {
+            data: byDayPrice.map(function (data) {return data.name})
+          },
+          yAxis: {
+
+          },
+          series: [{
+            name: '销售额',
+            type: 'bar',
+            data: byDayPrice
+          }]
+        })
+        let byDayOrderDiv = echarts.init(document.getElementById('byDay-order'))
+        byDayOrderDiv.setOption({
+          title: {text: '日订单数量',
+            subtext: timeRegion,
+            left: 'center'},
+          tooltip: {},
+
+          legend: {
+            orient:'vertical',
+            align:'left',
+            y:60,
+            bottom: 10,
+            left: 'right',
+            data:['订单数'],
+            show:false,
+          },
+          xAxis: {
+            data: byDayOrder.map(function (data) {return data.name})
+          },
+          yAxis: {
+
+          },
+          series: [{
+           // color: 'yellow',
+            name: '订单数',
+            type: 'bar',
+            data: byDayOrder
+
           }]
         })
       },

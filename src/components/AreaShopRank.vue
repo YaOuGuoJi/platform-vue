@@ -23,18 +23,18 @@
       <table border='1'>
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
+          <th>商铺Logo</th>
           <th>商铺id</th>
           <th>商铺名称</th>
           <th>商铺类型</th>
-          <th>商铺地址</th>
           <th>销售额</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
+          <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>
-          <td>{{shopInfo.dtoObject.address}}</td>
           <td>{{shopInfo.number}}</td>
         </tr>
       </table>
@@ -46,18 +46,18 @@
       <table border="1">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
+          <th>商铺Logo</th>
           <th>商铺id</th>
           <th>商铺名称</th>
           <th>商铺类型</th>
-          <th>商铺地址</th>
           <th>销售量</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
+          <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>
-          <td>{{shopInfo.dtoObject.address}}</td>
           <td>{{shopInfo.number}}</td>
         </tr>
       </table>
@@ -74,7 +74,7 @@ name: 'AreaShopRank',
 data () {
   return {
     areaId: 1,
-    start: '2018-09-01 00:00:00',
+    start: '2018-08-01 00:00:00',
     end: '2018-10-01 00:00:00',
     limit: 10,
     shopCountInfo: null,

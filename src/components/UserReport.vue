@@ -1,11 +1,11 @@
 <template>
-  <div class="user_report">
+  <div>
     <template>
-      <p>请输入用户ID</p>
-      <input v-model="userId" value="100000000" placeholder="100000000"/>
-      <p>请输入要查询的年份</p>
-      <input v-model="year" value="2018" placeholder="2018"/>
-      <p>请输入月份（或者不输入）</p>
+      <label>请输入用户ID</label>
+      <input v-model="userId" placeholder="例如100000000"/>
+      <label>请输入要查询的年份</label>
+      <input v-model="year" placeholder="例如2018"/>
+      <label>请输入月份（或者不输入）</label>
       <input v-model="month" placeholder="例如9">
       <button v-on:click="search()">点击查询</button>
     </template>
@@ -15,14 +15,14 @@
       </div>
       <div class="survey">
         <p>
-          {{year}}年{{month === null ? month : month + '月'}}您在亚欧国际小镇消费了{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
+          {{year}}年{{month === null ? month : month + '月'}}您在亚欧国际小镇共下单{{userReportData.orderNumber}}次,年度消费{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
           排名第{{rank}}
         </p>
       </div>
       <div v-if="userReportData.firstOrder">
         <p>
-        第一次在亚欧国际小镇下单：{{userReportData.firstOrder.day}}您在{{userReportData.firstOrder.shopName}}购买了{{userReportData.firstOrder.productList}},
-        花费{{userReportData.firstOrder.orderPrice}}元
+        {{userReportData.firstOrder.day}}是您本年度第一次在亚欧国际小镇下单，在{{userReportData.firstOrder.shopName}}购买了{{userReportData.firstOrder.productList}},
+        花费{{userReportData.firstOrder.orderPrice}}元，感谢您的光临
         </p>
       </div>
       <div class="max_price_order">
@@ -32,24 +32,61 @@
         </p>
       </div>
     </template>
-    <div>
-      <div id="month-times" :style="{ width: '800px', height: '700px'}">
+    <div v-show="showMonthReport">
+      <div id="month-times" :style="{ width: '600px', height: '500px'}">
       </div>
-      <div id="month-price" :style="{ width: '800px', height: '700px'}">
+      <div id="month-price" :style="{ width: '600px', height: '500px'}">
       </div>
-      <div id="day-times" :style="{ width: '800px', height: '700px'}">
+    </div>
+    <div v-show="showDayReport">
+      <div id="day-times" :style="{ width: '600px', height: '500px'}">
       </div>
-      <div id="day-price" :style="{ width: '800px', height: '700px'}">
+      <div id="day-price" :style="{ width: '600px', height: '500px'}">
       </div>
     </div>
     <div id="pay-type">
-      <div id="pay-price" align="left" :style="{ width: '800px', height: '700px'}">
+      <div id="pay-price" align="left" :style="{ width: '600px', height: '500px'}">
       </div>
-      <div id="pay-times" align="right" :style="{ width: '800px', height: '700px'}">
+      <div id="pay-times" align="right" :style="{ width: '600px', height: '500px'}">
       </div>
     </div>
   </div>
+  <!--<div v-show="showNoRecordPage">-->
+    <!--<div>-->
+      <!--<label>请输入用户ID</label>-->
+      <!--<input v-model="userId" placeholder="例如100000000"/>-->
+      <!--<label>请输入要查询的年份</label>-->
+      <!--<input v-model="year" placeholder="例如2018"/>-->
+      <!--<label>请输入月份（或者不输入）</label>-->
+      <!--<input v-model="month" placeholder="例如9">-->
+      <!--<button v-on:click="search()">点击查询</button>-->
+    <!--</div>-->
+    <!--<p>-->
+      <!--抱歉，未发现您在亚欧国际小镇的订单记录，无法生成用户报告-->
+    <!--</p>-->
+  <!--</div>-->
 </template>
+
+<style scoped>
+  #pay-price {
+    float: left;
+  }
+  #pay-times {
+    float: left;
+  }
+  #month-times {
+    float: left;
+  }
+  #month-price {
+    float: left;
+  }
+  #day-times {
+    float: left;
+  }
+  #day-price {
+    float: left;
+  }
+</style>
 
 <script type="text/javascript">
 import axios from 'axios'
@@ -60,8 +97,8 @@ export default {
     return {
       userInfo: null,
       userReportData: null,
-      userId: null,
-      year: null,
+      userId: 100000000,
+      year: 2018,
       month: null,
       orderNumber: null,
       payType: null,
@@ -72,11 +109,18 @@ export default {
       firstOrder: null,
       maxPriceOrder: null,
       beyondPercent: null,
-      switchModel: 1
+      switchModel: 1,
+      payPriceOrTimes: [],
+      showMonthReport: null,
+      showDayReport: null
+      // ,
+      // showRecordPage: true,
+      // showNoRecordPage: false
     }
   },
   methods: {
     search: function () {
+      // console.log('showRecordPage-first-in: ' + this.showRecordPage)
       axios.get('/api/order/user/report', {
         params: {
           userId: this.userId,
@@ -87,17 +131,30 @@ export default {
         if (response.status !== 200 || !response.data) {
           window.alert('请求失败')
         }
+        // console.log('search-in')
+        // console.log(response.data)
         this.dataInvoker(response.data)
       })
     },
     dataInvoker: function (response) {
+      // console.log('dataInvoker-in')
+      // console.log(response)
       if (!response.success || response.code !== 200) {
         window.alert(response.message)
         return
       }
       this.userInfo = response.userInfo
       this.userReportData = response.data
+      // console.log(this.userReportData)
       this.orderNumber = response.data.orderNumber
+      // if (this.userReportData != null) {
+      //   this.showRecordPage = true
+      //   this.showNoRecordPage = false
+      // } else {
+      //   this.showRecordPage = false
+      //   this.showNoRecordPage = true
+      // }
+      // console.log('showRecordPageAfterSet: ' + this.showRecordPage)
       this.payType = response.data.payType
       this.totalPrice = response.data.totalPrice
       this.monthReport = response.data.monthReport
@@ -106,10 +163,16 @@ export default {
       this.firstOrder = response.data.firstOrder
       this.maxPriceOrder = response.data.maxPriceOrder
       this.beyondPercent = response.data.beyondPercent
-      if (this.monthReport) {
+      if (this.monthReport != null) {
+        this.showMonthReport = true
+        this.showDayReport = false
         this.drawMonthReport(this.monthReport)
         this.drawMonthReport(this.monthReport)
-      } else {
+        this.switchModel = 1;
+      }
+      if (this.dayReport != null) {
+        this.showDayReport = true
+        this.showMonthReport = false
         this.drawDayReport(this.dayReport)
         this.drawDayReport(this.dayReport)
       }
@@ -118,7 +181,6 @@ export default {
     },
     drawMonthReport: function (userReport) {
       let divId, titleText, legendData;
-      let payPriceOrTimes = [];
       if (this.switchModel === 1) {
         divId = 'month-times'
         legendData = '支付次数'
@@ -132,12 +194,11 @@ export default {
       for (let key in userReport) {
         names.push(key + '月')
         if (this.switchModel === 1) {
-          payPriceOrTimes.push(userReport[key].payTimes)
+          this.payPriceOrTimes.push(userReport[key].payTimes)
         } else if (this.switchModel === 2) {
-          payPriceOrTimes.push(userReport[key].payPrice)
+          this.payPriceOrTimes.push(userReport[key].payPrice)
         }
       }
-      this.switchModel = 2
       let chart = echarts.init(document.getElementById(divId))
       chart.setOption({
         title: {
@@ -154,13 +215,15 @@ export default {
         series: [{
           name: legendData,
           type: 'bar',
-          data: payPriceOrTimes
+          barWidth: 40,
+          data: this.payPriceOrTimes
         }]
       })
+      this.switchModel = 2
+      this.payPriceOrTimes = [];
     },
     drawDayReport: function (userReport) {
       let divId, titleText, legendData;
-      let payPriceOrTimes = [];
       if (this.switchModel === 1) {
         divId = 'day-times'
         legendData = '支付次数'
@@ -174,9 +237,9 @@ export default {
       for (let key in userReport) {
         names.push(key + '日')
         if (this.switchModel === 1) {
-          payPriceOrTimes.push(userReport[key].payTimes)
+          this.payPriceOrTimes.push(userReport[key].payTimes)
         } else if (this.switchModel === 2) {
-          payPriceOrTimes.push(userReport[key].payPrice)
+          this.payPriceOrTimes.push(userReport[key].payPrice)
         }
       }
       this.switchModel = 2
@@ -196,9 +259,11 @@ export default {
         series: [{
           name: legendData,
           type: 'bar',
-          data: payPriceOrTimes
+          barWidth: 40,
+          data: this.payPriceOrTimes
         }]
       })
+      this.payPriceOrTimes = [];
     },
     drawPayPrice: function (payType) {
       let names = [];
@@ -263,23 +328,3 @@ export default {
 }
 </script>
 
-<style scoped>
-  #pay-price {
-    float: left;
-  }
-  #pay-times {
-    float: left;
-  }
-  #month-times {
-    float: left;
-  }
-  #month-price {
-    float: left;
-  }
-  #day-times {
-    float: left;
-  }
-  #day-price {
-    float: left;
-  }
-</style>

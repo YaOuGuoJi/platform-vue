@@ -6,41 +6,40 @@
              placeholder="在这里单击输入..."/><br>
       <h4>请选择日期：
         <select v-model="year" name="sel1" id="sel1" :style="{width:'100px',height:'25px' }">
-          <option value="year">年</option>
+          <option value="year">年份</option>
         </select>
         <select v-model="month" name="sel2" id="sel2" :style="{width:'100px',height:'25px' }">
-          <option value="">月</option>
+          <option value="">月份</option>
         </select>
       <template><button v-on:click="search()">查询</button></template></h4>
     </template>
     <h1>商户Id: {{ shopId }}</h1>
-    <template v-if="finished">
-      <div id="finished-list" v-if="finished">
+    <template v-show="finished">
+      <div id="finished-list" v-show="finished">
         <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left'}"></div>
         <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right'}"></div>
       </div>
-      <div id="canceledList" v-if="canceled">
+      <div id="canceledList" v-show="canceled">
         <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left'}" ></div>
         <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right'}" ></div>
       </div>
-      <div id="byProductList">
+      <div id="byProductList" v-show="byProductType">
       <div id="byProductType-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
       <div id="byProductType-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
     </div>
-      <div id="byHour-list">
+      <div id="byHour-list" v-show="byHour">
       <div id="byHour-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
       <div id="byHour-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
     </div>
-      <div id="byMonth-ist">
+      <div id="byMonth-ist" v-show="byMonth">
         <div id="byMonth-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
         <div id="byMonth-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
       </div>
-        <div id="byDay-list">
+        <div id="byDay-list" v-show="byDay">
          <div id="byDay-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
          <div id="byDay-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
         </div>
     </template>
-    <template v-else></template>
   </div>
 </template>
 
@@ -64,9 +63,9 @@
         byDay: null
       }
     },
-    created: function() {
+   /* created: function() {
       this.search();
-    },
+    },*/
     mounted: function() {
           // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
       //生成2000年-2100年
@@ -130,69 +129,69 @@
           sel2.appendChild(option);
         }
           //成交订单
-        let finishedData = []
+        let finishedOrder = []
         for (let order in this.finished) {
-          finishedData.push({name: order, value: this.finished[order].number,})
+          finishedOrder.push({name: order, value: this.finished[order].number,})
         }
         //成交金额
-        let finishedData1 = []
+        let finishedPrice = []
         for (let order1 in this.finished) {
-          finishedData1.push({name: order1, value: this.finished[order1].price,})
+          finishedPrice.push({name: order1, value: this.finished[order1].price,})
         }
         //取消订单
-        let canceledData = []
+        let canceledOrder = []
         for(let order in this.canceled) {
-          canceledData.push({name:order, value: this.canceled[order].number})
+          canceledOrder.push({name:order, value: this.canceled[order].number})
         }
         //取消金额
-        let canceledData1 = []
+        let canceledPrice = []
         for(let order1 in this.canceled) {
-          canceledData1.push({name:order1, value: this.canceled[order1].price})
+          canceledPrice.push({name:order1, value: this.canceled[order1].price})
         }
         //消费类别
-        let byProductTypeData = []
+        let byProductTypeOrder = []
         for(let type in this.byProductType) {
-          byProductTypeData.push({name:type, value: this.byProductType[type].number})
+          byProductTypeOrder.push({name:type, value: this.byProductType[type].number})
         }
         //消费类别
-        let byProductTypeData1 = []
+        let byProductTypePrice = []
         for(let type1 in this.byProductType) {
-          byProductTypeData1.push({name:type1, value: this.byProductType[type1].price})
+          byProductTypePrice.push({name:type1, value: this.byProductType[type1].price})
         }
         //小时订单
-        let byHourDatas = []
+        let byHourOrder = []
         for(let order in this.byHour){
-          byHourDatas.push({name:order, value: this.byHour[order].number})
+          byHourOrder.push({name:order + '点' , value: this.byHour[order].number})
         }
         //小时金额
-        let byHourDatas1 = []
+        let byHourPrice = []
         for(let order in this.byHour){
-          byHourDatas1.push({name:order, value: this.byHour[order].price})
+          byHourPrice.push({name:order + '点', value: this.byHour[order].price})
         }
         //月份订单数
         let byMonthOrder = []
         for(let order in this.byMonth){
-          byMonthOrder.push({name:order, value: this.byMonth[order].number})
+          byMonthOrder.push({name:order + '月', value: this.byMonth[order].number})
         }
         //月份销售额
         let byMonthPrice = []
         for(let order in this.byMonth){
-          byMonthPrice.push({name:order, value: this.byMonth[order].price})
+          byMonthPrice.push({name:order + '月', value: this.byMonth[order].price})
         }
         //日成交订单数
         let byDayOrder = []
         for(let order in this.byDay){
-          byDayOrder.push({name:order, value: this.byDay[order].number})
+          byDayOrder.push({name:order + '号', value: this.byDay[order].number})
         }
         //日销售额
         let byDayPrice = []
         for(let order in this.byDay){
-          byDayPrice.push({name:order, value: this.byDay[order].price})
+          byDayPrice.push({name:order + '号', value: this.byDay[order].price})
         }
 
         //成交订单
-        let finishedChart = echarts.init(document.getElementById('finished-order'))
-        finishedChart.setOption({
+        let finishedOrderDiv = echarts.init(document.getElementById('finished-order'))
+        finishedOrderDiv.setOption({
           title: {
             text: '已成交订单量统计',
             subtext: timeRegion,
@@ -204,7 +203,7 @@
             y:40,
             align:'left',
             bottom: 10,
-            data: finishedData.map(function (data) {return data.name})
+            data: finishedOrder.map(function (data) {return data.name})
           },
           tooltip : {
             trigger: 'item',
@@ -215,13 +214,13 @@
               name: '订单量',
               type: 'pie',
               radius: '55%',
-              data: finishedData
+              data: finishedOrder
             }
           ]
         })
         //已成交金额
-        let finishedChart1 = echarts.init(document.getElementById('finished-price'))
-        finishedChart1.setOption({
+        let finishedPriceDiv = echarts.init(document.getElementById('finished-price'))
+        finishedPriceDiv.setOption({
           title: {
             text: '已成交金额',
             subtext: timeRegion,
@@ -233,7 +232,7 @@
             y:40,
             align:'left',
             bottom: 10,
-            data: finishedData1.map(function (data) {return data.name})
+            data: finishedPrice.map(function (data) {return data.name})
           },
           tooltip : {
             trigger: 'item',
@@ -244,13 +243,13 @@
               name: '金额',
               type: 'pie',
               radius: '55%',
-              data: finishedData1
+              data: finishedPrice
             }
           ]
         })
         //未成交订单
-        let canceledChart = echarts.init(document.getElementById('canceled-order'))
-        canceledChart.setOption({
+        let canceledOrderDiv = echarts.init(document.getElementById('canceled-order'))
+        canceledOrderDiv.setOption({
           title: {
             text: '取消订单量统计',
             subtext: timeRegion,
@@ -262,7 +261,7 @@
             y:40,
             align:'left',
             bottom: 10,
-            data: canceledData.map(function (data) {return data.name})
+            data: canceledOrder.map(function (data) {return data.name})
           },
           tooltip : {
             trigger: 'item',
@@ -273,13 +272,13 @@
               name: '订单量',
               type: 'pie',
               radius: '55%',
-              data: canceledData
+              data: canceledOrder
             }
           ]
         })
         //未成交金额
-        let canceledChart1 = echarts.init(document.getElementById('canceled-price'))
-        canceledChart1.setOption({
+        let canceledPriceDiv = echarts.init(document.getElementById('canceled-price'))
+        canceledPriceDiv.setOption({
           title: {
             text: '取消订单金额统计',
             subtext: timeRegion,
@@ -291,7 +290,7 @@
             y:40,
             align:'left',
             bottom: 10,
-            data: canceledData1.map(function (data) {return data.name})
+            data: canceledPrice.map(function (data) {return data.name})
           },
           tooltip : {
             trigger: 'item',
@@ -302,14 +301,14 @@
               name: '金额',
               type: 'pie',
               radius: '55%',
-              data: canceledData1
+              data: canceledPrice
             }
           ]
         })
         //按销售类别分类
-        let chart = echarts.init(document.getElementById('byProductType-order'))
-        chart.setOption({
-          title: {text: '消费类别统计',
+        let byProductOrderDiv = echarts.init(document.getElementById('byProductType-order'))
+        byProductOrderDiv.setOption({
+          title: {text: '消费类别订单量',
             subtext: timeRegion,
             left: 'center'
           },
@@ -323,21 +322,21 @@
             y:40,
             align:'left',
             bottom: 10,
-            data:byProductTypeData.map(function (data) {return data.name})
+            data:byProductTypeOrder.map(function (data) {return data.name})
           },
           series : [
             {
               name: '订单数量',
               type: 'pie',
               radius: '55%',
-              data: byProductTypeData
+              data: byProductTypeOrder
             }
           ]
         })
         //按销售类别分类
-        let chart1 = echarts.init(document.getElementById('byProductType-price'))
-        chart1.setOption({
-          title: {text: '消费类别统计',
+        let byProductPriceDiv = echarts.init(document.getElementById('byProductType-price'))
+        byProductPriceDiv.setOption({
+          title: {text: '消费类别销售额',
             subtext: timeRegion,
             left: 'center'
           },
@@ -351,20 +350,20 @@
             y:40,
             align:'left',
             bottom: 10,
-            data:byProductTypeData1.map(function (data) {return data.name})
+            data:byProductTypePrice.map(function (data) {return data.name})
           },
           series : [
             {
               name: '销售额',
               type: 'pie',
               radius: '55%',
-              data: byProductTypeData1
+              data: byProductTypePrice
             }
           ]
         })
 
-        let byHourOrder = echarts.init(document.getElementById('byHour-order'))
-        byHourOrder.setOption({
+        let byHourOrderDiv = echarts.init(document.getElementById('byHour-order'))
+        byHourOrderDiv.setOption({
           title: {text: '单位小时下单量',
             subtext: timeRegion,
             left: 'center'},
@@ -379,19 +378,20 @@
             show:false,
           },
           xAxis: {
-            data: byHourDatas.map(function (data) {return data.name})
+            data: byHourOrder.map(function (data) {return data.name})
           },
           yAxis: {
 
           },
           series: [{
+            color: '#4000FF',
             name: '订单数量',
             type: 'bar',
-            data: byHourDatas
+            data: byHourOrder
           }]
         })
-        let byHourPrice = echarts.init(document.getElementById('byHour-price'))
-        byHourPrice.setOption({
+        let byHourPriceDiv = echarts.init(document.getElementById('byHour-price'))
+        byHourPriceDiv.setOption({
           title: {text: '单位小时销售额',
             subtext: timeRegion,
             left: 'center'},
@@ -406,7 +406,7 @@
             show:false,
           },
           xAxis: {
-            data: byHourDatas1.map(function (data) {return data.name})
+            data: byHourPrice.map(function (data) {return data.name})
           },
           yAxis: {
 
@@ -414,7 +414,7 @@
           series: [{
             name: '销售额',
             type: 'bar',
-            data: byHourDatas1
+            data: byHourPrice
           }]
         })
         //按月份查询
@@ -440,6 +440,7 @@
 
           },
           series: [{
+            color: '#4000FF',
             name: '订单数',
             type: 'bar',
             data: byMonthOrder
@@ -472,6 +473,7 @@
             data: byMonthPrice
           }]
         })
+        //日销售额
         let byDayPriceDiv = echarts.init(document.getElementById('byDay-price'))
         byDayPriceDiv.setOption({
           title: {text: '日销售额',
@@ -499,6 +501,7 @@
             data: byDayPrice
           }]
         })
+        //日订单
         let byDayOrderDiv = echarts.init(document.getElementById('byDay-order'))
         byDayOrderDiv.setOption({
           title: {text: '日订单数量',
@@ -522,7 +525,7 @@
 
           },
           series: [{
-           // color: 'yellow',
+            color: '#4000FF',
             name: '订单数',
             type: 'bar',
             data: byDayOrder

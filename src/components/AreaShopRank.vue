@@ -8,9 +8,9 @@
            <label>区域id：</label>
            <input v-model="areaId" placeholder="请输入区域id"/>
            <label>开始时间：</label>
-           <input v-model="start" placeholder="请输入开始时间"/>
+           <input v-model="start" type="date" placeholder="请输入开始时间"/>
            <label>结束时间：</label>
-           <input v-model="end" placeholder="请输入结束时间"/>
+           <input v-model="end" type="date" placeholder="请输入结束时间"/>
            <label>限制：</label>
            <input v-model="limit" placeholder="请输入限制"/>
            <button v-on:click="search()">查询</button>
@@ -20,7 +20,7 @@
    </div>
     <div class="shopCountRank">
     <template v-if="shopPriceInfo" class="shopPrice">
-      <table border='1'>
+      <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
           <th>商铺Logo</th>
@@ -43,7 +43,7 @@
     </div>
     <div class="shopPriceRank">
     <template v-if="shopCountInfo" class="shopCount">
-      <table border="1">
+      <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
           <th>商铺Logo</th>
@@ -87,8 +87,8 @@ methods: {
     axios.get('/api/area/shop/rank', {
       params: {
         areaId: this.areaId,
-        start: this.start,
-        end: this.end,
+        start: this.start+" 00:00:00",
+        end: this.end+" 00:00:00",
         limit: this.limit
       }
     }).then(response => {
@@ -301,7 +301,7 @@ methods: {
 }
 }
 </script>
-<style>
+<style scoped>
   #countchart{
     text-align: center;
     width: 700px;

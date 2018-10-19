@@ -49,12 +49,12 @@
     data() {
       return {
         shopId: 100001,
-        start:null,
-        end:null,
+        start: '2018-01-01',
+        end: '2019-01-01',
         test: null,
-        number:0,
-        numberOfMale:0,
-        numberOfFemale:0
+        number: 0,
+        numberOfMale: 0,
+        numberOfFemale: 0
       }
     },
     methods: {
@@ -165,13 +165,13 @@
         for (var key in maleMap) {
           maleName.push(key + '岁')
           maleNameAndValue.push({value: maleMap[key], name: key + '岁'})
-          this.numberOfMale=this.numberOfMale+maleMap[key]
+          this.numberOfMale = this.numberOfMale + maleMap[key]
         }
         let male = echarts.init(document.getElementById("male"))
         male.setOption({
           title: {
             text: '男性顾客年龄分布',
-            subtext: '共'+this.numberOfMale+'位',
+            subtext: '共' + this.numberOfMale + '位',
             x: 'center'
           },
           tooltip: {
@@ -206,14 +206,14 @@
         for (var key in femaleMap) {
           femaleName.push(key + '岁')
           femaleNameAndValue.push({value: femaleMap[key], name: key + '岁'})
-          this.numberOfFemale=this.numberOfFemale+femaleMap[key]
+          this.numberOfFemale = this.numberOfFemale + femaleMap[key]
         }
-        this.number=this.numberOfMale+this.numberOfFemale
+        this.number = this.numberOfMale + this.numberOfFemale
         let female = echarts.init(document.getElementById("female"))
         female.setOption({
           title: {
             text: '女性顾客年龄分布',
-            subtext: '共'+this.numberOfFemale+'位',
+            subtext: '共' + this.numberOfFemale + '位',
             x: 'center'
           },
           tooltip: {

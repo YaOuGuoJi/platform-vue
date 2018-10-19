@@ -42,9 +42,6 @@
     </template>
   </div>
 </template>
-
-
-
 <script>
   import axios from 'axios'
   import echarts from 'echarts'
@@ -534,11 +531,8 @@
         })
       },
     }
-
   }
 </script>
-
 <style scoped>
-
 </style>
 

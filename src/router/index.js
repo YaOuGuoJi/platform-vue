@@ -5,6 +5,7 @@ import AreaPeople from '@/components/AreaPeople'
 import UserOrder from '@/components/UserOrder'
 import AreaShopRank from '@/components/AreaShopRank'
 
+import UserReport from '@/components/UserReport'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
       path: '/area/shopRank',
       name: 'AreaShopRank',
       component: AreaShopRank
+    },
+    {
+      path: '/user/report',
+      name: 'UserReport',
+      component: UserReport
     }
   ]
 })

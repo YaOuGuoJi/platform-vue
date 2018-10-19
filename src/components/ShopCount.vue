@@ -50,8 +50,8 @@
     data () {
       return {
         shopId: 100001,
-        year: 2018,
-        month: 9,
+        year: null,
+        month: null,
         finished: null,
         canceled: null,
         byProductType: null,
@@ -64,7 +64,7 @@
       this.search();
     },*/
     mounted: function() {
-          // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
+      // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
       //生成2000年-2100年
       for(let i = 2000; i<=2100;i++ ){
         let option = document.createElement('option');
@@ -111,20 +111,6 @@
         console.log(document.getElementById('finished'))
         console.log(document.getElementById('canceled'))
         const timeRegion = this.month ? this.year + '年' + this.month + '月' : this.year + '年';
-//生成2000年-2100年
-        for(let i = 2000; i<=2100;i++ ){
-          let option = document.createElement('option');
-          option.setAttribute('value',i);
-          option.innerHTML = i;
-          sel1.appendChild(option);
-        }
-        //生成1月-12月
-        for(let i = 1; i <=12; i++) {
-          let option = document.createElement('option');
-          option.setAttribute('value', i);
-          option.innerHTML = i;
-          sel2.appendChild(option);
-        }
           //成交订单
         let finishedOrder = []
         for (let order in this.finished) {
@@ -185,7 +171,6 @@
         for(let order in this.byDay){
           byDayPrice.push({name:order + '号', value: this.byDay[order].price})
         }
-
         //成交订单
         let finishedOrderDiv = echarts.init(document.getElementById('finished-order'))
         finishedOrderDiv.setOption({
@@ -358,7 +343,6 @@
             }
           ]
         })
-
         let byHourOrderDiv = echarts.init(document.getElementById('byHour-order'))
         byHourOrderDiv.setOption({
           title: {text: '单位小时下单量',
@@ -377,9 +361,7 @@
           xAxis: {
             data: byHourOrder.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             color: '#4000FF',
             name: '订单数量',
@@ -405,9 +387,7 @@
           xAxis: {
             data: byHourPrice.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             name: '销售额',
             type: 'bar',
@@ -433,9 +413,7 @@
           xAxis: {
             data: byMonthOrder.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             color: '#4000FF',
             name: '订单数',
@@ -461,9 +439,7 @@
           xAxis: {
             data: byMonthPrice.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             name: '销售额',
             type: 'bar',
@@ -489,9 +465,7 @@
           xAxis: {
             data: byDayPrice.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             name: '销售额',
             type: 'bar',
@@ -505,7 +479,6 @@
             subtext: timeRegion,
             left: 'center'},
           tooltip: {},
-
           legend: {
             orient:'vertical',
             align:'left',
@@ -518,15 +491,12 @@
           xAxis: {
             data: byDayOrder.map(function (data) {return data.name})
           },
-          yAxis: {
-
-          },
+          yAxis: {},
           series: [{
             color: '#4000FF',
             name: '订单数',
             type: 'bar',
             data: byDayOrder
-
           }]
         })
       },

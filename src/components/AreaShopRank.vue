@@ -74,8 +74,8 @@ name: 'AreaShopRank',
 data () {
   return {
     areaId: 1,
-    start: '2018-08-01 00:00:00',
-    end: '2018-10-01 00:00:00',
+    start: '2018-08-01',
+    end: '2018-10-01',
     limit: 10,
     shopCountInfo: null,
     shopPriceInfo: null,
@@ -116,7 +116,7 @@ methods: {
     let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
-        text: '区域内商铺销售量前几名排名',
+        text: '区域内商铺销售量前' + this.limit + '名',
         x: 'center'
       },
       tooltip: {
@@ -208,7 +208,7 @@ methods: {
     let pricechart = echarts.init(document.getElementById('price_chart'));
     pricechart.setOption({
       title: {
-        text: '区域内商铺销售额前几名排名',
+        text: '区域内商铺销售额前' + this.limit + '名',
         x: 'center'
       },
       tooltip: {

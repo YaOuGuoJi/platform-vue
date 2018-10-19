@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Welcome from '@/components/Welcome'
 import AreaPeople from '@/components/AreaPeople'
 import UserOrder from '@/components/UserOrder'
+import ShopCount from '@/components/ShopCount'
 import AreaShopRank from '@/components/AreaShopRank'
 
 import UserReport from '@/components/UserReport'
@@ -25,6 +26,11 @@ export default new Router({
       path: '/user/order',
       name: 'UserOrder',
       component: UserOrder
+    },
+    {
+      path: '/shop/count',
+      name: 'ShopCount',
+      component: ShopCount
     },
     {
       path: '/area/shopRank',

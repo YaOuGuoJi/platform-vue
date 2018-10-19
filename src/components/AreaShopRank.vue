@@ -18,8 +18,8 @@
        </div>
      </template>
    </div>
-    <div class="shopCountRank">
-    <template v-if="shopPriceInfo" class="shopPrice">
+    <div class="shop_count_rank">
+    <template v-if="shopPriceInfo" class="shop_price">
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
@@ -39,10 +39,10 @@
         </tr>
       </table>
     </template>
-    <div id="pricechart"></div>
+    <div id="price_chart"></div>
     </div>
-    <div class="shopPriceRank">
-    <template v-if="shopCountInfo" class="shopCount">
+    <div class="shop_price_rank">
+    <template v-if="shopCountInfo" class="shop_count">
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
@@ -62,7 +62,7 @@
         </tr>
       </table>
     </template>
-    <div id="countchart"></div>
+    <div id="count_chart"></div>
     </div>
     </div>
 </template>
@@ -87,8 +87,8 @@ methods: {
     axios.get('/api/area/shop/rank', {
       params: {
         areaId: this.areaId,
-        start: this.start+" 00:00:00",
-        end: this.end+" 00:00:00",
+        start: this.start + " 00:00:00",
+        end: this.end + " 00:00:00",
         limit: this.limit
       }
     }).then(response => {
@@ -113,7 +113,7 @@ methods: {
     this.shopCountInfo = response.data.orderCount.map(function (shopRank) {
       return shopRank
     });
-    let countchart = echarts.init(document.getElementById('countchart'));
+    let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
         text: '区域内商铺销售量前几名排名',
@@ -148,7 +148,6 @@ methods: {
         },
       },
       yAxis: {
-
         type: 'category',//轴的类型分两种 1.category（类别）2.value(值)
         data: countShopName,
         axisLabel : {
@@ -182,7 +181,6 @@ methods: {
               position : 'right'
             }
           },
-
           barWidth : 40,//柱子宽度
           itemStyle : {
             normal : {
@@ -195,9 +193,7 @@ methods: {
               }
             }
           },
-
         }
-
       ]
     });
     this.shopPriceInfo = response.data.orderPrice.map(function (shopRank) {
@@ -209,7 +205,7 @@ methods: {
     const priceShopName = response.data.orderPrice.map(function (shopRank) {
       return shopRank.dtoObject.shopName
     });
-    let pricechart = echarts.init(document.getElementById('pricechart'));
+    let pricechart = echarts.init(document.getElementById('price_chart'));
     pricechart.setOption({
       title: {
         text: '区域内商铺销售额前几名排名',
@@ -244,7 +240,6 @@ methods: {
         },
       },
       yAxis: {
-
         type: 'category',//轴的类型分两种 1.category（类别）2.value(值)
         data: priceShopName,
         axisLabel : {
@@ -278,7 +273,6 @@ methods: {
               position : 'right'
             }
           },
-
           barWidth : 40,//柱子宽度
           itemStyle : {
             normal : {
@@ -291,36 +285,33 @@ methods: {
               }
             }
           },
-
         }
-
       ]
-
     })
   }
 }
 }
 </script>
 <style scoped>
-  #countchart{
+  #count_chart{
     text-align: center;
     width: 700px;
     height: 600px;
     margin-top: 50px;
   }
-  #pricechart{
+  #price_chart{
     text-align: center;
     width: 700px;
     height: 600px;
     margin-top: 50px;
   }
-  .shopCountRank{
+  .shop_count_rank{
     width: 700px;
     height: 800px;
     margin-left: 0px;
     margin-top: 50px;
   }
-  .shopPriceRank{
+  .shop_price_rank{
     width: 700px;
     height: 800px;
     margin-top: 50px;

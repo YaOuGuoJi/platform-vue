@@ -23,9 +23,9 @@
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
-          <th>商铺Logo</th>
+          <th width="100px">商铺Logo</th>
           <th>商铺id</th>
-          <th>商铺名称</th>
+          <th width="180px">商铺名称</th>
           <th>商铺类型</th>
           <th>销售额</th>
         </tr>
@@ -39,16 +39,16 @@
         </tr>
       </table>
     </template>
-    <div id="price_chart"></div>
+    <div id="price_chart" class="price_table"></div>
     </div>
     <div class="shop_price_rank">
     <template v-if="shopCountInfo" class="shop_count">
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
-          <th>商铺Logo</th>
+          <th width="100px">商铺Logo</th>
           <th>商铺id</th>
-          <th>商铺名称</th>
+          <th width="180px">商铺名称</th>
           <th>商铺类型</th>
           <th>销售量</th>
         </tr>
@@ -62,7 +62,7 @@
         </tr>
       </table>
     </template>
-    <div id="count_chart"></div>
+    <div id="count_chart" class="count_table"></div>
     </div>
     </div>
 </template>
@@ -88,7 +88,7 @@ methods: {
       params: {
         areaId: this.areaId,
         start: this.start + " 00:00:00",
-        end: this.end + " 00:00:00",
+        end: this.end + " 23:59:59",
         limit: this.limit
       }
     }).then(response => {
@@ -306,17 +306,25 @@ methods: {
     margin-top: 50px;
   }
   .shop_count_rank{
+    /*position: absolute;*/
     width: 700px;
     height: 800px;
-    margin-left: 0px;
+    margin-left: -100px;
     margin-top: 50px;
   }
   .shop_price_rank{
+    position: absolute;
     width: 700px;
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 850px;
+    margin-left: 600px;
     margin-top: -800px;
+  }
+  .price_table{
+    margin-left: -100px;
+  }
+  .count_table{
+    margin-left: -80px;
   }
 </style>

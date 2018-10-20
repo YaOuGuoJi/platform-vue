@@ -71,6 +71,9 @@
           }
           this.dataInvoker(response.data)
         })
+        this.number=null
+        this.numberOfFemale=null
+        this.numberOfMale=null
       },
       dataInvoker(response) {
         if (!response.success || response.code !== 200) {

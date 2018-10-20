@@ -16,10 +16,10 @@
         </template>
       </h4>
     </template>
-    <h1>商户Id: {{ shopId }}</h1>
-      <div>
-      <div id="finished-list" v-show="finished">
-        <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
+    <h1>商户Id: {{ realShopId }}</h1>
+    <div>
+        <div id="finished-list" v-show="finished">
+          <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
         <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
       </div>
       <div id="canceledList" v-show="canceled">
@@ -71,7 +71,8 @@
         byHour: null,
         byMonth: null,
         byDay: null,
-        orderDataList: []
+        orderDataList: [],
+        realShopId : null
       }
     },
     /* created: function() {
@@ -97,10 +98,11 @@
     },
     methods: {
       search: function () {
+
         axios.get('/api/shop/count', {
           params: {
             shopId: this.shopId,
-            year: this.year,
+            year: this.year ? this.year : 0,
             month: this.month ? this.month : '',
           }
         }).then(response => {
@@ -115,6 +117,7 @@
           window.alert(response.message)
           return
         }
+        this.realShopId = this.shopId
         this.canceled = response.data.canceled
         this.finished = response.data.finished
         this.byProductType = response.data.byProductType

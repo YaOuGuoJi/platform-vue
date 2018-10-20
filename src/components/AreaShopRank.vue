@@ -113,6 +113,17 @@ methods: {
     this.shopCountInfo = response.data.orderCount.map(function (shopRank) {
       return shopRank
     });
+    let number = 0;
+    for (let key in response.data.orderCount){
+      number+=1;
+    }
+    let i;
+    console.log(number);
+    if (number <= 10){
+      i = 40
+    }else{
+      i = 0
+    }
     let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
@@ -181,7 +192,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : 40,//柱子宽度
+          barWidth : i,//柱子宽度
           itemStyle : {
             normal : {
               color: '#F08080',//柱状的颜色
@@ -273,7 +284,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : 40,//柱子宽度
+          barWidth : i,//柱子宽度
           itemStyle : {
             normal : {
               color:'#9f9ff2',//柱状的颜色

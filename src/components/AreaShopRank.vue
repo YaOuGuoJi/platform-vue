@@ -127,7 +127,7 @@ methods: {
     let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
-        text: '区域内商铺销售量前' + this.limit + '名',
+        text: '区域内商铺销售量前' + number + '名',
         x: 'center'
       },
       tooltip: {
@@ -219,7 +219,7 @@ methods: {
     let pricechart = echarts.init(document.getElementById('price_chart'));
     pricechart.setOption({
       title: {
-        text: '区域内商铺销售额前' + this.limit + '名',
+        text: '区域内商铺销售额前' + number + '名',
         x: 'center'
       },
       tooltip: {

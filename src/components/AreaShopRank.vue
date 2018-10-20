@@ -23,9 +23,9 @@
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
-          <th>商铺Logo</th>
+          <th width="100px">商铺Logo</th>
           <th>商铺id</th>
-          <th>商铺名称</th>
+          <th width="180px">商铺名称</th>
           <th>商铺类型</th>
           <th>销售额</th>
         </tr>
@@ -39,16 +39,16 @@
         </tr>
       </table>
     </template>
-    <div id="price_chart"></div>
+    <div id="price_chart" class="price_table"></div>
     </div>
     <div class="shop_price_rank">
     <template v-if="shopCountInfo" class="shop_count">
       <table border="3">
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
-          <th>商铺Logo</th>
+          <th width="100px">商铺Logo</th>
           <th>商铺id</th>
-          <th>商铺名称</th>
+          <th width="180px">商铺名称</th>
           <th>商铺类型</th>
           <th>销售量</th>
         </tr>
@@ -62,7 +62,7 @@
         </tr>
       </table>
     </template>
-    <div id="count_chart"></div>
+    <div id="count_chart" class="count_table"></div>
     </div>
     </div>
 </template>
@@ -88,7 +88,7 @@ methods: {
       params: {
         areaId: this.areaId,
         start: this.start + " 00:00:00",
-        end: this.end + " 00:00:00",
+        end: this.end + " 23:59:59",
         limit: this.limit
       }
     }).then(response => {
@@ -113,10 +113,21 @@ methods: {
     this.shopCountInfo = response.data.orderCount.map(function (shopRank) {
       return shopRank
     });
+    let number = 0;
+    for (let key in response.data.orderCount){
+      number+=1;
+    }
+    let i;
+    console.log(number);
+    if (number <= 10){
+      i = 40
+    }else{
+      i = 0
+    }
     let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
-        text: '区域内商铺销售量前' + this.limit + '名',
+        text: '区域内商铺销售量前' + number + '名',
         x: 'center'
       },
       tooltip: {
@@ -181,7 +192,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : 40,//柱子宽度
+          barWidth : i,//柱子宽度
           itemStyle : {
             normal : {
               color: '#F08080',//柱状的颜色
@@ -208,7 +219,7 @@ methods: {
     let pricechart = echarts.init(document.getElementById('price_chart'));
     pricechart.setOption({
       title: {
-        text: '区域内商铺销售额前' + this.limit + '名',
+        text: '区域内商铺销售额前' + number + '名',
         x: 'center'
       },
       tooltip: {
@@ -273,7 +284,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : 40,//柱子宽度
+          barWidth : i,//柱子宽度
           itemStyle : {
             normal : {
               color:'#9f9ff2',//柱状的颜色
@@ -306,17 +317,25 @@ methods: {
     margin-top: 50px;
   }
   .shop_count_rank{
+    /*position: absolute;*/
     width: 700px;
     height: 800px;
-    margin-left: 0px;
+    margin-left: -100px;
     margin-top: 50px;
   }
   .shop_price_rank{
+    position: absolute;
     width: 700px;
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 850px;
+    margin-left: 600px;
     margin-top: -800px;
+  }
+  .price_table{
+    margin-left: -100px;
+  }
+  .count_table{
+    margin-left: -80px;
   }
 </style>

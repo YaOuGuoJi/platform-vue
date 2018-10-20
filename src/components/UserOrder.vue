@@ -33,14 +33,16 @@
           <h3 class="order-list">消费记录</h3>
           <table>
             <tr>
-              <th>商户Id</th>
-              <th>商品列表</th>
-              <th>商品类型</th>
-              <th>总价格</th>
-              <th>支付方式</th>
-              <th>订单状态</th>
+              <th width="200px">下单时间</th>
+              <th width="80px">商户Id</th>
+              <th width="200px">商品列表</th>
+              <th width="80px">商品类型</th>
+              <th width="80px">总价格</th>
+              <th width="80px">支付方式</th>
+              <th width="80px">订单状态</th>
             </tr>
             <tr v-for="order in orderPageInfo.list" :key="order.orderId">
+              <td>{{ buildDate(order.addTime) }}</td>
               <td>{{ order.shopId }}</td>
               <td>{{ order.productList }}</td>
               <td>{{ order.productType }}</td>
@@ -77,7 +79,7 @@
         userInfo: null,
         orderPageInfo: null,
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 20,
         start: '2018-01-01',
         end: '2019-01-01'
       }
@@ -108,6 +110,22 @@
         console.log(response)
         this.userInfo = response.data.userInfo
         this.orderPageInfo = response.data.orderPageInfo
+      },
+      buildDate: function (str) {
+        let date = new Date(str),
+          year = date.getFullYear(),
+          // 月份从0开始，需要+1
+          month = date.getMonth() + 1,
+          day = date.getDate(),
+          hour = date.getHours(),
+          min = date.getMinutes(),
+          sec = date.getSeconds()
+        return year + '-' +
+          (month < 10 ? '0' + month : month) + '-' +
+          (day < 10 ? '0' + day : day) + ' ' +
+          (hour < 10 ? '0' + hour : hour) + ':' +
+          (min < 10 ? '0' + min : min) + ':' +
+          (sec < 10 ? '0' + sec : sec)
       }
     }
   }
@@ -132,9 +150,17 @@
   }
 
   .page-bar {
-    margin: 0 auto;
-    width: 350px;
-    height: 100px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .page-bar ul {
+    display: table;
+    margin: 40px auto;
+  }
+
+  .page-bar li {
+    display: table-cell;
   }
 
   .page-bar a {

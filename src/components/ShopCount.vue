@@ -118,7 +118,6 @@
           return
         }
         this.realShopId = this.shopId
-        console.log(this.realShopId)
         this.canceled = response.data.canceled
         this.finished = response.data.finished
         this.byProductType = response.data.byProductType

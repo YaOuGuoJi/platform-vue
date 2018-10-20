@@ -71,9 +71,6 @@
           }
           this.dataInvoker(response.data)
         })
-        this.number=null
-        this.numberOfFemale=null
-        this.numberOfMale=null
       },
       dataInvoker(response) {
         if (!response.success || response.code !== 200) {
@@ -164,12 +161,13 @@
         var maleMap = response.data.sexAndAge.male;
         var maleName = []
         var maleNameAndValue = []
-
+        let maleNum = 0
         for (var key in maleMap) {
           maleName.push(key + '岁')
           maleNameAndValue.push({value: maleMap[key], name: key + '岁'})
-          this.numberOfMale = this.numberOfMale + maleMap[key]
+          maleNum = maleNum + maleMap[key]
         }
+        this.numberOfMale = maleNum
         let male = echarts.init(document.getElementById("male"))
         male.setOption({
           title: {
@@ -206,12 +204,14 @@
         var femaleMap = response.data.sexAndAge.female;
         var femaleName = []
         var femaleNameAndValue = []
+        let femaleNum = 0
         for (var key in femaleMap) {
           femaleName.push(key + '岁')
           femaleNameAndValue.push({value: femaleMap[key], name: key + '岁'})
-          this.numberOfFemale = this.numberOfFemale + femaleMap[key]
+          femaleNum = femaleNum + femaleMap[key]
         }
-        this.number = this.numberOfMale + this.numberOfFemale
+        this.numberOfFemale = femaleNum
+        this.number = femaleNum + maleNum
         let female = echarts.init(document.getElementById("female"))
         female.setOption({
           title: {

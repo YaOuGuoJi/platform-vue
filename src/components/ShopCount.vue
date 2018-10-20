@@ -247,7 +247,7 @@
           },
           yAxis: {},
           series: [{
-            color: '#4000FF',
+            color: divId.indexOf('price') === -1 ? '#ff547e' : '#748fff',
             name: legendDataAndSeriesName,
             type: 'bar',
             data: xAxisDataAndSeriesData

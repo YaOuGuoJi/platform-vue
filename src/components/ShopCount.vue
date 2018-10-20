@@ -14,32 +14,41 @@
       <template><button v-on:click="search()">查询</button></template></h4>
     </template>
     <h1>商户Id: {{ shopId }}</h1>
-    <template v-show="finished">
+      <div>
       <div id="finished-list" v-show="finished">
-        <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left'}"></div>
-        <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right'}"></div>
+        <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
+        <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
       </div>
       <div id="canceledList" v-show="canceled">
-        <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left'}" ></div>
-        <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right'}" ></div>
+        <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left',marginLeft:'50px'}" ></div>
+        <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right',marginRight: '50px'}" ></div>
+      </div>
       </div>
       <div id="byProductList" v-show="byProductType">
-      <div id="byProductType-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
-      <div id="byProductType-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+      <div id="byProductType-order" :style="{ width: '500px', height: '300px',float:'left'}"></div>
+      <div id="byProductType-price" :style="{ width: '500px', height: '300px',float:'right'}"></div>
     </div>
-      <div id="byHour-list" v-show="byHour">
-      <div id="byHour-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
-      <div id="byHour-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
-    </div>
-      <div id="byMonth-ist" v-show="byMonth">
-        <div id="byMonth-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
-        <div id="byMonth-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
-      </div>
-        <div id="byDay-list" v-show="byDay">
-         <div id="byDay-order" :style="{ width: '400px', height: '300px',float:'left'}"></div>
-         <div id="byDay-price" :style="{ width: '400px', height: '300px',float:'right'}"></div>
+
+      <div>
+        <div id="byHour-list" v-show="byHour">
+          <div id="byHour-order" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
         </div>
-    </template>
+        <div id="byHour-list2" v-show="byHour">
+          <div id="byHour-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
+        </div>
+        <div id="byMonth-ist" v-show="byMonth">
+          <div id="byMonth-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+        </div>
+        <div id="byMonth-ist1" v-show="byMonth">
+          <div id="byMonth-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
+        </div>
+        <div id="byDay-list" v-show="byDay">
+          <div id="byDay-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+        </div>
+        <div id="byDay-list1" v-show="byDay">
+          <div id="byDay-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -302,6 +311,7 @@
             orient:'vertical',
             left: 'right',
             y:40,
+            x:50,
             align:'left',
             bottom: 10,
             data:byProductTypeOrder.map(function (data) {return data.name})

@@ -11,22 +11,29 @@
 
   export default {
     name: 'AreaPeople',
-    data () {
+    data() {
       return {
         areaPeopleList: ''
       }
     },
-    mounted () {
-      axios.get('/api/selectAreaPeopleNumber')
-        .then((response) => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
-          }
-          this.dataInvoker(response.data)
-        })
+    mounted() {
+      this.nowAreaPeople()
     },
     methods: {
-      dataInvoker (response) {
+      nowAreaPeople() {
+        this.areaPeople();
+        setInterval(this.areaPeople, 1000);
+      },
+      areaPeople() {
+        axios.get('/api/selectAreaPeopleNumber')
+          .then((response) => {
+            if (response.status !== 200 || !response.data) {
+              window.alert('请求失败')
+            }
+            this.dataInvoker(response.data)
+          })
+      },
+      dataInvoker(response) {
         if (!response.success || response.code !== 200) {
           window.alert(response.message)
           return

@@ -15,7 +15,7 @@
       </div>
       <div class="survey">
         <p id="summary">
-          {{year}}年{{month == null ? month : month + '月'}}您在亚欧国际小镇共下单{{userReportData.orderNumber}}次,年度消费{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
+          {{year}}年{{showMonth == null ? showMonth : showMonth + '月'}}您在亚欧国际小镇共下单{{userReportData.orderNumber}}次,共消费{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
           排名第{{rank}}
         </p>
       </div>
@@ -26,23 +26,13 @@
       </div>
       <div class="max_price_order">
         <p id="maxPrice">
-          {{year}}年{{month === null ? month : month + '月'}}消费最高订单：{{userReportData.maxPriceOrder.day}}您在{{userReportData.maxPriceOrder.shopName}}购买了{{userReportData.maxPriceOrder.productList}},
+          {{year}}年{{showMonth === null ? showMonth : showMonth + '月'}}消费最高订单：{{userReportData.maxPriceOrder.day}}您在{{userReportData.maxPriceOrder.shopName}}购买了{{userReportData.maxPriceOrder.productList}},
           花费{{userReportData.maxPriceOrder.orderPrice}}元
         </p>
       </div>
     </template>
-    <div id="month-times-and-price" v-show="showMonthReport">
-      <div id="month-times" :style="{ width: '600px', height: '500px'}">
-      </div>
-      <div id="month-price" :style="{ width: '600px', height: '500px'}">
-      </div>
-    </div>
-    <div id="day-times-and-price" v-show="showDayReport">
-      <div id="day-times" :style="{ width: '600px', height: '500px'}">
-      </div>
-      <div id="day-price" :style="{ width: '600px', height: '500px'}">
-      </div>
-    </div>
+    <div id="month-times-and-price" v-show="monthReport" :style="{ width: '600px', height: '500px'}"></div>
+    <div id="day-times-and-price" v-show="dayReport" :style="{ width: '600px', height: '500px'}"></div>
     <div id="pay-type">
       <div id="pay-price" align="left" :style="{ width: '600px', height: '500px'}">
       </div>
@@ -84,18 +74,6 @@
   #pay-times {
     float: left;
   }
-  #month-times {
-    float: left;
-  }
-  #month-price {
-    float: left;
-  }
-  #day-times {
-    float: left;
-  }
-  #day-price {
-    float: left;
-  }
 </style>
 
 <script type="text/javascript">
@@ -119,10 +97,8 @@ export default {
       firstOrder: null,
       maxPriceOrder: null,
       beyondPercent: null,
-      switchModel: 1,
       payPriceOrTimes: [],
-      showMonthReport: null,
-      showDayReport: null
+      showMonth: null
     }
   },
   methods: {
@@ -149,6 +125,7 @@ export default {
         window.alert(response.message)
         return
       }
+      this.showMonth = this.month
       this.userInfo = response.userInfo
       this.userReportData = response.data
       this.orderNumber = response.data.orderNumber
@@ -161,106 +138,102 @@ export default {
       this.maxPriceOrder = response.data.maxPriceOrder
       this.beyondPercent = response.data.beyondPercent
       if (this.monthReport != null) {
-        this.showMonthReport = true
-        this.showDayReport = false
         this.drawMonthReport(this.monthReport)
-        this.drawMonthReport(this.monthReport)
-        this.switchModel = 1;
       }
       if (this.dayReport != null) {
-        this.showDayReport = true
-        this.showMonthReport = false
-        this.drawDayReport(this.dayReport)
         this.drawDayReport(this.dayReport)
       }
       this.drawPayPrice(this.payType)
       this.drawPayTimes(this.payType)
     },
     drawMonthReport: function (userReport) {
-      let divId, titleText, legendData;
-      if (this.switchModel === 1) {
-        divId = 'month-times'
-        legendData = '支付次数'
-        titleText = '年度' + legendData + '统计'
-      } else if (this.switchModel === 2) {
-        divId = 'month-price'
-        legendData = '支付总额'
-        titleText = '年度' + legendData + '统计'
-      }
-      let names = [];
+      let names = [], payPrice = [], payTimes = [];
       for (let key in userReport) {
         names.push(key + '月')
-        if (this.switchModel === 1) {
-          this.payPriceOrTimes.push(userReport[key].payTimes)
-        } else if (this.switchModel === 2) {
-          this.payPriceOrTimes.push(userReport[key].payPrice)
-        }
+          payTimes.push(userReport[key].payTimes)
+          payPrice.push(userReport[key].payPrice)
       }
-      let chart = echarts.init(document.getElementById(divId))
+      let chart = echarts.init(document.getElementById('month-times-and-price'))
       chart.setOption({
         title: {
-          text: titleText
+          text: '年度消费报告'
         },
         tooltip: {},
         legend: {
-          data:legendData
+          data:['年度支付总额', '年度支付次数']
         },
         xAxis: {
           data: names
         },
-        yAxis: {},
-        series: [{
-          name: legendData,
-          type: 'bar',
-          barWidth: 40,
-          data: this.payPriceOrTimes
-        }]
+        yAxis: [
+          {
+            name: '支付总额',
+            type: 'value'
+          },
+          {
+            name: '支付次数',
+            type: 'value',
+            nameLocation: 'end'
+          }
+        ],
+        series: [
+          {
+            name: '年度支付总额',
+            type: 'bar',
+            data: payPrice
+          },
+          {
+            name: '年度支付次数',
+            type: 'bar',
+            data: payTimes,
+            yAxisIndex: 1
+          }
+        ]
       })
-      this.switchModel = 2
-      this.payPriceOrTimes = [];
     },
     drawDayReport: function (userReport) {
-      let divId, titleText, legendData;
-      if (this.switchModel === 1) {
-        divId = 'day-times'
-        legendData = '支付次数'
-        titleText = '月度' + legendData + '统计'
-      } else if (this.switchModel === 2) {
-        divId = 'day-price'
-        legendData = '支付总额'
-        titleText = '月度' + legendData + '统计'
-      }
-      let names = [];
+      let names = [], payPrice = [], payTimes = [];
       for (let key in userReport) {
         names.push(key + '日')
-        if (this.switchModel === 1) {
-          this.payPriceOrTimes.push(userReport[key].payTimes)
-        } else if (this.switchModel === 2) {
-          this.payPriceOrTimes.push(userReport[key].payPrice)
-        }
+        payTimes.push(userReport[key].payTimes)
+        payPrice.push(userReport[key].payPrice)
       }
-      this.switchModel = 2
       let chart = echarts.init(document.getElementById(divId))
       chart.setOption({
         title: {
-          text: titleText
+          text: '月度消费报告'
         },
         tooltip: {},
         legend: {
-          data:legendData
+          data:['月度支付总额', '月度支付次数']
         },
         xAxis: {
           data: names
         },
-        yAxis: {},
-        series: [{
-          name: legendData,
-          type: 'bar',
-          barWidth: 40,
-          data: this.payPriceOrTimes
-        }]
+        yAxis: [
+          {
+            name: '月度支付总额',
+            type: 'value'
+          },
+          {
+            name: '月度支付次数',
+            type: 'value',
+            nameLocation: 'end'
+          }
+        ],
+        series: [
+          {
+            name: '月度支付总额',
+            type: 'bar',
+            data: payPrice
+          },
+          {
+            name: '月度支付次数',
+            type: 'bar',
+            yAxisIndex: 1
+          }
+        ]
       })
-      this.payPriceOrTimes = [];
     },
     drawPayPrice: function (payType) {
       let names = [];

@@ -13,25 +13,29 @@
     name: 'AreaPeople',
     data () {
       return {
-        areaPeopleList: ''
+        areaPeopleList: '',
+        interval: 0
       }
     },
-    mounted () {
-      axios.get('/api/selectAreaPeopleNumber')
-        .then((response) => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
-          }
-          this.dataInvoker(response.data)
-        })
+    created () {
+      this.areaPeople();
+      this.interval = setInterval(this.areaPeople, 60*1000)
     },
     methods: {
+      areaPeople () {
+        axios.get('/api/selectAreaPeopleNumber')
+          .then((response) => {
+            if (response.status !== 200 || !response.data) {
+              window.alert('请求失败')
+            }
+            this.dataInvoker(response.data)
+          })
+      },
       dataInvoker (response) {
         if (!response.success || response.code !== 200) {
           window.alert(response.message)
           return
         }
-        console.log(response)
         let seriesData = []
         response.data.forEach(function (item) {
           let outObj = {}
@@ -84,6 +88,9 @@
           ]
         })
       }
+    },
+    beforeDestroy() {
+      clearInterval(this.interval)
     }
   }
 </script>

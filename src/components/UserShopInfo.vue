@@ -124,7 +124,7 @@
         price.setOption({
           title: {
             text: '顾客消费额',
-            subtext: '总消费额为' + response.data.price.totalPrice + '，平均消费额为' + response.data.price.averagePrice,
+            subtext: '总消费额为' + response.data.price.totalPrice.toFixed(2) + '，平均消费额为' + response.data.price.averagePrice.toFixed(2),
             x: 'center'
           },
           tooltip: {

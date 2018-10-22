@@ -4,7 +4,7 @@
    <div>
      <template>
        <div>
-         <form @submit.prevent="submit">
+         <form @submit.prevent="search">
            <label>区域id：</label>
            <input v-model="areaId" placeholder="请输入区域id"/>
            <label>开始时间：</label>
@@ -13,7 +13,7 @@
            <input v-model="end" type="date" placeholder="请输入结束时间"/>
            <label>限制：</label>
            <input v-model="limit" placeholder="请输入限制"/>
-           <button v-on:click="search()">查询</button>
+           <button>查询</button>
          </form>
        </div>
      </template>
@@ -27,7 +27,7 @@
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
           <th>商铺类型</th>
-          <th>销售额</th>
+          <th>销售额(人民币元)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
@@ -35,7 +35,7 @@
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>
-          <td>{{shopInfo.number}}</td>
+          <td>{{shopInfo.number.toFixed(2)}}</td>
         </tr>
       </table>
     </template>
@@ -50,7 +50,7 @@
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
           <th>商铺类型</th>
-          <th>销售量</th>
+          <th>销售量(单)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
@@ -103,7 +103,6 @@ methods: {
       window.alert(response.data);
       return
     }
-    console.log(response.data);
     const count = response.data.orderCount.map(function (shop) {
       return shop.number;
     });
@@ -201,7 +200,7 @@ methods: {
       return shopRank
     });
     const price = response.data.orderPrice.map(function (shop) {
-      return shop.number;
+      return shop.number.toFixed(2);
     });
     const priceShopName = response.data.orderPrice.map(function (shopRank) {
       return shopRank.dtoObject.shopName
@@ -307,7 +306,6 @@ methods: {
     margin-top: 50px;
   }
   .shop_count_rank{
-    /*position: absolute;*/
     width: 700px;
     height: 800px;
     margin-left: -100px;

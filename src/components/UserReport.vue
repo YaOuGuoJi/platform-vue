@@ -198,7 +198,7 @@ export default {
         payTimes.push(userReport[key].payTimes)
         payPrice.push(userReport[key].payPrice)
       }
-      let chart = echarts.init(document.getElementById(divId))
+      let chart = echarts.init(document.getElementById('day-times-and-price'))
       chart.setOption({
         title: {
           text: '月度消费报告'
@@ -212,11 +212,11 @@ export default {
         },
         yAxis: [
           {
-            name: '月度支付总额',
+            name: '支付总额',
             type: 'value'
           },
           {
-            name: '月度支付次数',
+            name: '支付次数',
             type: 'value',
             nameLocation: 'end'
           }
@@ -230,6 +230,7 @@ export default {
           {
             name: '月度支付次数',
             type: 'bar',
+            data: payTimes,
             yAxisIndex: 1
           }
         ]

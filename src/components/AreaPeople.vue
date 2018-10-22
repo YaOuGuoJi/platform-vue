@@ -19,7 +19,7 @@
     },
     created () {
       this.areaPeople();
-      this.interval = setInterval(this.areaPeople, 3*1000)
+      this.interval = setInterval(this.areaPeople, 60*1000)
     },
     methods: {
       areaPeople () {

@@ -113,21 +113,11 @@ methods: {
     this.shopCountInfo = response.data.orderCount.map(function (shopRank) {
       return shopRank
     });
-    let number = 0;
-    for (let key in response.data.orderCount){
-      number+=1;
-    }
-    let i;
-    console.log(number);
-    if (number <= 10){
-      i = 40
-    }else{
-      i = 0
-    }
+    let number = response.data.orderCount.length <= 10 ? 40 : 0;
     let countchart = echarts.init(document.getElementById('count_chart'));
     countchart.setOption({
       title: {
-        text: '区域内商铺销售量前' + number + '名',
+        text: '区域内商铺销售量前' + response.data.orderCount.length + '名',
         x: 'center'
       },
       tooltip: {
@@ -192,7 +182,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : i,//柱子宽度
+          barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
               color: '#F08080',//柱状的颜色
@@ -219,7 +209,7 @@ methods: {
     let pricechart = echarts.init(document.getElementById('price_chart'));
     pricechart.setOption({
       title: {
-        text: '区域内商铺销售额前' + number + '名',
+        text: '区域内商铺销售额前' + response.data.orderCount.length + '名',
         x: 'center'
       },
       tooltip: {
@@ -284,7 +274,7 @@ methods: {
               position : 'right'
             }
           },
-          barWidth : i,//柱子宽度
+          barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
               color:'#9f9ff2',//柱状的颜色

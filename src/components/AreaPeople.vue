@@ -36,7 +36,6 @@
           window.alert(response.message)
           return
         }
-        console.log(response)
         let seriesData = []
         response.data.forEach(function (item) {
           let outObj = {}

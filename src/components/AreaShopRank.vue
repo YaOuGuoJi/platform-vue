@@ -103,7 +103,6 @@ methods: {
       window.alert(response.data);
       return
     }
-    console.log(response.data);
     const count = response.data.orderCount.map(function (shop) {
       return shop.number;
     });
@@ -307,7 +306,6 @@ methods: {
     margin-top: 50px;
   }
   .shop_count_rank{
-    /*position: absolute;*/
     width: 700px;
     height: 800px;
     margin-left: -100px;

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div id="time" onload="this.getTime()">
-      <p>{{nowTime}}</p>
-    </div>
     <div v-show="numberOfCar" id="car">
+      <label><font size="4">{{nowDate}}</font></label><br/>
+      <label><font size="7">{{nowTime}}</font></label><br/>
+      <label><font size="4">剩余车位:<font id="numberOfPark">{{numberOfPark}}</font>,已用车位:<font id="numberOfCar">{{numberOfCar}}</font></font></label>
     </div>
-    <div id="welcome">
-      <h1>{{ welcome }}</h1>
+    <div class="welcome">
+      <h1 id="w1">{{ welcome }}</h1>
       <h2>{{ msg }}</h2>
       <img src="../assets/logo.png">
     </div>
@@ -24,7 +24,9 @@
         welcome: 'Welcome to our vue!',
         msg: '欢迎来到亚欧国际小镇',
         numberOfCar: null,
-        nowTime:null,
+        nowDate: null,
+        nowTime: null,
+        numberOfPark: null
       }
     },
     mounted() {
@@ -32,7 +34,7 @@
         this.nowPark()
     },
     methods: {
-      getResponse(){
+      getResponse() {
         axios.get('/api/park/record/number')
           .then((response) => {
             if (response.status !== 200 || !response.data) {
@@ -46,34 +48,11 @@
           window.alert(response.message)
           return
         }
-        this.numberOfCar = response.data
-        let numberOfPark = 321
-        let name = '总车位:' + numberOfPark + ',剩车位:' + (numberOfPark - this.numberOfCar)
-        let picture = echarts.init(document.getElementById('car'))
-        picture.setOption(
-          {
-            title: {
-              text: name,
-              x: 'center',
-              y: 'bottom'
-            },
-            tooltip: {
-              trigger: 'item',
-              formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            series: [
-              {
-                name: '数量',
-                type: 'pie',
-                radius: '60%',
-                center: ['50%', '50%'],
-                data: [
-                  {value: this.numberOfCar, name: '已停车辆'},
-                  {value: numberOfPark - this.numberOfCar, name: '剩余车位'}
-                ]
-              }
-            ]
-          })
+        let numberOfCars = response.data
+        this.numberOfCar = numberOfCars
+        let numberOfParking = 321
+        let numberOfParks = numberOfParking - numberOfCars
+        this.numberOfPark = numberOfParks
       },
       getTime() {
         let dateObj = new Date();
@@ -102,15 +81,16 @@
         if (seconds < 10) {
           seconds = "0" + seconds;
         }
-        this.nowTime=year + "年" + month + "月" + date + "日" + hours + ":" + minutes + ":" + seconds+" "+ week;
+        this.nowDate = year + "年" + month + "月" + date + "日" + " " + week;
+        this.nowTime = hours + ":" + minutes
       },
-      nowTimes(){
+      nowTimes() {
         this.getTime();
-        setInterval(this.nowTimes,1000);
+        setInterval(this.nowTimes, 500);
       },
-      nowPark(){
+      nowPark() {
         this.getResponse();
-        setInterval(this.nowPark,5000)
+        setInterval(this.nowPark, 5000)
       }
     }
 
@@ -121,20 +101,21 @@ height: 300px;
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #car {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 50px;
     float: right;
   }
 
-  #time {
-    width: 250px;
-    height: 250px;
-    float: left;
+  #numberOfCar {
+    color: #ff1d2b;
   }
 
-  #welcome {
-    align-items: center;
-    float: bottom;
+  #numberOfPark {
+    color: #ff3533;
+  }
+
+  #w1 {
+    padding-left: 200px;
   }
 
   h1, h2 {

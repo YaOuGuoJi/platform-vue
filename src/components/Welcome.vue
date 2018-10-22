@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-show="numberOfCar" id="car">
-      <label><font size="4">{{nowDate}}</font></label><br/>
-      <label><font size="7">{{nowTime}}</font></label><br/>
-      <label><font size="4">剩余车位:<font id="numberOfPark">{{numberOfPark}}</font>,已用车位:<font id="numberOfCar">{{numberOfCar}}</font></font></label>
+      <label><span class="no1">{{nowDate}}</span></label><br/>
+      <label><span class="no2">{{nowTime}}</span></label><br/>
+      <label><span class="no1">剩余车位:<span id="numberOfPark">{{numberOfPark}}</span>,已用车位:<span id="numberOfCar">{{numberOfCar}}</span></span></label>
     </div>
     <div class="welcome">
       <h1 id="w1">{{ welcome }}</h1>
@@ -13,9 +13,8 @@
   </div>
 </template>
 
-<script>
+<script type="text/javascript">
   import axios from 'axios'
-  import echarts from 'echarts'
 
   export default {
     name: 'Welcome',
@@ -26,15 +25,19 @@
         numberOfCar: null,
         nowDate: null,
         nowTime: null,
-        numberOfPark: null
+        numberOfPark: null,
+        interval1: null,
+        interval2:null
       }
     },
-    mounted() {
-      this.nowTimes(),
-        this.nowPark()
+    created() {
+      this.getFirst();
+      this.interval2 = setInterval(this.getFirst, 5000);
+      this.getTime();
+      this.interval1 = setInterval(this.getTime, 500);
     },
     methods: {
-      getResponse() {
+      getFirst() {
         axios.get('/api/park/record/number')
           .then((response) => {
             if (response.status !== 200 || !response.data) {
@@ -56,7 +59,6 @@
       },
       getTime() {
         let dateObj = new Date();
-
         let year = dateObj.getFullYear();//年
         let month = dateObj.getMonth() + 1;//月  (注意：月份+1)
         let date = dateObj.getDate();//日
@@ -83,18 +85,15 @@
         }
         this.nowDate = year + "年" + month + "月" + date + "日" + " " + week;
         this.nowTime = hours + ":" + minutes
-      },
-      nowTimes() {
-        this.getTime();
-        setInterval(this.nowTimes, 500);
-      },
-      nowPark() {
-        this.getResponse();
-        setInterval(this.nowPark, 5000)
       }
+    },
+      beforeDestroy() {
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
     }
-
   }
+
+
 </script>
 
 height: 300px;
@@ -116,6 +115,14 @@ height: 300px;
 
   #w1 {
     padding-left: 200px;
+  }
+
+  .no1 {
+    font-size: 110%;
+  }
+
+  .no2 {
+    font-size: 300%;
   }
 
   h1, h2 {

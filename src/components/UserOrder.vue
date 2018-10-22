@@ -4,7 +4,7 @@
       UserId:<input v-model="userId" type="text"/>
       开始时间:<input v-model="start" type="date"/>
       结束时间:<input v-model="end" type="date"/>
-      <button v-on:click="search()">查询</button>
+      <button v-on:click="pageNum=1, search()">查询</button>
     </div>
     <h2></h2>
     <template v-if="userInfo">

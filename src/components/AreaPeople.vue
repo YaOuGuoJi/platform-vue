@@ -11,20 +11,18 @@
 
   export default {
     name: 'AreaPeople',
-    data() {
+    data () {
       return {
-        areaPeopleList: ''
+        areaPeopleList: '',
+        interval: 0
       }
     },
-    mounted() {
-      this.nowAreaPeople()
+    created () {
+      this.areaPeople();
+      this.interval = setInterval(this.areaPeople, 3*1000)
     },
     methods: {
-      nowAreaPeople() {
-        this.areaPeople();
-        setInterval(this.areaPeople, 1000);
-      },
-      areaPeople() {
+      areaPeople () {
         axios.get('/api/selectAreaPeopleNumber')
           .then((response) => {
             if (response.status !== 200 || !response.data) {
@@ -33,7 +31,7 @@
             this.dataInvoker(response.data)
           })
       },
-      dataInvoker(response) {
+      dataInvoker (response) {
         if (!response.success || response.code !== 200) {
           window.alert(response.message)
           return
@@ -91,6 +89,9 @@
           ]
         })
       }
+    },
+    beforeDestroy() {
+      clearInterval(this.interval)
     }
   }
 </script>

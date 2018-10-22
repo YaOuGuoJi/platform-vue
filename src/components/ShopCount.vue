@@ -5,10 +5,10 @@
       <input v-model="shopId"
              placeholder="在这里单击输入..."/><br>
       <h4>请选择日期：
-        <select v-model="year" name="sel1" id="sel1" :style="{width:'100px',height:'25px' }">
+        <select v-model="year" name="sel1" id="sel1" :style="{width:'8em',height:'2em' }">
           <option value="year">年份</option>
         </select>
-        <select v-model="month" name="sel2" id="sel2" :style="{width:'100px',height:'25px' }">
+        <select v-model="month" name="sel2" id="sel2" :style="{width:'8em',height:'25px' }">
           <option value="">月份</option>
         </select>
         <template>
@@ -17,41 +17,28 @@
       </h4>
     </template>
     <h1>商户Id: {{ realShopId }}</h1>
-    <div>
-        <div id="finished-list" v-show="finished">
-          <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
-        <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
-      </div>
-      <div id="canceledList" v-show="canceled">
-        <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left',marginLeft:'50px'}" ></div>
-        <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right',marginRight: '50px'}" ></div>
-      </div>
-      </div>
-      <div id="byProductList" v-show="byProductType">
+    <div id="finished-list" v-show="finished">
+      <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
+      <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
+    </div>
+    <div id="canceledList" v-show="canceled">
+      <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left',marginLeft:'50px'}"></div>
+      <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right',marginRight: '50px'}"></div>
+    </div>
+    <div id="byProductList" v-show="byProductType">
       <div id="byProductType-order" :style="{ width: '500px', height: '300px',float:'left'}"></div>
       <div id="byProductType-price" :style="{ width: '500px', height: '300px',float:'right'}"></div>
     </div>
 
-      <div>
-        <div id="byHour-list" v-show="byHour">
-          <div id="byHour-order" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
-        </div>
-        <div id="byHour-list2" v-show="byHour">
-          <div id="byHour-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
-        </div>
-        <div id="byMonth-ist" v-show="byMonth">
-          <div id="byMonth-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
-        </div>
-        <div id="byMonth-ist1" v-show="byMonth">
-          <div id="byMonth-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
-        </div>
-        <div id="byDay-list" v-show="byDay">
-          <div id="byDay-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
-        </div>
-        <div id="byDay-list1" v-show="byDay">
-          <div id="byDay-price" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
-        </div>
-      </div>
+    <div id="byHour-list" v-show="byHour">
+      <div id="byHour-order" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
+    </div>
+    <div id="byMonth-ist" v-show="byMonth">
+      <div id="byMonth-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+    </div>
+    <div id="byDay-list" v-show="byDay">
+      <div id="byDay-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -63,7 +50,7 @@
     data () {
       return {
         shopId: 100001,
-        year: null,
+        year: 2018,
         month: null,
         finished: null,
         canceled: null,
@@ -72,7 +59,8 @@
         byMonth: null,
         byDay: null,
         orderDataList: [],
-        realShopId : null
+        priceDataList: [],
+        realShopId: null
       }
     },
     /* created: function() {
@@ -130,9 +118,9 @@
         let pieSeriesName = ['订单数', '金额']
         let pieDivList = ['finished-order', 'finished-price', 'canceled-order', 'canceled-price', 'byProductType-order', 'byProductType-price']
         let barList = [this.byHour, this.byMonth, this.byDay]
-        let barTitleList = ['单位小时下单量', '单位小时销售额', '月份订单数', '月份销售额', '日订单数', '日销售额']
+        let barTitleList = ['单位小时下单量和销售额', '月份订单数和销售额',  '日订单数和销售额', ]
         let barSeriesName = ['订单数', '销售额']
-        let barDivList = ['byHour-order', 'byHour-price', 'byMonth-order', 'byMonth-price', 'byDay-order', 'byDay-price']
+        let barDivList = ['byHour-order', 'byMonth-order',  'byDay-order']
         let barMap = {
           0: '点',
           1: '月',
@@ -168,29 +156,16 @@
         numberTimes = null
         priceTimes = null
         for (let k = 0; k < barTitleList.length; k++) {
-          if (k % 2 == 0) {
-            if (numberTimes == null) {
-              numberTimes = 0
-            } else {
-              numberTimes++
+            for (let key in barList[k]) {
+              this.orderDataList.push({name: key + barMap[k], value: barList[k][key].number})
             }
-            for (let key in barList[numberTimes]) {
-              this.orderDataList.push({name: key + barMap[numberTimes], value: barList[numberTimes][key].number})
+            for (let key in barList[k]) {
+              this.priceDataList.push({name: key + barMap[k], value: barList[k][key].price})
             }
-            this.drawBar(barTitleList[k], barSeriesName[0], this.orderDataList, barDivList[k], timeRegion)
-            this.orderDataList = []
-          } else {
-            if (priceTimes == null) {
-              priceTimes = 0
-            } else {
-              priceTimes++
-            }
-            for (let key in barList[priceTimes]) {
-              this.orderDataList.push({name: key + barMap[priceTimes], value: barList[priceTimes][key].price})
-            }
-            this.drawBar(barTitleList[k], barSeriesName[1], this.orderDataList, barDivList[k], timeRegion)
-            this.orderDataList = []
-          }
+            this.drawBar(barTitleList[k], barSeriesName[0],barSeriesName[1], this.orderDataList,this.priceDataList, barDivList[k], timeRegion)
+
+          this.orderDataList = []
+          this.priceDataList = []
         }
       },
       drawPie: function (title, legendAndSeriesData, seriesName, divId, timeRegion) {
@@ -225,7 +200,7 @@
           ]
         })
       },
-      drawBar: function (title, legendDataAndSeriesName, xAxisDataAndSeriesData, divId, timeRegion) {
+      drawBar: function (title, SeriesNameOrder,SeriesNamePrice, xAxisDataAndSeriesData,priceDataList, divId, timeRegion) {
         let chart = echarts.init(document.getElementById(divId))
         chart.setOption({
           title: {
@@ -234,26 +209,37 @@
             left: 'center'
           },
           tooltip: {},
-          legend: {
-            orient: 'vertical',
-            align: 'left',
-            y: 60,
-            bottom: 10,
-            left: 'right',
-            data: legendDataAndSeriesName,
-            show: false,
-          },
-          xAxis: {
+          xAxis: [{
             data: xAxisDataAndSeriesData.map(function (data) {
               return data.name
             })
+          }],
+          legend:{
+            left: 'right',
+            data:[SeriesNameOrder,SeriesNamePrice]
           },
-          yAxis: {},
+          yAxis: [
+            {
+              type: 'value',
+              name: SeriesNameOrder,
+            },
+            {
+              type: 'value',
+              name: SeriesNamePrice,
+              nameLocation:'end',
+            }
+          ],
           series: [{
-            color: divId.indexOf('price') === -1 ? '#ff547e' : '#748fff',
-            name: legendDataAndSeriesName,
+            color: '#ff547e',
+            name: SeriesNameOrder,
             type: 'bar',
             data: xAxisDataAndSeriesData
+          },{
+            color:'#748fff',
+            name: SeriesNamePrice,
+            type: 'bar',
+            data: priceDataList,
+            yAxisIndex:1
           }]
         })
       }

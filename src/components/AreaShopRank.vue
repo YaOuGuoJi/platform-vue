@@ -27,7 +27,7 @@
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
           <th>商铺类型</th>
-          <th>销售额</th>
+          <th>销售额(人民币元)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
@@ -35,7 +35,7 @@
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
           <td>{{shopInfo.dtoObject.shopType}}</td>
-          <td>{{shopInfo.number}}</td>
+          <td>{{shopInfo.number.toFixed(2)}}</td>
         </tr>
       </table>
     </template>
@@ -50,7 +50,7 @@
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
           <th>商铺类型</th>
-          <th>销售量</th>
+          <th>销售量(单)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
           <td bgcolor="#add8e6">{{index+1}}</td>
@@ -200,7 +200,7 @@ methods: {
       return shopRank
     });
     const price = response.data.orderPrice.map(function (shop) {
-      return shop.number;
+      return shop.number.toFixed(2);
     });
     const priceShopName = response.data.orderPrice.map(function (shopRank) {
       return shopRank.dtoObject.shopName

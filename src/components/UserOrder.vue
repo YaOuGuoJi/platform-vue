@@ -33,20 +33,20 @@
           <h3 class="order-list">消费记录</h3>
           <table>
             <tr>
-              <th width="200px">下单时间</th>
+              <th width="150px">下单时间</th>
+              <th width="60px">总价</th>
               <th width="80px">商户Id</th>
               <th width="200px">商品列表</th>
               <th width="80px">商品类型</th>
-              <th width="80px">总价格</th>
               <th width="80px">支付方式</th>
               <th width="80px">订单状态</th>
             </tr>
             <tr v-for="order in orderPageInfo.list" :key="order.orderId">
               <td>{{ buildDate(order.addTime) }}</td>
+              <td>¥{{ order.price.toFixed(2) }}</td>
               <td>{{ order.shopId }}</td>
               <td>{{ order.productList }}</td>
               <td>{{ order.productType }}</td>
-              <td>{{ order.price }}</td>
               <td>{{ order.payType }}</td>
               <td>{{ order.orderStatus }}</td>
             </tr>
@@ -118,14 +118,12 @@
           month = date.getMonth() + 1,
           day = date.getDate(),
           hour = date.getHours(),
-          min = date.getMinutes(),
-          sec = date.getSeconds()
+          min = date.getMinutes()
         return year + '-' +
           (month < 10 ? '0' + month : month) + '-' +
           (day < 10 ? '0' + day : day) + ' ' +
           (hour < 10 ? '0' + hour : hour) + ':' +
-          (min < 10 ? '0' + min : min) + ':' +
-          (sec < 10 ? '0' + sec : sec)
+          (min < 10 ? '0' + min : min)
       }
     }
   }

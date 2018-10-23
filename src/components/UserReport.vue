@@ -160,7 +160,7 @@ export default {
         },
         tooltip: {},
         legend: {
-          data:['年度支付总额', '年度支付次数']
+          data:['支付总额', '支付次数']
         },
         grid:{
           top: "50px",
@@ -184,12 +184,12 @@ export default {
         ],
         series: [
           {
-            name: '年度支付总额',
+            name: '支付总额',
             type: 'bar',
             data: payPrice
           },
           {
-            name: '年度支付次数',
+            name: '支付次数',
             type: 'bar',
             data: payTimes,
             yAxisIndex: 1
@@ -211,7 +211,7 @@ export default {
         },
         tooltip: {},
         legend: {
-          data:['月度支付总额', '月度支付次数']
+          data:['支付总额', '支付次数']
         },
         xAxis: {
           data: names
@@ -229,12 +229,12 @@ export default {
         ],
         series: [
           {
-            name: '月度支付总额',
+            name: '支付总额',
             type: 'bar',
             data: payPrice
           },
           {
-            name: '月度支付次数',
+            name: '支付次数',
             type: 'bar',
             data: payTimes,
             yAxisIndex: 1

@@ -7,6 +7,7 @@
         <li><router-link to="/area/shopRank" tag="a">分区商铺排名</router-link></li>
         <li><router-link to="/shop/count" tag="a">商户订单统计</router-link></li>
         <li><router-link to="/user/shopInfo" tag="a">商户顾客分析</router-link></li>
+        <li><router-link to="/shop/order" tag="a">商户订单列表</router-link></li>
         <li><router-link to="/user/report" tag="a">用户报告</router-link> </li>
         <li><router-link to="/user/order" tag="a">用户订单</router-link></li>
       </ul>

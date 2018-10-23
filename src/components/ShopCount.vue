@@ -49,7 +49,7 @@
     name: 'ShopCount',
     data () {
       return {
-        shopId: 100001,
+        shopId: 100009,
         year: 2018,
         month: null,
         finished: null,
@@ -118,7 +118,7 @@
         let pieSeriesName = ['订单数', '金额']
         let pieDivList = ['finished-order', 'finished-price', 'canceled-order', 'canceled-price', 'byProductType-order', 'byProductType-price']
         let barList = [this.byHour, this.byMonth, this.byDay]
-        let barTitleList = ['单位小时下单量和销售额', '月份订单数和销售额',  '日订单数和销售额', ]
+        let barTitleList = ['订单日内分布', '订单年内分布',  '订单月内分布', ]
         let barSeriesName = ['订单数', '销售额']
         let barDivList = ['byHour-order', 'byMonth-order',  'byDay-order']
         let barMap = {

@@ -48,7 +48,7 @@
     name: 'userShopInfo',
     data() {
       return {
-        shopId: 100001,
+        shopId: 100009,
         start: '2018-01-01',
         end: '2019-01-01',
         test: null,

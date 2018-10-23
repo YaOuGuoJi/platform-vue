@@ -7,6 +7,7 @@ import UserShopInfo from '@/components/UserShopInfo'
 import ShopCount from '@/components/ShopCount'
 import AreaShopRank from '@/components/AreaShopRank'
 import UserReport from '@/components/UserReport'
+import ShopOrder from '@/components/ShopOrder'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/user/report',
       name: 'UserReport',
       component: UserReport
+    },
+    {
+      path: '/shop/order',
+      name: 'ShopOrder',
+      component: ShopOrder
     }
   ]
 })

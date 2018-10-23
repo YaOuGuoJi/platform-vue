@@ -11,11 +11,11 @@
       <div class="user-info">
         <table border="1">
           <tr>
-            <th>用户Id</th>
-            <th>用户名</th>
-            <th>性别</th>
-            <th>电话号码</th>
-            <th>邮箱</th>
+            <th width="100px">用户Id</th>
+            <th width="100px">用户名</th>
+            <th width="50px">性别</th>
+            <th width="120px">电话号码</th>
+            <th width="200px">邮箱</th>
           </tr>
           <tr>
             <th>{{ userInfo.userId }}</th>
@@ -31,7 +31,7 @@
       <template v-if="orderPageInfo.list">
         <div class="order-record">
           <h3 class="order-list">消费记录</h3>
-          <table>
+          <table border="1">
             <tr>
               <th width="150px">下单时间</th>
               <th width="60px">总价</th>
@@ -107,6 +107,10 @@
           window.alert(response.message)
           return
         }
+        if (!response.data.orderPageInfo) {
+          window.alert("该用户在指定时间内无订单！")
+          return
+        }
         console.log(response)
         this.userInfo = response.data.userInfo
         this.orderPageInfo = response.data.orderPageInfo
@@ -145,6 +149,14 @@
   table {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  th {
+    height: 50px;
+  }
+
+  td {
+    height: 50px;
   }
 
   .page-bar {

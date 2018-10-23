@@ -7,7 +7,7 @@
     </div>
     <div class="welcome">
       <h1 id="w1">{{ welcome }}</h1>
-      <h2>{{ msg }}</h2>
+      <h2 id="w2">{{ msg }}</h2>
       <img src="../assets/logo.png">
     </div>
   </div>
@@ -27,7 +27,7 @@
         nowTime: null,
         numberOfPark: null,
         interval1: null,
-        interval2:null
+        interval2: null
       }
     },
     created() {
@@ -87,9 +87,9 @@
         this.nowTime = hours + ":" + minutes
       }
     },
-      beforeDestroy() {
-        clearInterval(this.interval1);
-        clearInterval(this.interval2);
+    beforeDestroy() {
+      clearInterval(this.interval1);
+      clearInterval(this.interval2);
     }
   }
 
@@ -100,8 +100,8 @@ height: 300px;
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #car {
-    width: 200px;
-    height: 50px;
+    width: 25%;
+    height: 10%;
     float: right;
   }
 
@@ -114,7 +114,11 @@ height: 300px;
   }
 
   #w1 {
-    padding-left: 200px;
+    padding-left: 30%;
+  }
+
+  #w2 {
+    padding-left: 30%;
   }
 
   .no1 {

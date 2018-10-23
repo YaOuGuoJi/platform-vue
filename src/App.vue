@@ -2,7 +2,7 @@
   <div id="app">
     <div class="left-div">
       <ul class="left-bar">
-        <li><router-link to="/" tag="a">首页</router-link></li>
+        <li><router-link to="/" tag="a" exact>首页</router-link></li>
         <li><router-link to="/area/people" tag="a">区域人数</router-link></li>
         <li><router-link to="/area/shopRank" tag="a">分区商铺排名</router-link></li>
         <li><router-link to="/shop/count" tag="a">商户订单统计</router-link></li>
@@ -56,7 +56,10 @@ a:link,a:visited {
   text-transform:uppercase;
 }
 a:hover,a:active {
-  background-color:#cc0000;
+  background-color: #cc5653;
+}
+a.active {
+  background-color: red;
 }
 
 li {

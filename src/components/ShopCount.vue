@@ -31,13 +31,13 @@
     </div>
 
     <div id="byHour-list" v-show="byHour">
-      <div id="byHour-order" :style="{ width: '1000px', height: '300px',float:'right'}"></div>
+      <div id="byHour-order" :style="{ width: '1100px', height: '300px',float:'right'}"></div>
     </div>
     <div id="byMonth-ist" v-show="byMonth">
-      <div id="byMonth-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+      <div id="byMonth-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
     </div>
     <div id="byDay-list" v-show="byDay">
-      <div id="byDay-order" :style="{ width: '1000px', height: '300px',float:'left'}"></div>
+      <div id="byDay-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
     </div>
   </div>
 </template>

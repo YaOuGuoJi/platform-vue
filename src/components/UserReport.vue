@@ -15,7 +15,7 @@
       </div>
       <div class="survey">
         <p id="summary">
-          {{year}}年{{(showMonth == '' || showMonth == null) ? showMonth : showMonth + '月'}}您在亚欧国际小镇共下单{{userReportData.orderNumber}}次,共消费{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
+          {{year}}年{{(showMonth === '' || showMonth == null) ? showMonth : showMonth + '月'}}您在亚欧国际小镇共下单{{userReportData.orderNumber}}次,共消费{{userReportData.totalPrice}}元，超过了{{userReportData.beyondPercent}}%的人，
           排名第{{rank}}
         </p>
       </div>
@@ -26,7 +26,7 @@
       </div>
       <div class="max_price_order">
         <p id="maxPrice">
-          {{year}}年{{(showMonth == '' || showMonth == null) ? showMonth : showMonth + '月'}}消费最高订单：{{userReportData.maxPriceOrder.day}}您在{{userReportData.maxPriceOrder.shopName}}购买了{{userReportData.maxPriceOrder.productList}},
+          {{year}}年{{(showMonth === '' || showMonth == null) ? showMonth : showMonth + '月'}}消费最高订单：{{userReportData.maxPriceOrder.day}}您在{{userReportData.maxPriceOrder.shopName}}购买了{{userReportData.maxPriceOrder.productList}},
           花费{{userReportData.maxPriceOrder.orderPrice}}元
         </p>
       </div>
@@ -163,10 +163,10 @@ export default {
           data:['支付总额', '支付次数']
         },
         grid:{
-          top: "50px",
-          left: "30px",
-          right: "30px",
-          bottom: "50px"
+          top: "100px",
+          left: "100px",
+          right: "100px",
+          bottom: "100px"
         },
         xAxis: {
           data: names

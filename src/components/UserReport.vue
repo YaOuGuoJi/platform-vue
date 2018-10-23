@@ -31,8 +31,8 @@
         </p>
       </div>
     </template>
-    <div id="month-times-and-price" v-show="monthReport" :style="{ width: '600px', height: '500px'}"></div>
-    <div id="day-times-and-price" v-show="dayReport" :style="{ width: '600px', height: '500px'}"></div>
+    <div id="month-times-and-price" v-show="monthReport" :style="{ width: '1100px', height: '600px'}"></div>
+    <div id="day-times-and-price" v-show="dayReport" :style="{ width: '1100px', height: '600px'}"></div>
     <div id="pay-type">
       <div id="pay-price" align="left" :style="{ width: '600px', height: '500px'}">
       </div>
@@ -48,12 +48,12 @@
     width: 1500px;
   }
   #month-times-and-price {
-    margin-left: 170px;
+    margin: 0 auto;
     text-align: center;
   }
   #day-times-and-price {
     text-align: center;
-    margin-left: 170px;
+    margin: 0 auto;
   }
   #summary {
     font-size: xx-large;
@@ -161,6 +161,12 @@ export default {
         tooltip: {},
         legend: {
           data:['年度支付总额', '年度支付次数']
+        },
+        grid:{
+          top: "50px",
+          left: "30px",
+          right: "30px",
+          bottom: "50px"
         },
         xAxis: {
           data: names

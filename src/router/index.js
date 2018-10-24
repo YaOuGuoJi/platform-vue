@@ -47,6 +47,11 @@ export default new Router({
       path: '/user/report',
       name: 'UserReport',
       component: UserReport
+    },
+    {
+      path: '/total/info',
+      name: 'ActualData',
+      component: ActualData
     }
   ]
 })

@@ -1,12 +1,11 @@
 <template>
   <div>
-    <h2>{{ nowDate }}</h2>
-    <h3>{{nowTime}}</h3>
-    <h3>小镇即时数据展示</h3>
+    <h2>小镇即时数据展示</h2>
+    <!--<h3>{{ nowDate }}</h3>
+    <h3>{{nowTime}}</h3>-->
     <div id="total-count">
       <div id="myChart" style="height: 400px;width: 800px"></div>
-      <div id="people" style="height: 300px; width: 600px"></div>
-      <div id="priceAndOrder" style="height: 300px;width: 600px"></div>
+      <div id="people" style="height: 400px; width: 800px"></div>
     </div>
   </div>
 
@@ -21,7 +20,6 @@
     data () {
       return {
         interval1: 0,
-
         nowDate: null,
         nowTime: null,
         option: null,
@@ -31,18 +29,25 @@
     mounted () {
       this.draw()
       this.drawPeople()
-      this.interval1 = setInterval(this.getTime, 1000)
+       this.interval1 = setInterval(this.getTime, 1000)
     },
     methods: {
       drawPeople:function(){
         let peopleDiv = echarts.init(document.getElementById('people'))
         this.peopleOption = {
+          title: {
+            text: '实时人数统计',
+            //subtext: timeRegion,
+            left: 'center'
+          },
           xAxis: {
             type: 'category',
+            name: '时间',
             boundaryGap: false,
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           },
           yAxis: {
+            name:'人数(K)',
             type: 'value'
           },
           series: [{
@@ -51,7 +56,7 @@
             areaStyle: {}
           }]
         }
-        peopleDiv.setOption(this.drawPeople)
+        peopleDiv.setOption(this.peopleOption)
         this.interval1 = setInterval(() => {
           this.updatePeople(peopleDiv)
         }, 2000)
@@ -61,7 +66,7 @@
         this.option = {
           title: {
             text: '成交额与订单数',
-           // left: 'center'
+            left: 'center'
           },
           tooltip: {
             trigger: 'axis',
@@ -74,6 +79,7 @@
             }
           },
           legend: {
+            left:'left',
             data: ['成交额', '订单数']
           },
           toolbox: {
@@ -93,16 +99,7 @@
             {
               type: 'category',
               boundaryGap: true,
-              data: (function () {
-                let now = new Date()
-                let res = []
-                let len = 10
-                while (len--) {
-                  res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''))
-                  now = new Date(now - 2000)
-                }
-                return res
-              })()
+              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             },
             {
               type: 'category',
@@ -128,7 +125,7 @@
             {
               type: 'value',
               scale: true,
-              name: '成交额',
+              name: '成交额(w)',
               min: 0,
               boundaryGap: [0.2, 0.2]
             }
@@ -162,13 +159,13 @@
             }
             let peopleData = response.data.data
             console.log(peopleData)
-            let axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
-            let peopleArray = this.option.series[0].data
-            let xDataArray = this.option.xAxis[0].data
+            console.log(this.peopleOption)
+            let peopleArray = this.peopleOption.series[0].data
+            let xDataArray = this.peopleOption.xAxis.data
             peopleArray.shift()
-            peopleArray.push(peopleData.people)
+            peopleArray.push((peopleData.totalPeople)/1000)
             xDataArray.shift()
-            xDataArray.push(axisData)
+            xDataArray.push(this.nowTime)
             chart.setOption(this.peopleOption)
           })
       },
@@ -180,17 +177,17 @@
               window.alert('请求失败')
             }
             let priceAndFrequency = response.data.data
-            console.log(priceAndFrequency)
-            let axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
+            let myDate = new Date()
+            let xTime = myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds()
             let priceArray = this.option.series[0].data
             let frequencyArray = this.option.series[1].data
             let xDataArray = this.option.xAxis[0].data
             priceArray.shift()
-            priceArray.push(priceAndFrequency.price)
+            priceArray.push((priceAndFrequency.price)/10000)
             frequencyArray.shift()
             frequencyArray.push(priceAndFrequency.frequency)
             xDataArray.shift()
-            xDataArray.push(axisData)
+            xDataArray.push(xTime)
             chart.setOption(this.option)
           })
       },

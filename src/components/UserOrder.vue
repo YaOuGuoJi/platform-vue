@@ -31,7 +31,7 @@
       <template v-if="orderPageInfo.list">
         <div class="order-record">
           <h3 class="order-list">消费记录</h3>
-          <table border="1">
+          <table border="1" id="alternatecolor">
             <tr>
               <th width="150px">下单时间</th>
               <th width="60px">总价</th>
@@ -128,6 +128,21 @@
           (day < 10 ? '0' + day : day) + ' ' +
           (hour < 10 ? '0' + hour : hour) + ':' +
           (min < 10 ? '0' + min : min)
+      },
+      altRows(alternatecolor){
+        if(document.getElementsByTagName){
+
+          var table = document.getElementById('alternatecolor');
+          var rows = table.getElementsByTagName("tr");
+
+          for(i = 0; i < rows.length; i++){
+            if(i % 2 == 0){
+              rows[i].className = "evenrowcolor";
+            }else{
+              rows[i].className = "oddrowcolor";
+            }
+          }
+        }
       }
     }
   }
@@ -205,5 +220,32 @@
     color: #d44950;
     margin: 0px 4px;
     font-size: 12px;
+  }
+
+  table.altrowstable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    border-collapse: collapse;
+  }
+  table.altrowstable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+  }
+  table.altrowstable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+  }
+  .oddrowcolor{
+    background-color:#d4e3e5;
+  }
+  .evenrowcolor{
+    background-color:#c3dde0;
   }
 </style>

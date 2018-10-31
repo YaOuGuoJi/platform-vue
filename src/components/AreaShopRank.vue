@@ -28,7 +28,7 @@
     <template v-if="shopPriceInfo" class="shop_price">
       <table>
         <tr>
-          <th width="100px" bgcolor="#ffb6c1">排名</th>
+          <th width="100px">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -36,7 +36,7 @@
           <th>销售额(人民币元)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
-          <td bgcolor="#ffb6c1">{{index+1}}</td>
+          <td>{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -51,7 +51,7 @@
     <template v-if="shopCountInfo" class="shop_count">
       <table>
         <tr>
-          <th width="100px" bgcolor="#00ffff">排名</th>
+          <th width="100px">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -59,7 +59,7 @@
           <th>销售量(单)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
-          <td bgcolor="#00ffff">{{index+1}}</td>
+          <td>{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -193,7 +193,7 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color: '#ffb6c1',//柱状的颜色
+              color: '#cd5c5c',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -285,7 +285,8 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color:'#00ffff',//柱状的颜色
+              color:'#5f9ea0' +
+              '',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -306,6 +307,7 @@ methods: {
   .body{
     height: 2000px;
     z-index: 1;
+    /*background-color: cadetblue;*/
   }
   #count_chart{
     text-align: center;
@@ -326,7 +328,7 @@ methods: {
     width: 700px;
     height: 800px;
     margin-top: 50px;
-    margin-left: 50px;
+    margin-left: 12%;
   }
   .shop_price_rank{
     position: absolute;
@@ -334,7 +336,7 @@ methods: {
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 830px;
+    margin-left: 55%;
     margin-top: -800px;
   }
   table th{

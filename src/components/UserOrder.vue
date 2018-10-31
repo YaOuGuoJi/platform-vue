@@ -164,7 +164,7 @@
   }
 
   .altrowstable{
-    margin-left: 12%;
+    margin-left: 30%;
   }
 
   .page-bar {

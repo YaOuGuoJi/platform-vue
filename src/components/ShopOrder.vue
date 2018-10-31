@@ -98,7 +98,7 @@
         start: '2018-01-01',
         end: '2019-01-01',
         pageNum: 1,
-        pageSize: 20,
+        pageSize: 30,
         shopInfo: null,
         pageInfo: null
       }
@@ -170,7 +170,7 @@
     margin-right: auto;
   }
   .altrowstable{
-    margin-left: 12%;
+    margin-left: 30%;
   }
 
   .page-bar {

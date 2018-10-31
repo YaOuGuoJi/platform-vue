@@ -2,15 +2,21 @@
   <div>
     <div><h2>商户订单列表</h2></div>
     <template>
-      <div>
-        <label>商户Id：</label>
-        <input v-model="shopId" placeholder="请输入商户id"/>
-        <label>开始时间：</label>
-        <input v-model="start" type="date" placeholder="请输入开始时间"/>
-        <label>结束时间：</label>
-        <input v-model="end" type="date" placeholder="请输入结束时间"/>
-        <button v-on:click="pageNum=1, search()">查询</button>
+      <div class="row">
+        <span>
+          <input v-model="shopId" class="balloon" id="shopId" type="text" placeholder="请输入商户id"/><label for="shopId">商户ID</label>
+        </span>
+        <span>
+          <input v-model="start" class="balloon" id="start" type="date" placeholder="请输入开始时间"/><label for="start">开始时间</label>
+        </span>
+        <span>
+          <input v-model="end" class="balloon" id="end" type="date" placeholder="请输入结束时间"/><label for="end">结束时间</label>
+        </span>
+        <span>
+          <button id="btn" class="button" v-on:click="pageNum=1, search()">点击查询</button>
+        </span>
       </div>
+
     </template>
     <h2></h2>
     <template v-if="shopInfo">
@@ -80,6 +86,7 @@
 
 <script type="text/javascript">
   import axios from 'axios'
+  import {btnAnimation} from '../../static/js/buttonJS'
 
   export default {
     name: 'ShopOrder',
@@ -96,6 +103,7 @@
     },
     methods: {
       search: function () {
+        btnAnimation()
         axios.get('/api/order/shop/page', {
           params: {
             shopId: this.shopId,
@@ -143,6 +151,7 @@
 </script>
 
 <style scoped>
+  @import "../../static/css/buttonAndInput.css";
   .order-list {
     width: 800px;
     height: 400px;

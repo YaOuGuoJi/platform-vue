@@ -49,8 +49,8 @@
         </div>
       </div>
     </template>
-    </div>
   </div>
+
 </template>
 <script type="text/javascript">
   import axios from 'axios'

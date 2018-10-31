@@ -16,28 +16,33 @@
         </template>
       </h4>
     </template>
-    <h1>商户Id: {{ realShopId }}</h1>
-    <div id="finished-list" v-show="finished">
-      <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
-      <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
-    </div>
-    <div id="canceledList" v-show="canceled">
-      <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left',marginLeft:'50px'}"></div>
-      <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right',marginRight: '50px'}"></div>
-    </div>
-    <div id="byProductList" v-show="byProductType">
-      <div id="byProductType-order" :style="{ width: '500px', height: '300px',float:'left'}"></div>
-      <div id="byProductType-price" :style="{ width: '500px', height: '300px',float:'right'}"></div>
-    </div>
+    <template>
+      <div class="body" style="margin:0 auto;width: 60%; background-color: white">
+        <div id="finished-list" v-show="finished" style="width: 100%;">
+          <h1>商户Id: {{ realShopId }}</h1>
+          <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px'}"></div>
+          <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
+        </div>
+        <div id="canceledList" v-show="canceled" style="width: 100%;">
+          <div id="canceled-order" :style="{ width: '400px', height: '300px',float:'left',marginLeft:'50px'}"></div>
+          <div id="canceled-price" :style="{ width: '400px', height: '300px',float:'right',marginRight: '50px'}"></div>
+        </div>
+        <div id="byProductList" v-show="byProductType" style="width: 100%;">
+          <div id="byProductType-order" :style="{ width: '500px', height: '300px',float:'left'}"></div>
+          <div id="byProductType-price" :style="{ width: '500px', height: '300px',float:'right'}"></div>
+        </div>
 
-    <div id="byHour-list" v-show="byHour">
-      <div id="byHour-order" :style="{ width: '1100px', height: '300px',float:'right'}"></div>
-    </div>
-    <div id="byMonth-ist" v-show="byMonth">
-      <div id="byMonth-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
-    </div>
-    <div id="byDay-list" v-show="byDay">
-      <div id="byDay-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
+        <div id="byHour-list" v-show="byHour" style="width: 100%;">
+          <div id="byHour-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
+        </div>
+        <div id="byMonth-ist" v-show="byMonth" style="width: 100%;">
+          <div id="byMonth-order" :style="{ width: '1100px', height: '300px',float:'left', background: 'white'}"></div>
+        </div>
+        <div id="byDay-list" v-show="byDay" style="width: 100%; background: white">
+          <div id="byDay-order" :style="{ width: '1100px', height: '300px',float:'left', background: 'white'}"></div>
+        </div>
+      </div>
+    </template>
     </div>
   </div>
 </template>
@@ -118,9 +123,9 @@
         let pieSeriesName = ['订单数', '金额']
         let pieDivList = ['finished-order', 'finished-price', 'canceled-order', 'canceled-price', 'byProductType-order', 'byProductType-price']
         let barList = [this.byHour, this.byMonth, this.byDay]
-        let barTitleList = ['订单日内分布', '订单年内分布',  '订单月内分布', ]
+        let barTitleList = ['订单日内分布', '订单年内分布', '订单月内分布',]
         let barSeriesName = ['订单数', '销售额']
-        let barDivList = ['byHour-order', 'byMonth-order',  'byDay-order']
+        let barDivList = ['byHour-order', 'byMonth-order', 'byDay-order']
         let barMap = {
           0: '点',
           1: '月',
@@ -156,13 +161,13 @@
         numberTimes = null
         priceTimes = null
         for (let k = 0; k < barTitleList.length; k++) {
-            for (let key in barList[k]) {
-              this.orderDataList.push({name: key + barMap[k], value: barList[k][key].number})
-            }
-            for (let key in barList[k]) {
-              this.priceDataList.push({name: key + barMap[k], value: barList[k][key].price})
-            }
-            this.drawBar(barTitleList[k], barSeriesName[0],barSeriesName[1], this.orderDataList,this.priceDataList, barDivList[k], timeRegion)
+          for (let key in barList[k]) {
+            this.orderDataList.push({name: key + barMap[k], value: barList[k][key].number})
+          }
+          for (let key in barList[k]) {
+            this.priceDataList.push({name: key + barMap[k], value: barList[k][key].price})
+          }
+          this.drawBar(barTitleList[k], barSeriesName[0], barSeriesName[1], this.orderDataList, this.priceDataList, barDivList[k], timeRegion)
 
           this.orderDataList = []
           this.priceDataList = []
@@ -200,7 +205,7 @@
           ]
         })
       },
-      drawBar: function (title, SeriesNameOrder,SeriesNamePrice, xAxisDataAndSeriesData,priceDataList, divId, timeRegion) {
+      drawBar: function (title, SeriesNameOrder, SeriesNamePrice, xAxisDataAndSeriesData, priceDataList, divId, timeRegion) {
         let chart = echarts.init(document.getElementById(divId))
         chart.setOption({
           title: {
@@ -214,9 +219,9 @@
               return data.name
             })
           }],
-          legend:{
+          legend: {
             left: 'right',
-            data:[SeriesNameOrder,SeriesNamePrice]
+            data: [SeriesNameOrder, SeriesNamePrice]
           },
           yAxis: [
             {
@@ -226,7 +231,7 @@
             {
               type: 'value',
               name: SeriesNamePrice,
-              nameLocation:'end',
+              nameLocation: 'end',
             }
           ],
           series: [{
@@ -234,12 +239,12 @@
             name: SeriesNameOrder,
             type: 'bar',
             data: xAxisDataAndSeriesData
-          },{
-            color:'#748fff',
+          }, {
+            color: '#748fff',
             name: SeriesNamePrice,
             type: 'bar',
             data: priceDataList,
-            yAxisIndex:1
+            yAxisIndex: 1
           }]
         })
       }
@@ -247,5 +252,57 @@
   }
 </script>
 <style scoped>
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #2c3e50;
+    background-image: none;
+  }
+  /* Custom Select */
+  .select {
+    position: relative;
+    display: block;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  select {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 .5em;
+    color: #fff;
+    cursor: pointer;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+  select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1em;
+    background: #34495e;
+    pointer-events: none;
+  }
+  /* Transition */
+  select:hover::after {
+    color: #f39c12;
+  }
+  select::after {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
 </style>
 

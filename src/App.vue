@@ -55,19 +55,17 @@
     margin:0;
     padding:0;
     background:
-      linear-gradient(45deg,  transparent 0%, transparent 57%, #ffffff 100%),
-      linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%,  transparent 11% ),
-      linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20% );
-  }
-
-  html {
-    height:100%;
+      linear-gradient(45deg,  transparent 0%, transparent 57%, #ffffff 100%) no-repeat,
+      linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%,  transparent 11% ) no-repeat,
+      linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20% ) no-repeat;
+    background-size: cover;
   }
 
   body > div {
     width:100%;
     height:100%;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) repeat;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) no-repeat;
+    background-size: cover;
   }
 
   .top-bar {

@@ -263,9 +263,9 @@
    color: #FFFFFF;
   }
   #foot{
-    margin-left: 20%;
+    margin-left: 14%;
     background-color: #FFFFFF;
-    margin-right: 21.6%;
+    margin-right: 13%;
   }
   #price {
     float: left;

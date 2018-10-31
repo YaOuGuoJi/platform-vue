@@ -307,7 +307,6 @@ methods: {
   .body{
     height: 2000px;
     z-index: 1;
-    /*background-color: cadetblue;*/
   }
   #count_chart{
     text-align: center;

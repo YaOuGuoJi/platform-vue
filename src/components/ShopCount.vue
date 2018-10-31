@@ -23,7 +23,7 @@
       </div>
     </template>
     <template>
-      <div class="body" style="margin:0 auto;width: 60%; background-color: white" v-show="finished">
+      <div class="body" style="margin:0 auto;width: 60%;" v-show="finished">
         <table>
           <tr><td>
             <div id="finished-list" v-show="finished" style="width: 100%;">

@@ -49,20 +49,10 @@
           <tr><td><div id="byDay-list" v-show="byDay" style="width: 100%; background: white">
             <div id="byDay-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
           </div></td></tr>
-
-
         </table>
-
-
-
-
-
-
-
       </div>
     </template>
   </div>
-
 </template>
 <script type="text/javascript">
   import axios from 'axios'

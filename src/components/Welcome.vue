@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="welcome-window">
     <div v-show="numberOfCar" id="car">
       <label><span class="no1">{{nowDate}}</span></label><br/>
       <label><span class="no2">{{nowTime}}</span></label><br/>
@@ -94,8 +94,6 @@
 
 
 </script>
-
-height: 300px;
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #car {

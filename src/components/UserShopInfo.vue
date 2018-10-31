@@ -251,6 +251,14 @@
   }
 </script>
 <style scoped>
+  button{
+    width:56px;
+    height:24px;
+    background-color: green;
+    border:0;
+    border-radius:4px;
+    color:white;
+  }
   #head{
    color: #FFFFFF;
   }

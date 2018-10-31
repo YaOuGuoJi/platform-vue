@@ -1,7 +1,7 @@
 <template>
   <div>
     <template>
-      <div>
+      <div id="head">
         <label>开始时间：</label>
         <input v-model="start" type="date"/>
         <label>结束时间：</label>
@@ -12,7 +12,7 @@
       </div>
     </template>
     <br/><br/>
-    <div v-show="test">
+    <div v-show="test" id="foot">
       <p align="left">共有{{number}}位顾客在该店消费过，具体信息如下：
       </p>
       <table border="1px">
@@ -251,6 +251,14 @@
   }
 </script>
 <style scoped>
+  #head{
+   color: #FFFFFF;
+  }
+  #foot{
+    margin-left: 20%;
+    background-color: #FFFFFF;
+    margin-right: 21.6%;
+  }
   #price {
     float: left;
     width: 550px;

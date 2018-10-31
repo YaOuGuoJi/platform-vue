@@ -96,6 +96,10 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .welcome-window {
+    height: 910px;
+  }
+
   #car {
     width: 25%;
     height: 10%;

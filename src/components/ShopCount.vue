@@ -23,7 +23,7 @@
       </div>
     </template>
     <template>
-      <div class="body" style="margin:0 auto;width: 75%; background-color: white">
+      <div class="body" style="margin:0 auto;width: 60%; background-color: white" v-show="finished">
         <table>
           <tr><td>
             <div id="finished-list" v-show="finished" style="width: 100%;">
@@ -41,13 +41,13 @@
             <div id="byProductType-price" :style="{ width: '500px', height: '300px',float:'right',marginRight: ''}"></div>
           </div></td></tr>
           <tr><td><div id="byHour-list" v-show="byHour" style="width: 100%;">
-            <div id="byHour-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
+            <div id="byHour-order" :style="{ width: '1100px', height: '300px',}"></div>
           </div></td></tr>
           <tr><td> <div id="byMonth-ist" v-show="byMonth" style="width: 100%;">
-            <div id="byMonth-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
+            <div id="byMonth-order" :style="{ width: '1100px', height: '300px'}"></div>
           </div></td></tr>
           <tr><td><div id="byDay-list" v-show="byDay" style="width: 100%; background: white">
-            <div id="byDay-order" :style="{ width: '1100px', height: '300px',float:'left'}"></div>
+            <div id="byDay-order" :style="{ width: '1100px', height: '300px',}"></div>
           </div></td></tr>
         </table>
       </div>

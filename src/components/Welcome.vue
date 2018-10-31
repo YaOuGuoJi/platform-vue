@@ -10,7 +10,6 @@
       <h2 id="w2">{{ msg }}</h2>
     </div>
     <div style="width: 70%; margin-left: 20%">
-      <h2>小镇即时数据展示</h2>
       <div id="total-count">
         <div id="myChart" style="height: 400px;width: 1200px"></div>
         <div id="people" style="height: 400px; width: 1200px"></div>

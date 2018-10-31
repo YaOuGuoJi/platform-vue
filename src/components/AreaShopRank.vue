@@ -298,18 +298,21 @@ methods: {
     width: 700px;
     height: 600px;
     margin-top: 50px;
+    margin-left: -15px;
   }
   #price_chart{
     text-align: center;
     width: 700px;
     height: 600px;
     margin-top: 50px;
+    margin-left: -15px;
   }
   .shop_count_rank{
     width: 700px;
     height: 800px;
-    margin-left: -100px;
+    /*margin-left: -100px;*/
     margin-top: 50px;
+    margin-left: 200px;
   }
   .shop_price_rank{
     position: absolute;
@@ -317,7 +320,7 @@ methods: {
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 600px;
+    margin-left: 1050px;
     margin-top: -800px;
   }
   .price_table{
@@ -325,5 +328,6 @@ methods: {
   }
   .count_table{
     margin-left: -80px;
+    border-width: 1px;
   }
 </style>

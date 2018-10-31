@@ -1,20 +1,26 @@
 <template>
   <div class="shop-count">
     <template>
-      <label>请输入ShopId: </label>
-      <input v-model="shopId"
-             placeholder="在这里单击输入..."/><br>
-      <h4>请选择日期：
-        <select v-model="year" name="sel1" id="sel1" :style="{width:'8em',height:'2em' }">
-          <option value="year">年份</option>
-        </select>
-        <select v-model="month" name="sel2" id="sel2" :style="{width:'8em',height:'25px' }">
-          <option value="">月份</option>
-        </select>
-        <template>
-          <button v-on:click="search()">查询</button>
-        </template>
-      </h4>
+      <div class="row">
+        <span>
+          <input v-model="shopId" class="balloon" id="shopId" type="text"/><label for="shopId">用户ID</label>
+        </span>
+        <span>
+          <label for="sel1">年份</label>
+          <select v-model="year" class="balloon" name="sel1" id="sel1">
+            <option value="year">年份</option>
+          </select>
+        </span>
+        <span>
+          <label for="sel2">月份</label>
+          <select v-model="month" class="balloon" name="sel2" id="sel2">
+            <option value="month">月份</option>
+          </select>
+        </span>
+        <span>
+          <button id="btn" class="button" v-on:click="search">点击查询</button>
+        </span>
+      </div>
     </template>
     <template>
       <div class="body" style="margin:0 auto;width: 60%; background-color: white">
@@ -46,9 +52,10 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import {btnAnimation} from '../../static/js/buttonJS'
 
   export default {
     name: 'ShopCount',
@@ -91,7 +98,7 @@
     },
     methods: {
       search: function () {
-
+        btnAnimation()
         axios.get('/api/shop/count', {
           params: {
             shopId: this.shopId,
@@ -252,57 +259,6 @@
   }
 </script>
 <style scoped>
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    outline: 0;
-    box-shadow: none;
-    border: 0 !important;
-    background: #2c3e50;
-    background-image: none;
-  }
-  /* Custom Select */
-  .select {
-    position: relative;
-    display: block;
-    width: 20em;
-    height: 3em;
-    line-height: 3;
-    background: #2c3e50;
-    overflow: hidden;
-    border-radius: .25em;
-  }
-  select {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0 0 0 .5em;
-    color: #fff;
-    cursor: pointer;
-  }
-  select::-ms-expand {
-    display: none;
-  }
-  select::after {
-    content: '\25BC';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0 1em;
-    background: #34495e;
-    pointer-events: none;
-  }
-  /* Transition */
-  select:hover::after {
-    color: #f39c12;
-  }
-  select::after {
-    -webkit-transition: .25s all ease;
-    -o-transition: .25s all ease;
-    transition: .25s all ease;
-  }
+  @import "../../static/css/buttonAndInput.css";
 </style>
 

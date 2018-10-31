@@ -101,6 +101,7 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import {btnAnimation} from '../../static/js/buttonJS'
   export default {
     name: 'UserReport',
     data () {
@@ -125,12 +126,7 @@
     },
     methods: {
       search: function () {
-        let btn = document.getElementById('btn')
-        btn.classList.add('is-active')
-        setTimeout(function () {
-          btn.classList.remove('is-active')
-        }, 2500)
-
+        btnAnimation()
         axios.get('/api/order/user/report', {
           params: {
             userId: this.userId,

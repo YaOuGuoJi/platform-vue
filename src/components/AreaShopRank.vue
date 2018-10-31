@@ -3,17 +3,23 @@
     <h2>区域内商铺的销售量与销售额排名</h2>
    <div>
      <template>
-       <div>
+       <div class="row">
          <form @submit.prevent="search">
-           <label>区域id：</label>
-           <input v-model="areaId" placeholder="请输入区域id"/>
-           <label>开始时间：</label>
-           <input v-model="start" type="date" placeholder="请输入开始时间"/>
-           <label>结束时间：</label>
-           <input v-model="end" type="date" placeholder="请输入结束时间"/>
-           <label>限制：</label>
-           <input v-model="limit" placeholder="请输入限制"/>
-           <button>查询</button>
+           <span>
+             <input v-model="areaId" class="balloon" id="areaId" type="text"/><label for="areaId">区域ID</label>
+           </span>
+           <span>
+             <input v-model="start" class="balloon" id="start" type="date"/><label for="start">开始时间</label>
+           </span>
+           <span>
+             <input v-model="end" class="balloon" id="end" type="date"/><label for="end">结束时间</label>
+           </span>
+           <span>
+             <input v-model="limit" class="balloon" id="limit" type="text"/><label for="limit">限制</label>
+           </span>
+           <span>
+             <button id="btn" class="button">点击查询</button>
+           </span>
          </form>
        </div>
      </template>
@@ -69,6 +75,8 @@
 <script type="text/javascript">
 import axios from 'axios'
 import echarts from 'echarts'
+import {btnAnimation} from '../../static/js/buttonJS'
+
 export default {
 name: 'AreaShopRank',
 data () {
@@ -84,6 +92,7 @@ data () {
 },
 methods: {
   search: function () {
+    btnAnimation()
     axios.get('/api/area/shop/rank', {
       params: {
         areaId: this.areaId,
@@ -293,6 +302,7 @@ methods: {
 }
 </script>
 <style scoped>
+  @import "../../static/css/buttonAndInput.css";
   #count_chart{
     text-align: center;
     width: 700px;

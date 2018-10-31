@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div><h2>商户订单列表</h2></div>
+  <div class="shop-order">
     <template>
       <div class="row">
         <span>
@@ -16,10 +15,9 @@
           <button id="btn" class="button" v-on:click="pageNum=1, search()">点击查询</button>
         </span>
       </div>
-
     </template>
-    <h2></h2>
     <template v-if="shopInfo">
+      <div><h2>商户订单列表</h2></div>
       <div id="shop-info">
         <table border="1">
           <tr>
@@ -47,7 +45,7 @@
         </table>
       </div>
       <div class="order-list">
-        <h3>订单列表</h3>
+        <h3></h3>
         <table id="alternatecolor" class="altrowstable">
           <tr>
             <th>序列</th>
@@ -154,11 +152,17 @@
 
 <style scoped>
   @import "../../static/css/buttonAndInput.css";
+
+  .shop-order {
+    height: 1600px;
+  }
+
   .order-list {
     width: 800px;
     height: 400px;
     display: table-cell;
     vertical-align: middle;
+    text-align: center;
   }
 
   body {
@@ -175,12 +179,13 @@
 
   .page-bar {
     text-align: center;
-    overflow: hidden;
   }
 
   .page-bar ul {
     display: table;
     margin: 40px auto;
+    position: relative;
+    left: 300px;
   }
 
   .page-bar li {

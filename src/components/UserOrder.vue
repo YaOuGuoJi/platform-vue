@@ -14,8 +14,8 @@
         <button id="btn" class="button" v-on:click="pageNum=1, search()">点击查询</button>
       </span>
     </div>
-    <h2></h2>
     <template v-if="userInfo">
+      <h3>用户消费记录</h3>
       <div class="user-info">
         <table border="1">
           <tr>
@@ -38,7 +38,7 @@
     <template v-if="userInfo">
       <template v-if="orderPageInfo.list">
         <div class="order-record">
-          <h3 class="order-list">消费记录</h3>
+          <h3></h3>
           <table id="alternatecolor" class="altrowstable">
             <tr>
               <th>序列</th>
@@ -147,6 +147,10 @@
 
 <style scoped>
   @import "../../static/css/buttonAndInput.css";
+  .user-order {
+    height: 1200px;
+  }
+
   .order-record {
     width: 800px;
     height: 400px;
@@ -175,6 +179,8 @@
   .page-bar ul {
     display: table;
     margin: 40px auto;
+    position: relative;
+    left: 300px;
   }
 
   .page-bar li {

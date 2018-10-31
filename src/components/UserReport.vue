@@ -44,9 +44,9 @@
     <div id="month-times-and-price" v-show="monthReport" :style="{ width: '1100px', height: '600px'}"></div>
     <div id="day-times-and-price" v-show="dayReport" :style="{ width: '1100px', height: '600px'}"></div>
     <div id="pay-type">
-      <div id="pay-price" align="left" :style="{ width: '600px', height: '500px'}">
+      <div id="pay-price" :style="{ width: '600px', height: '500px'}">
       </div>
-      <div id="pay-times" align="right" :style="{ width: '600px', height: '500px'}">
+      <div id="pay-times" :style="{ width: '600px', height: '500px'}">
       </div>
     </div>
   </div>
@@ -83,17 +83,18 @@
   }
 
   #pay-type {
-    /*margin-left: 170px;*/
     text-align: center;
     margin: 0 auto;
   }
 
   #pay-price {
-    display: inline;
+    display: block;
+    margin: 0 auto;
   }
 
   #pay-times {
-    display: inline;
+    display: block;
+    margin: 0 auto;
   }
 
 </style>

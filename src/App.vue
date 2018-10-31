@@ -49,7 +49,7 @@
         clickMode="push"
         class="particles"
       />
-      <router-view style="top: 0; position: absolute; width: 100%"></router-view>
+      <router-view style="top: 0; position: absolute; width: 80%; left: 10%; background: -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55))"></router-view>
     </div>
   </div>
 </template>

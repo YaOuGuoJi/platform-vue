@@ -19,7 +19,7 @@
     <div v-show="test" id="foot">
       <p align="left">共有{{number}}位顾客在该店消费过，具体信息如下：
       </p>
-      <table border="1px">
+      <table border="0px">
         <tr>
           <td>
             <p align="left">男性顾客:{{numberOfMale}}位,女性顾客:{{numberOfFemale}}位</p>
@@ -97,6 +97,7 @@
           title: {
             text: '顾客消费次数',
             subtext: '总消费次数为' + response.data.frequency.totalFrequency + '，平均消费额为' + response.data.frequency.averageFrequency,
+            subtextStyle: { color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -131,6 +132,7 @@
           title: {
             text: '顾客消费额',
             subtext: '总消费额为' + response.data.price.totalPrice.toFixed(2) + '，平均消费额为' + response.data.price.averagePrice.toFixed(2),
+            subtextStyle: { color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -179,6 +181,7 @@
           title: {
             text: '男性顾客年龄分布',
             subtext: '共' + this.numberOfMale + '位',
+            subtextStyle: { color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -223,6 +226,7 @@
           title: {
             text: '女性顾客年龄分布',
             subtext: '共' + this.numberOfFemale + '位',
+            subtextStyle: { color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -259,9 +263,7 @@
 <style scoped>
   @import "../../static/css/buttonAndInput.css";
   #foot{
-    margin-left: 14%;
-    margin-right: 13%;
-    background-color: #FFFFFF;
+    margin-left: 25%;
   }
   #price {
     float: left;

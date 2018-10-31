@@ -30,8 +30,26 @@
         </ul>
       </nav>
     </div>
-    <div class="router-div">
-      <router-view/>
+    <div class="particles">
+      <vue-particles
+        color="#fff"
+        :particleOpacity="0.7"
+        :particlesNumber="60"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#fff"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="2"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+        class="particles"
+      />
+      <router-view style="top: 0; position: absolute; width: 100%"></router-view>
     </div>
   </div>
 </template>
@@ -50,25 +68,27 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+    position: relative;
   }
 
-  html, body * {
-    box-sizing: border-box;
-    font-family: 'Titillium Web', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .particles {
+    width: 100%;
+    height: 100%;
   }
 
   body {
-    background: -webkit-linear-gradient(rgba(246, 247, 249, 0.8), rgba(246, 247, 249, 0.8)), url(https://upload.wikimedia.org/wikipedia/commons/8/8c/K2,_Mount_Godwin_Austen,_Chogori,_Savage_Mountain.jpg) no-repeat center center fixed;
+    background: url('./assets/background.png') no-repeat center center fixed;
     background-size: cover;
   }
 
   .top-bar {
-    display: block;
-  }
-
-  .router-div {
     display: block;
   }
 
@@ -79,9 +99,9 @@
     background: #f9fdff;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 999;
   }
 

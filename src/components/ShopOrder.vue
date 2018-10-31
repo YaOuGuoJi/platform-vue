@@ -48,17 +48,19 @@
       </div>
       <div class="order-list">
         <h3>订单列表</h3>
-        <table border="1">
+        <table id="alternatecolor" class="altrowstable">
           <tr>
-            <th width="150px">下单时间</th>
-            <th width="100px">总价</th>
-            <th width="100px">用户Id</th>
-            <th width="200px">商品列表</th>
-            <th width="80px">商品类型</th>
-            <th width="80px">支付方式</th>
-            <th width="80px">订单状态</th>
+            <th>序列</th>
+            <th>下单时间</th>
+            <th>总价</th>
+            <th>用户Id</th>
+            <th>商品列表</th>
+            <th>商品类型</th>
+            <th>支付方式</th>
+            <th>订单状态</th>
           </tr>
-          <tr v-for="order in pageInfo.list" :key="order.orderId">
+          <tr v-for="(order,index) in pageInfo.list" :key="order.orderId" :class="{on:index%2===0,off:index%2!==0}">
+            <td>{{ index+1 }}</td>
             <td>{{ buildDate(order.addTime) }}</td>
             <td>¥{{ order.price.toFixed(2) }}</td>
             <td>{{ order.userId }}</td>
@@ -96,7 +98,7 @@
         start: '2018-01-01',
         end: '2019-01-01',
         pageNum: 1,
-        pageSize: 40,
+        pageSize: 30,
         shopInfo: null,
         pageInfo: null
       }
@@ -167,13 +169,8 @@
     margin-left: auto;
     margin-right: auto;
   }
-
-  th {
-    height: 50px;
-  }
-
-  td {
-    height: 50px;
+  .altrowstable{
+    margin-left: 30%;
   }
 
   .page-bar {
@@ -222,5 +219,41 @@
     color: #d44950;
     margin: 0px 4px;
     font-size: 12px;
+  }
+
+  table.altrowstable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    border-collapse: collapse;
+    width: 1200px;
+  }
+
+  table.altrowstable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+    width: 300px;
+    margin-left: 800px;
+  }
+
+  table.altrowstable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+  }
+
+  .on {
+    background-color:#d4e3e5;
+    border: 1px solid blue;
+  }
+
+  .off {
+    background-color:#c3dde0;
+    border: 1px solid black;
   }
 </style>

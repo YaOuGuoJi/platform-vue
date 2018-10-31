@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <h2>区域内商铺的销售量与销售额排名</h2>
    <div>
      <template>
@@ -26,9 +26,9 @@
    </div>
     <div class="shop_count_rank">
     <template v-if="shopPriceInfo" class="shop_price">
-      <table border="3">
+      <table>
         <tr>
-          <th width="100px" bgcolor="#add8e6">排名</th>
+          <th width="100px">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -36,7 +36,7 @@
           <th>销售额(人民币元)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
-          <td bgcolor="#add8e6">{{index+1}}</td>
+          <td>{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -49,9 +49,9 @@
     </div>
     <div class="shop_price_rank">
     <template v-if="shopCountInfo" class="shop_count">
-      <table border="3">
+      <table>
         <tr>
-          <th width="100px" bgcolor="#add8e6">排名</th>
+          <th width="100px">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -59,7 +59,7 @@
           <th>销售量(单)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
-          <td bgcolor="#add8e6">{{index+1}}</td>
+          <td>{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -136,7 +136,7 @@ methods: {
       },
       legend: {
         textStyle:{
-          color:'#fff',
+          color:'#aaaaaa',
         },
       },
       grid: {//设置图表位置
@@ -146,13 +146,13 @@ methods: {
         containLabel: true
       },
       xAxis: {
-        color:'#fff',
+        color:'#aaaaaa',
         splitLine : {//去掉网格线
           show : false
         },
         axisLine : {
           lineStyle : {
-            color : '#FFF'
+            color : '#aaaaaa'
           },
         },
       },
@@ -193,7 +193,7 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color: '#F08080',//柱状的颜色
+              color: '#cd5c5c',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -228,7 +228,7 @@ methods: {
       },
       legend: {
         textStyle:{
-          color:'#fff',
+          color:'#aaaaaa',
         },
       },
       grid: {//设置图表位置
@@ -238,13 +238,13 @@ methods: {
         containLabel: true
       },
       xAxis: {
-        color:'#fff',
+        color:'#aaaaaa',
         splitLine : {//去掉网格线
           show : false
         },
         axisLine : {
           lineStyle : {
-            color : '#FFF'
+            color : '#aaaaaa',
           },
         },
       },
@@ -285,7 +285,8 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color:'#9f9ff2',//柱状的颜色
+              color:'#5f9ea0' +
+              '',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -303,23 +304,31 @@ methods: {
 </script>
 <style scoped>
   @import "../../static/css/buttonAndInput.css";
+  .body{
+    height: 2000px;
+    z-index: 1;
+    /*background-color: cadetblue;*/
+  }
   #count_chart{
     text-align: center;
     width: 700px;
     height: 600px;
     margin-top: 50px;
+    margin-left: -15px;
   }
   #price_chart{
     text-align: center;
     width: 700px;
     height: 600px;
     margin-top: 50px;
+    margin-left: -15px;
+    z-index: -99;
   }
   .shop_count_rank{
     width: 700px;
     height: 800px;
-    margin-left: -100px;
     margin-top: 50px;
+    margin-left: 12%;
   }
   .shop_price_rank{
     position: absolute;
@@ -327,13 +336,28 @@ methods: {
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 600px;
+    margin-left: 55%;
     margin-top: -800px;
+  }
+  table th{
+    font-family: verdana,arial,sans-serif;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #aaaaaa;
+  }
+  table td{
+    font-family: verdana,arial,sans-serif;
+    border-color: #aaaaaa;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
   }
   .price_table{
     margin-left: -100px;
   }
   .count_table{
     margin-left: -80px;
+    border-width: 1px;
   }
 </style>

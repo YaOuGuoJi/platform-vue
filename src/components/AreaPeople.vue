@@ -4,7 +4,20 @@
     <div id="pieChart" :style="{ width: '800px', height: '500px'}"></div>
   </div>
 </template>
-
+<style scoped>
+  .area_people_chart {
+    text-align: center;
+    margin: 0 auto;
+  }
+  #chart {
+    display: block;
+    margin: 0 auto;
+  }
+  #pieChart {
+    display: block;
+    margin: 0 auto;
+  }
+</style>
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'

@@ -1,7 +1,7 @@
 <template>
   <div>
     <template>
-      <div id="head">
+      <div id="head"><br/><br/>
         <label>开始时间：</label>
         <input v-model="start" type="date"/>
         <label>结束时间：</label>
@@ -11,7 +11,7 @@
         <button v-on:click="search()">查询</button>
       </div>
     </template>
-    <br/><br/>
+    <br/>
     <div v-show="test" id="foot">
       <p align="left">共有{{number}}位顾客在该店消费过，具体信息如下：
       </p>
@@ -264,7 +264,7 @@
   }
   #foot{
     margin-left: 14%;
-    background-color: #FFFFFF;
+    background-color: white;
     margin-right: 13%;
   }
   #price {

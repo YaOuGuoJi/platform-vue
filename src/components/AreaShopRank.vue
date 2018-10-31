@@ -127,7 +127,7 @@ methods: {
       },
       legend: {
         textStyle:{
-          color:'#fff',
+          color:'#aaaaaa',
         },
       },
       grid: {//设置图表位置
@@ -137,13 +137,13 @@ methods: {
         containLabel: true
       },
       xAxis: {
-        color:'#fff',
+        color:'#aaaaaa',
         splitLine : {//去掉网格线
           show : false
         },
         axisLine : {
           lineStyle : {
-            color : '#FFF'
+            color : '#aaaaaa'
           },
         },
       },
@@ -219,7 +219,7 @@ methods: {
       },
       legend: {
         textStyle:{
-          color:'#fff',
+          color:'#aaaaaa',
         },
       },
       grid: {//设置图表位置
@@ -229,13 +229,13 @@ methods: {
         containLabel: true
       },
       xAxis: {
-        color:'#fff',
+        color:'#aaaaaa',
         splitLine : {//去掉网格线
           show : false
         },
         axisLine : {
           lineStyle : {
-            color : '#FFF'
+            color : '#aaaaaa',
           },
         },
       },
@@ -295,26 +295,8 @@ methods: {
 <style scoped>
   .body{
     height: 2000px;
-    background-color: #f1f1f1;
+    /*background-color: #f1f1f1;*/
     z-index: 1;
-  }
-
-  input{
-    border: 1px solid #999;
-    border-radius: 4px;
-  }
-
-  button{
-    width: 56px;
-    height: 24px;
-    background-color: green;
-    border: 0;
-    border-radius: 4px;
-    color: white;
-  }
-
-  label{
-    margin-left: 30px;
   }
   #count_chart{
     text-align: center;
@@ -335,7 +317,7 @@ methods: {
     width: 700px;
     height: 800px;
     margin-top: 50px;
-    margin-left: 200px;
+    /*margin-left: 200px;*/
   }
   .shop_price_rank{
     position: absolute;
@@ -343,7 +325,7 @@ methods: {
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 1050px;
+    margin-left: 850px;
     margin-top: -800px;
   }
   table th{

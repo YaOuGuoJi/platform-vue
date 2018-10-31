@@ -10,7 +10,6 @@
         <li><router-link to="/shop/order" tag="a">商户订单列表</router-link></li>
         <li><router-link to="/user/report" tag="a">用户报告</router-link> </li>
         <li><router-link to="/user/order" tag="a">用户订单</router-link></li>
-        <li><router-link to="/Actual/Data" tag="a">即时数据</router-link></li>
       </ul>
     </div>
     <div class="right-div">

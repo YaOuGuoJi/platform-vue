@@ -1,14 +1,19 @@
 <template>
   <div>
     <template>
-      <div>
-        <label>开始时间：</label>
-        <input v-model="start" type="date"/>
-        <label>结束时间：</label>
-        <input v-model="end" type="date"/>
-        <label>商铺id:</label>
-        <input v-model="shopId" type="text" id="in"/>
-        <button v-on:click="search()">查询</button>
+      <div class="row">
+        <span>
+          <input v-model="start" class="balloon" type="date" id="start" /><label for="start">开始时间</label>
+        </span>
+        <span>
+          <input v-model="end" class="balloon" type="date" id="end"/><label for="end">结束时间</label>
+        </span>
+        <span>
+          <input v-model="shopId" class="balloon" type="text" id="shopId"/><label for="shopId">商户ID</label>
+        </span>
+        <span>
+          <button id="btn" class="button" v-on:click="search()">点击查询</button>
+        </span>
       </div>
     </template>
     <br/><br/>
@@ -43,6 +48,7 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import {btnAnimation} from '../../static/js/buttonJS'
 
   export default {
     name: 'userShopInfo',
@@ -59,6 +65,7 @@
     },
     methods: {
       search: function () {
+        btnAnimation()
         axios.get('/api/shop/consumer/analysis', {
           params: {
             shopId: this.shopId,
@@ -251,6 +258,7 @@
   }
 </script>
 <style scoped>
+  @import "../../static/css/buttonAndInput.css";
   #price {
     float: left;
     width: 550px;
@@ -275,8 +283,4 @@
     height: 300px;
   }
 
-  #in {
-    width: 100px;
-    height: 18px;
-  }
 </style>

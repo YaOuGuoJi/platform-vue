@@ -3,17 +3,23 @@
     <h2>区域内商铺的销售量与销售额排名</h2>
    <div>
      <template>
-       <div>
+       <div class="row">
          <form @submit.prevent="search">
-           <label>区域id：</label>
-           <input v-model="areaId" placeholder="请输入区域id"/>
-           <label>开始时间：</label>
-           <input v-model="start" type="date" placeholder="请输入开始时间"/>
-           <label>结束时间：</label>
-           <input v-model="end" type="date" placeholder="请输入结束时间"/>
-           <label>限制：</label>
-           <input v-model="limit" placeholder="请输入限制"/>
-           <button>查询</button>
+           <span>
+             <input v-model="areaId" class="balloon" id="areaId" type="text"/><label for="areaId">区域ID</label>
+           </span>
+           <span>
+             <input v-model="start" class="balloon" id="start" type="date"/><label for="start">开始时间</label>
+           </span>
+           <span>
+             <input v-model="end" class="balloon" id="end" type="date"/><label for="end">结束时间</label>
+           </span>
+           <span>
+             <input v-model="limit" class="balloon" id="limit" type="text"/><label for="limit">限制</label>
+           </span>
+           <span>
+             <button id="btn" class="button">点击查询</button>
+           </span>
          </form>
        </div>
      </template>
@@ -22,7 +28,7 @@
     <template v-if="shopPriceInfo" class="shop_price">
       <table>
         <tr>
-          <th width="100px" bgcolor="#add8e6">排名</th>
+          <th width="100px" bgcolor="#ffb6c1">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -30,7 +36,7 @@
           <th>销售额(人民币元)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopPriceInfo">
-          <td bgcolor="#add8e6">{{index+1}}</td>
+          <td bgcolor="#ffb6c1">{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -45,7 +51,7 @@
     <template v-if="shopCountInfo" class="shop_count">
       <table>
         <tr>
-          <th width="100px" bgcolor="#add8e6">排名</th>
+          <th width="100px" bgcolor="#00ffff">排名</th>
           <th width="100px">商铺Logo</th>
           <th>商铺id</th>
           <th width="180px">商铺名称</th>
@@ -53,7 +59,7 @@
           <th>销售量(单)</th>
         </tr>
         <tr v-for="(shopInfo, index) in shopCountInfo">
-          <td bgcolor="#add8e6">{{index+1}}</td>
+          <td bgcolor="#00ffff">{{index+1}}</td>
           <td><img v-bind:src="shopInfo.dtoObject.shopLogo" width="100px" height="50px"></td>
           <td>{{shopInfo.dtoObject.shopId}}</td>
           <td>{{shopInfo.dtoObject.shopName}}</td>
@@ -69,6 +75,8 @@
 <script type="text/javascript">
 import axios from 'axios'
 import echarts from 'echarts'
+import {btnAnimation} from '../../static/js/buttonJS'
+
 export default {
 name: 'AreaShopRank',
 data () {
@@ -84,6 +92,7 @@ data () {
 },
 methods: {
   search: function () {
+    btnAnimation()
     axios.get('/api/area/shop/rank', {
       params: {
         areaId: this.areaId,
@@ -184,7 +193,7 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color: '#F08080',//柱状的颜色
+              color: '#ffb6c1',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -276,7 +285,7 @@ methods: {
           barWidth : number,//柱子宽度
           itemStyle : {
             normal : {
-              color:'#9f9ff2',//柱状的颜色
+              color:'#00ffff',//柱状的颜色
               label : {
                 textStyle : {
                   fontSize : '15',//柱状上的显示的文字
@@ -293,9 +302,9 @@ methods: {
 }
 </script>
 <style scoped>
+  @import "../../static/css/buttonAndInput.css";
   .body{
     height: 2000px;
-    /*background-color: #f1f1f1;*/
     z-index: 1;
   }
   #count_chart{
@@ -317,7 +326,7 @@ methods: {
     width: 700px;
     height: 800px;
     margin-top: 50px;
-    /*margin-left: 200px;*/
+    margin-left: 50px;
   }
   .shop_price_rank{
     position: absolute;
@@ -325,7 +334,7 @@ methods: {
     height: 800px;
     margin-top: 50px;
     float: left;
-    margin-left: 850px;
+    margin-left: 830px;
     margin-top: -800px;
   }
   table th{

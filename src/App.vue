@@ -30,27 +30,7 @@
         </ul>
       </nav>
     </div>
-    <div class="particles">
-      <vue-particles
-        color="#fff"
-        :particleOpacity="0.7"
-        :particlesNumber="60"
-        shapeType="circle"
-        :particleSize="4"
-        linesColor="#fff"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.4"
-        :linesDistance="150"
-        :moveSpeed="2"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
-        class="particles"
-      />
-      <router-view style="top: 0; position: absolute; width: 80%; left: 10%; background: -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55))"></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -71,21 +51,23 @@
     position: relative;
   }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .particles {
-    width: 100%;
-    height: 100%;
-  }
-
   body {
-    background: url('./assets/background.png') no-repeat center center fixed;
-    background-size: cover;
+    margin:0;
+    padding:0;
+    background:
+      linear-gradient(45deg,  transparent 0%, transparent 57%, #ffffff 100%),
+      linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%,  transparent 11% ),
+      linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20% );
+  }
+
+  html {
+    height:100%;
+  }
+
+  body > div {
+    width:100%;
+    height:100%;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) repeat;
   }
 
   .top-bar {

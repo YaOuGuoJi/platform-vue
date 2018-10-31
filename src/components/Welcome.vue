@@ -8,7 +8,6 @@
     <div class="welcome">
       <h1 id="w1">{{ welcome }}</h1>
       <h2 id="w2">{{ msg }}</h2>
-      <img src="../assets/logo.png">
     </div>
   </div>
 </template>

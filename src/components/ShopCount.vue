@@ -1,20 +1,26 @@
 <template>
   <div class="shop-count">
     <template>
-      <label>请输入ShopId: </label>
-      <input v-model="shopId"
-             placeholder="在这里单击输入..."/><br>
-      <h4>请选择日期：
-        <select v-model="year" name="sel1" id="sel1" :style="{width:'8em',height:'2em' }">
-          <option value="year">年份</option>
-        </select>
-        <select v-model="month" name="sel2" id="sel2" :style="{width:'8em',height:'25px' }">
-          <option value="">月份</option>
-        </select>
-        <template>
-          <button v-on:click="search()">查询</button>
-        </template>
-      </h4>
+      <div class="row">
+        <span>
+          <input v-model="shopId" class="balloon" id="shopId" type="text"/><label for="shopId">用户ID</label>
+        </span>
+        <span>
+          <label for="sel1">年份</label>
+          <select v-model="year" class="balloon" name="sel1" id="sel1">
+            <option value="year">年份</option>
+          </select>
+        </span>
+        <span>
+          <label for="sel2">月份</label>
+          <select v-model="month" class="balloon" name="sel2" id="sel2">
+            <option value="month">月份</option>
+          </select>
+        </span>
+        <span>
+          <button id="btn" class="button" v-on:click="search">点击查询</button>
+        </span>
+      </div>
     </template>
     <h1>商户Id: {{ realShopId }}</h1>
     <div id="finished-list" v-show="finished">
@@ -41,9 +47,10 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import {btnAnimation} from '../../static/js/buttonJS'
 
   export default {
     name: 'ShopCount',
@@ -86,7 +93,7 @@
     },
     methods: {
       search: function () {
-
+        btnAnimation()
         axios.get('/api/shop/count', {
           params: {
             shopId: this.shopId,
@@ -247,5 +254,6 @@
   }
 </script>
 <style scoped>
+  @import "../../static/css/buttonAndInput.css";
 </style>
 

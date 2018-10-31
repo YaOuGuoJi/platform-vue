@@ -1,10 +1,18 @@
 <template>
   <div class="user-order">
-    <div class="input-form">
-      UserId:<input v-model="userId" type="text"/>
-      开始时间:<input v-model="start" type="date"/>
-      结束时间:<input v-model="end" type="date"/>
-      <button v-on:click="pageNum=1, search()">查询</button>
+    <div class="row">
+      <span>
+        <input v-model="userId" class="balloon" type="text" id="userId" placeholder="请输入用户ID"/><label for="userId">用户ID</label>
+      </span>
+      <span>
+        <input v-model="start" class="balloon" type="date" id="start" placeholder="请输入开始时间"/><label for="start">开始时间</label>
+      </span>
+      <span>
+        <input v-model="end" class="balloon" type="date" id="end" placeholder="请输入结束时间"/><label for="end">结束时间</label>
+      </span>
+      <span>
+        <button id="btn" class="button" v-on:click="pageNum=1, search()">点击查询</button>
+      </span>
     </div>
     <h2></h2>
     <template v-if="userInfo">
@@ -70,6 +78,7 @@
 
 <script type="text/javascript">
   import axios from 'axios'
+  import {btnAnimation} from '../../static/js/buttonJS'
 
   export default {
     name: 'UserOrder',
@@ -86,6 +95,7 @@
     },
     methods: {
       search: function () {
+        btnAnimation()
         axios.get('/api/order/user/page', {
           params: {
             userId: this.userId,
@@ -134,7 +144,7 @@
 </script>
 
 <style scoped>
-
+  @import "../../static/css/buttonAndInput.css";
   .order-record {
     width: 800px;
     height: 400px;

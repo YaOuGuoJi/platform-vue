@@ -4,6 +4,8 @@ import Vue from 'vue'
 import axios from 'axios'
 import App from './App'
 import router from './router'
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false

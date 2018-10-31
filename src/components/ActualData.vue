@@ -16,6 +16,7 @@
     data () {
       return {
         interval1: 0,
+        intervalPeople: 0,
         nowDate: null,
         nowTime: null,
         option: null,
@@ -85,7 +86,7 @@
           }]
         }
         peopleDiv.setOption(this.peopleOption)
-        this.interval1 = setInterval(() => {
+        this.intervalPeople = setInterval(() => {
           this.updatePeople(peopleDiv)
         }, 5000)
       },
@@ -198,8 +199,6 @@
               window.alert('请求失败')
             }
             let peopleData = response.data.data
-            console.log(peopleData)
-            console.log(this.peopleOption)
             let peopleArray = this.peopleOption.series[0].data
             let xDataArray = this.peopleOption.xAxis.data
             peopleArray.shift()
@@ -263,6 +262,7 @@
     },
     beforeDestroy () {
       clearInterval(this.interval1)
+      clearInterval(this.intervalPeople)
     }
   }
 </script>

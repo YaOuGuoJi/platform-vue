@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <h2>区域内商铺的销售量与销售额排名</h2>
    <div>
      <template>
@@ -20,7 +20,7 @@
    </div>
     <div class="shop_count_rank">
     <template v-if="shopPriceInfo" class="shop_price">
-      <table border="3">
+      <table>
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
           <th width="100px">商铺Logo</th>
@@ -43,7 +43,7 @@
     </div>
     <div class="shop_price_rank">
     <template v-if="shopCountInfo" class="shop_count">
-      <table border="3">
+      <table>
         <tr>
           <th width="100px" bgcolor="#add8e6">排名</th>
           <th width="100px">商铺Logo</th>
@@ -293,6 +293,29 @@ methods: {
 }
 </script>
 <style scoped>
+  .body{
+    height: 2000px;
+    background-color: #f1f1f1;
+    z-index: 1;
+  }
+
+  input{
+    border: 1px solid #999;
+    border-radius: 4px;
+  }
+
+  button{
+    width: 56px;
+    height: 24px;
+    background-color: green;
+    border: 0;
+    border-radius: 4px;
+    color: white;
+  }
+
+  label{
+    margin-left: 30px;
+  }
   #count_chart{
     text-align: center;
     width: 700px;
@@ -306,11 +329,11 @@ methods: {
     height: 600px;
     margin-top: 50px;
     margin-left: -15px;
+    z-index: -99;
   }
   .shop_count_rank{
     width: 700px;
     height: 800px;
-    /*margin-left: -100px;*/
     margin-top: 50px;
     margin-left: 200px;
   }
@@ -322,6 +345,20 @@ methods: {
     float: left;
     margin-left: 1050px;
     margin-top: -800px;
+  }
+  table th{
+    font-family: verdana,arial,sans-serif;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #aaaaaa;
+  }
+  table td{
+    font-family: verdana,arial,sans-serif;
+    border-color: #aaaaaa;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
   }
   .price_table{
     margin-left: -100px;

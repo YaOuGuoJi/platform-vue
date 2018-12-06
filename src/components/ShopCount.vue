@@ -61,7 +61,7 @@
 
   export default {
     name: 'ShopCount',
-    data () {
+    data() {
       return {
         shopId: 100009,
         year: 2018,
@@ -80,23 +80,9 @@
     /* created: function() {
        this.search();
      },*/
-    mounted: function () {
-      // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
-      //生成2000年-2100年
-      for (let i = 2000; i <= 2100; i++) {
-        let option = document.createElement('option')
-        option.setAttribute('value', i)
-        option.innerHTML = i
-        sel1.appendChild(option)
-      }
-      //生成1月-12月
-
-      for (let i = 1; i <= 12; i++) {
-        let option = document.createElement('option')
-        option.setAttribute('value', i)
-        option.innerHTML = i
-        sel2.appendChild(option)
-      }
+    mounted() {
+      this.isLogin();
+      this.years();
     },
     methods: {
       search: function () {
@@ -256,6 +242,37 @@
             yAxisIndex: 1
           }]
         })
+      },
+      isLogin() {
+        axios.get('/api/isLogin').then((response => {
+          if (response.status !== 200 || !response.data) {
+            window.alert('请求失败!')
+          }
+          this.judgeLogin = response.data.data;
+          if (!response.data.data) {
+            window.location.href="/shop/login"
+          }
+        }))
+      },
+      years() {
+        {
+          // 生命周期函数， 有好几个 执行的顺序都不一样，可以根据场景 选择不同的生命周期函数 这块一般是初始化数据的地方
+          //生成2000年-2100年
+          for (let i = 2000; i <= 2100; i++) {
+            let option = document.createElement('option')
+            option.setAttribute('value', i)
+            option.innerHTML = i
+            sel1.appendChild(option)
+          }
+          //生成1月-12月
+
+          for (let i = 1; i <= 12; i++) {
+            let option = document.createElement('option')
+            option.setAttribute('value', i)
+            option.innerHTML = i
+            sel2.appendChild(option)
+          }
+        }
       }
     }
   }

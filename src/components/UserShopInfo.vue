@@ -9,9 +9,6 @@
           <input v-model="end" class="balloon" type="date" id="end"/><label for="end">结束时间</label>
         </span>
         <span>
-          <input v-model="shopId" class="balloon" type="text" id="shopId"/><label for="shopId">商户ID</label>
-        </span>
-        <span>
           <button id="btn" class="button" v-on:click="search()">点击查询</button>
         </span>
       </div>
@@ -53,7 +50,6 @@
     name: 'userShopInfo',
     data() {
       return {
-        shopId: 100009,
         start: '2018-01-01',
         end: '2019-01-01',
         test: null,
@@ -70,7 +66,6 @@
         btnAnimation()
         axios.get('/api/shop/consumer/analysis', {
           params: {
-            shopId: this.shopId,
             start: this.start + " 00:00:00",
             end: this.end + " 23:59:59"
           }

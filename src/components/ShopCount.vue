@@ -3,9 +3,6 @@
     <template>
       <div class="row">
         <span>
-          <input v-model="shopId" class="balloon" id="shopId" type="text"/><label for="shopId">用户ID</label>
-        </span>
-        <span>
           <label for="sel1">年份</label>
           <select v-model="year" class="balloon" name="sel1" id="sel1">
             <option value="year">年份</option>
@@ -27,7 +24,6 @@
         <table>
           <tr><td>
             <div id="finished-list" v-show="finished" style="width: 100%;">
-              <h1>商户Id: {{ realShopId }}</h1>
               <div id="finished-order" :style="{ width: '400px', height: '300px',float: 'left',marginLeft:'50px',}"></div>
               <div id="finished-price" :style="{ width: '400px', height: '300px',float: 'right',marginRight: '50px'}"></div>
             </div>
@@ -63,7 +59,6 @@
     name: 'ShopCount',
     data() {
       return {
-        shopId: 100009,
         year: 2018,
         month: null,
         finished: null,
@@ -77,9 +72,6 @@
         realShopId: null
       }
     },
-    /* created: function() {
-       this.search();
-     },*/
     mounted() {
       this.isLogin();
       this.years();
@@ -89,7 +81,6 @@
         btnAnimation()
         axios.get('/api/shop/count', {
           params: {
-            shopId: this.shopId,
             year: this.year ? this.year : 0,
             month: this.month ? this.month : '',
           }
@@ -105,7 +96,6 @@
           window.alert(response.message)
           return
         }
-        this.realShopId = this.shopId
         this.canceled = response.data.canceled
         this.finished = response.data.finished
         this.byProductType = response.data.byProductType

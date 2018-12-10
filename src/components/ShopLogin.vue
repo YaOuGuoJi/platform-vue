@@ -25,7 +25,9 @@
       verifyCode(){
         console.log("loading.......");
         axios.get('/api/shop/verifyCode', {
-          phoneNo: this.phoneNo
+          params: {
+            phoneNo: this.phoneNo
+          }
         }).then(response => {
           console.log(this.phoneNo);
           if (response.status !== 200 || !response.data) {
@@ -35,8 +37,10 @@
       },
       login() {
         axios.get('/api/shop/login', {
-          code: this.code,
-          phoneNo: this.phoneNo
+          params: {
+            code: this.code,
+            phoneNo: this.phoneNo
+          }
         }).then(response => {
           if (response.status !== 200 || !response.data) {
             window.alert('登录失败!');
@@ -60,7 +64,7 @@
     height: 800px;
     background: url("../assets/login.jpg") no-repeat;
     background-size: cover;
-    margin-top: -60px;
+    margin-top: -5%;
   }
   #phone_input {
     padding-top: 27%;
@@ -69,7 +73,7 @@
     height: 20%;
   }
   .user{
-    padding-left: 50px;
+    padding-left: 3%;
     background-color: #cccccc;
     width: 20%;
     height: 20%;
@@ -116,14 +120,15 @@
   #input_button {
     position: absolute;
     left: 0;
-    width: 120px;
-    height: 28px;
+    width: 6.5%;
+    height: 4%;
     margin-left: 54.35%;
     border: 1px;
   }
 
   #button_i {
     border: none;
-    height: 32px;
+    /*height: 32px;*/
+    height: 100%;
   }
 </style>

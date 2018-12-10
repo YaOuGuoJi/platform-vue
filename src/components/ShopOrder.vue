@@ -3,9 +3,6 @@
     <template>
       <div class="row">
         <span>
-          <input v-model="shopId" class="balloon" id="shopId" type="text" placeholder="请输入商户id"/><label for="shopId">商户ID</label>
-        </span>
-        <span>
           <input v-model="start" class="balloon" id="start" type="date" placeholder="请输入开始时间"/><label for="start">开始时间</label>
         </span>
         <span>
@@ -92,7 +89,7 @@
     name: 'ShopOrder',
     data () {
       return {
-        shopId: 100009,
+//        shopId: 100009,
         start: '2018-01-01',
         end: '2019-01-01',
         pageNum: 1,
@@ -101,12 +98,14 @@
         pageInfo: null
       }
     },
+    mounted() {
+      this.isLogin()
+    },
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/order/shop/page', {
+        axios.get('/api/shop/order/page', {
           params: {
-            shopId: this.shopId,
             pageNum: this.pageNum,
             pageSize: this.pageSize,
             start: this.start + ' 00:00:00',
@@ -145,7 +144,17 @@
           (day < 10 ? '0' + day : day) + ' ' +
           (hour < 10 ? '0' + hour : hour) + ':' +
           (min < 10 ? '0' + min : min)
-      }
+      },
+      isLogin() {
+        axios.get('/api/isLogin').then((response => {
+          if (response.status !== 200 || !response.data) {
+            window.alert('请求失败!')
+          }
+          if (!response.data.data) {
+            window.location.href="/shop/login"
+          }
+        }))
+      },
     }
   }
 </script>

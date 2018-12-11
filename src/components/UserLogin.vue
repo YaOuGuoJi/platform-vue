@@ -11,51 +11,52 @@
         <button id="button_i" @click="verifyCode()">点击获取验证码</button>
       </i>
     </div>
-    <button id="button_style" disabled="true" @click="login()">Log In</button>
+    <button id="button_style" disabled="true" @click="login()">Login</button>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import $ from 'jquery'
+  import {service} from "../js/api";
+
   export default {
     data() {
-      return{
+      return {
         phoneNum: '',
         code: ''
       }
     },
     methods: {
       verifyCode: function () {
-        axios.get('/api/user/verifyCode',{
+        axios.get('/api/user/verifyCode', {
           params: {
             phoneNum: this.phoneNum
           }
-        }).then(response =>{
+        }).then(response => {
           if (response.data.code !== 200 || !response.data.data) {
             alert('获取验证码失败！请稍后再试')
           }
         })
       },
       login: function () {
-        axios.post('/api/user/login', {
-          params: {
-            phoneNum: this.phoneNum,
-            code: this.code
-          }
+        service('post', '/user/login', {
+          phoneNum: this.phoneNum,
+          code: this.code
         }).then(response => {
-          if (response.code !== 200 || !response.data) {
-            alert(response.message)
-            this.$router.push({path: '/user/login'})
+          console.log('response:  ')
+          console.log(response)
+          if (response.code !== 200) {
+            alert('登录失败，请稍后再试')
           } else {
-            this.$router.push({path: '/'})
+            this.$router.push('/')
           }
         })
-      },
-      isInput(){
-        let input = $("#codes")
-        if (input.value !== ''){
-          $("#button_style").disabled = false;
+      }
+      ,
+      isInput() {
+        let input = document.getElementById('codes');
+        if (input.value !== '') {
+          document.getElementById('button_style').disabled = false;
         }
       }
     }
@@ -73,20 +74,23 @@
     background-size: cover;
     margin-top: -5%;
   }
+
   #phone_input {
     padding-top: 27%;
     padding-left: 5%;
     width: 90%;
     height: 20%;
   }
-  .user{
+
+  .user {
     padding-left: 3%;
     background-color: #cccccc;
     width: 20%;
     height: 20%;
     border: none;
   }
-  .icon-phone{
+
+  .icon-phone {
     position: absolute;
     left: 0;
     background: url("../assets/phone.png") no-repeat;
@@ -104,7 +108,7 @@
     height: 20%;
   }
 
-  .icon-code{
+  .icon-code {
     position: absolute;
     left: 0;
     background: url("../assets/code.png") no-repeat;

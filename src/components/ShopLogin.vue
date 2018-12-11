@@ -9,7 +9,7 @@
       <input type="text" class="user" id="codes" v-model="code" @blur="isInput()"/>
       <i id="input_button"><button id="button_i" @click="verifyCode()">点击获取验证码</button></i>
     </div>
-    <button id="button_style" disabled="true" @click="login()">Log In</button>
+    <button id="button_style" disabled="true" @click="login()">Login</button>
   </div>
 </template>
 <script>

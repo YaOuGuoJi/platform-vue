@@ -1,6 +1,6 @@
 'use strict';
 
-import app from '../main.js'
+import app from '../App'
 import axios from 'axios'
 import qs from 'qs'
 

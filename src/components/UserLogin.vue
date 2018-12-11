@@ -7,63 +7,69 @@
     <div id="code_input">
       <i class="icon-code"></i>
       <input type="text" class="user" id="codes" v-model="code" @blur="isInput()"/>
-      <i id="input_button"><button id="button_i" @click="verifyCode()">点击获取验证码</button></i>
+      <i id="input_button">
+        <button id="button_i" @click="verifyCode()">点击获取验证码</button>
+      </i>
     </div>
     <button id="button_style" disabled="true" @click="login()">Log In</button>
   </div>
 </template>
+
 <script>
   import axios from 'axios'
+  import $ from 'jquery'
   export default {
-    data(){
+    data() {
       return{
         phoneNum: '',
         code: ''
-
-
       }
     },
     methods: {
-      verifyCode(){
-        console.log("loading.......");
-        axios.get('/api/shop/verifyCode', {
+      verifyCode: function () {
+        axios.get('/api/user/verifyCode',{
           params: {
             phoneNum: this.phoneNum
           }
-        }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('获取验证码失败!')
+        }).then(response =>{
+          if (response.data.code !== 200 || !response.data.data) {
+            alert('获取验证码失败！请稍后再试')
           }
         })
       },
-      login() {
-        axios.post('/api/shop/login', {
+      login: function () {
+        axios.post('/api/user/login', {
           params: {
-            code: this.code,
-            phoneNum: this.phoneNum
+            phoneNum: this.phoneNum,
+            code: this.code
           }
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('登录失败!');
-            return
+          if (response.code !== 200 || !response.data) {
+            alert(response.message)
+            this.$router.push({path: '/user/login'})
+          } else {
+            this.$router.push({path: '/'})
           }
-          window.location.href="/Welcome"
         })
       },
       isInput(){
-        let input = document.getElementById('codes');
+        let input = $("#codes")
         if (input.value !== ''){
-          document.getElementById('button_style').disabled = false;
+          $("#button_style").disabled = false;
         }
       }
     }
+
+
   }
 </script>
+
 <style scoped>
+
   .body_div {
     width: 100%;
     height: 800px;
-    background: url("../assets/shopLogin.jpg") no-repeat;
+    background: url("../assets/userLogin.jpg") no-repeat;
     background-size: cover;
     margin-top: -5%;
   }
@@ -129,7 +135,7 @@
 
   #button_i {
     border: none;
-    /*height: 32px;*/
     height: 100%;
   }
+
 </style>

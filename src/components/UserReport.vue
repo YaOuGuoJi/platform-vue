@@ -125,10 +125,13 @@
         showMonth: null
       }
     },
+    mounted() {
+      this.isLogin()
+    },
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/order/user/report', {
+        axios.get('/api/user/order/report', {
           params: {
             userId: this.userId,
             year: this.year,
@@ -320,6 +323,14 @@
             type: 'pie',
             radius: '60%',
             data: payTimesList
+          }
+        })
+      },
+      isLogin: function () {
+        axios.get('/api/user/isLogin').then(response => {
+          console.log(response)
+          if (response.data.code !== 200) {
+            this.$router.push('/user/login')
           }
         })
       }

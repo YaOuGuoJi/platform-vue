@@ -37,7 +37,7 @@
             <td>{{ shopInfo.address }}</td>
             <td>¥{{ shopInfo.avgPrice }}</td>
             <td>{{ shopInfo.shopOwner }}</td>
-            <td>{{ shopInfo.phoneNo }}</td>
+            <td>{{ shopInfo.phoneNum }}</td>
           </tr>
         </table>
       </div>
@@ -146,7 +146,7 @@
           (min < 10 ? '0' + min : min)
       },
       isLogin() {
-        axios.get('/api/isLogin').then((response => {
+        axios.get('/api/shop/isLogin').then((response => {
           if (response.status !== 200 || !response.data) {
             window.alert('请求失败!')
           }
@@ -154,7 +154,7 @@
             window.location.href="/shop/login"
           }
         }))
-      },
+      }
     }
   }
 </script>

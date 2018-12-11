@@ -234,7 +234,7 @@
         })
       },
       isLogin() {
-        axios.get('/api/isLogin').then((response => {
+        axios.get('/api/shop/isLogin').then((response => {
           if (response.status !== 200 || !response.data) {
             window.alert('请求失败!')
           }

@@ -10,6 +10,7 @@ import UserReport from '@/components/UserReport'
 import ShopOrder from '@/components/ShopOrder'
 import ActualData from '@/components/ActualData'
 import ShopLogin from '@/components/ShopLogin'
+import UserLogin from "../components/UserLogin";
 
 Vue.use(Router)
 
@@ -66,6 +67,11 @@ export default new Router({
       path: '/shop/login',
       name: 'ShopLogin',
       component: ShopLogin
+    },
+    {
+      path: '/user/login',
+      name: 'UserLogin',
+      component: UserLogin
     }
   ]
 })

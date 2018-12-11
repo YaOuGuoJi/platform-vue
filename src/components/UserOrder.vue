@@ -2,10 +2,12 @@
   <div class="user-order">
     <div class="row">
       <span>
-        <input v-model="userId" class="balloon" type="text" id="userId" placeholder="请输入用户ID"/><label for="userId">用户ID</label>
+        <input v-model="userId" class="balloon" type="text" id="userId" placeholder="请输入用户ID"/><label
+        for="userId">用户ID</label>
       </span>
       <span>
-        <input v-model="start" class="balloon" type="date" id="start" placeholder="请输入开始时间"/><label for="start">开始时间</label>
+        <input v-model="start" class="balloon" type="date" id="start" placeholder="请输入开始时间"/><label
+        for="start">开始时间</label>
       </span>
       <span>
         <input v-model="end" class="balloon" type="date" id="end" placeholder="请输入结束时间"/><label for="end">结束时间</label>
@@ -50,7 +52,8 @@
               <th>支付方式</th>
               <th>订单状态</th>
             </tr>
-            <tr v-for="(order,index) in orderPageInfo.list" :key="order.orderId" :class="{on:index%2===0,off:index%2!==0}">
+            <tr v-for="(order,index) in orderPageInfo.list" :key="order.orderId"
+                :class="{on:index%2===0,off:index%2!==0}">
               <td>{{ index+1 }}</td>
               <td>{{ buildDate(order.addTime) }}</td>
               <td>¥{{ order.price.toFixed(2) }}</td>
@@ -84,7 +87,7 @@
 
   export default {
     name: 'UserOrder',
-    data () {
+    data() {
       return {
         userId: '100000000',
         userInfo: null,
@@ -95,10 +98,13 @@
         end: '2019-01-01',
       }
     },
+    mounted() {
+      this.isLogin()
+    },
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/order/user/page', {
+        axios.get('/api/user/order/page', {
           params: {
             userId: this.userId,
             pageNum: this.pageNum,
@@ -140,6 +146,13 @@
           (day < 10 ? '0' + day : day) + ' ' +
           (hour < 10 ? '0' + hour : hour) + ':' +
           (min < 10 ? '0' + min : min)
+      },
+      isLogin() {
+        axios.get('/api/user/isLogin').then((response => {
+          if (response.data.code !== 200 || !response.data) {
+            this.$router.push('/user/login')
+          }
+        }))
       }
     }
   }
@@ -147,6 +160,7 @@
 
 <style scoped>
   @import "../../static/css/buttonAndInput.css";
+
   .user-order {
     height: 1200px;
   }
@@ -167,7 +181,7 @@
     margin-right: auto;
   }
 
-  .altrowstable{
+  .altrowstable {
     margin-left: 30%;
   }
 
@@ -222,9 +236,9 @@
   }
 
   table.altrowstable {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333333;
     border-width: 1px;
     border-color: #a9c6c9;
     border-collapse: collapse;
@@ -248,12 +262,12 @@
   }
 
   .on {
-    background-color:#d4e3e5;
+    background-color: #d4e3e5;
     border: 1px solid blue;
   }
 
   .off {
-    background-color:#c3dde0;
+    background-color: #c3dde0;
     border: 1px solid black;
   }
 </style>

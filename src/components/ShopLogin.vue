@@ -36,7 +36,7 @@
         })
       },
       login() {
-        axios.get('/api/shop/login', {
+        axios.post('/api/shop/login', {
           params: {
             code: this.code,
             phoneNo: this.phoneNo

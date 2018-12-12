@@ -328,7 +328,8 @@
       },
       isLogin: function () {
         axios.get('/api/user/isLogin').then(response => {
-          if (response.data.code !== 200) {
+          console.log(response)
+          if (response.data.code !== 200 || !response.data.data) {
             this.$router.push('/user/login')
           }
         })

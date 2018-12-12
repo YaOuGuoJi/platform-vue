@@ -43,8 +43,6 @@
           phoneNum: this.phoneNum,
           code: this.code
         }).then(response => {
-          console.log('response:  ')
-          console.log(response)
           if (response.code !== 200) {
             alert('登录失败，请稍后再试')
           } else {

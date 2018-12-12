@@ -235,12 +235,8 @@
       },
       isLogin() {
         axios.get('/api/shop/isLogin').then((response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败!')
-          }
-          this.judgeLogin = response.data.data;
-          if (!response.data.data) {
-            window.location.href="/shop/login"
+          if (response.data.code !== 200 || !response.data.data) {
+            this.$router.push('/shop/login')
           }
         }))
       },

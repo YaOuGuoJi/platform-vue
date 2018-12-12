@@ -11,6 +11,7 @@ import ShopOrder from '@/components/ShopOrder'
 import ActualData from '@/components/ActualData'
 import ShopLogin from '@/components/ShopLogin'
 import UserLogin from "../components/UserLogin";
+import Login from "../page/Login";
 
 Vue.use(Router)
 

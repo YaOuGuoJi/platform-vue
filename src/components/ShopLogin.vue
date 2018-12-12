@@ -14,6 +14,8 @@
 </template>
 <script>
   import axios from 'axios'
+  import {service} from "../js/api";
+
   export default {
     data(){
       return{
@@ -25,7 +27,6 @@
     },
     methods: {
       verifyCode(){
-        console.log("loading.......");
         axios.get('/api/shop/verifyCode', {
           params: {
             phoneNum: this.phoneNum
@@ -37,17 +38,15 @@
         })
       },
       login() {
-        axios.post('/api/shop/login', {
-          params: {
-            code: this.code,
-            phoneNum: this.phoneNum
-          }
+        service('post', '/shop/login', {
+          code: this.code,
+          phoneNum: this.phoneNum
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('登录失败!');
-            return
+          if (response.code !== 200) {
+            alert('获取验证码失败！请稍后再试')
+          } else {
+            this.$router.push("/")
           }
-          window.location.href="/Welcome"
         })
       },
       isInput(){

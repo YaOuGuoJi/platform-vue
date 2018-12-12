@@ -97,7 +97,7 @@
     methods: {
       isLogin: function () {
         service('get', '/shop/isLogin').then(response => {
-          if (!response.data || response.data.code !== 200) {
+          if (response.code !== 200 || !response.data) {
             this.$router.push('/shop/login')
           }
         })

@@ -71,7 +71,7 @@
     methods: {
       search: function () {
         btnAnimation()
-        service('get', '/shop/consume/analysis', {
+        service('get', '/shop/consumer/analysis', {
           start: this.start + " 00:00:00",
           end: this.end + " 23:59:59"
         }).then(response => {

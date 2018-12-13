@@ -1,9 +1,12 @@
 <template>
   <div>
+    <div>
+      <shop-index></shop-index>
+    </div>
     <template>
       <div class="row">
         <span>
-          <input v-model="start" class="balloon" type="date" id="start" /><label for="start">开始时间</label>
+          <input v-model="start" class="balloon" type="date" id="start"/><label for="start">开始时间</label>
         </span>
         <span>
           <input v-model="end" class="balloon" type="date" id="end"/><label for="end">结束时间</label>
@@ -44,10 +47,13 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
-  import {btnAnimation} from '../../static/js/buttonJS'
+  import {btnAnimation} from "../../../static/js/buttonJS";
+  import ShopIndex from "../../components/ShopIndex";
+
 
   export default {
     name: 'userShopInfo',
+    components: {ShopIndex},
     data() {
       return {
         start: '2018-01-01',
@@ -58,7 +64,7 @@
         numberOfFemale: 0
       }
     },
-    mounted(){
+    mounted() {
       this.isLogin();
     },
     methods: {
@@ -95,7 +101,7 @@
           title: {
             text: '顾客消费次数',
             subtext: '总消费次数为' + response.data.frequency.totalFrequency + '，平均消费额为' + response.data.frequency.averageFrequency,
-            subtextStyle: { color: '#696969'},
+            subtextStyle: {color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -130,7 +136,7 @@
           title: {
             text: '顾客消费额',
             subtext: '总消费额为' + response.data.price.totalPrice.toFixed(2) + '，平均消费额为' + response.data.price.averagePrice.toFixed(2),
-            subtextStyle: { color: '#696969'},
+            subtextStyle: {color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -179,7 +185,7 @@
           title: {
             text: '男性顾客年龄分布',
             subtext: '共' + this.numberOfMale + '位',
-            subtextStyle: { color: '#696969'},
+            subtextStyle: {color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -224,7 +230,7 @@
           title: {
             text: '女性顾客年龄分布',
             subtext: '共' + this.numberOfFemale + '位',
-            subtextStyle: { color: '#696969'},
+            subtextStyle: {color: '#696969'},
             x: 'center'
           },
           tooltip: {
@@ -266,10 +272,12 @@
   }
 </script>
 <style scoped>
-  @import "../../static/css/buttonAndInput.css";
-  #foot{
+  @import "../../../static/css/buttonAndInput.css";
+
+  #foot {
     margin-left: 25%;
   }
+
   #price {
     float: left;
     width: 550px;

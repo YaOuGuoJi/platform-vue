@@ -1,5 +1,8 @@
 <template>
   <div class="user-order">
+    <div>
+      <user-index></user-index>
+    </div>
     <div class="row">
       <span>
         <input v-model="userId" class="balloon" type="text" id="userId" placeholder="请输入用户ID"/><label
@@ -83,10 +86,12 @@
 
 <script type="text/javascript">
   import axios from 'axios'
-  import {btnAnimation} from '../../static/js/buttonJS'
+  import {btnAnimation} from "../../../static/js/buttonJS";
+  import UserIndex from "../../components/UserIndex";
 
   export default {
     name: 'UserOrder',
+    components: {UserIndex},
     data() {
       return {
         userId: '100000000',
@@ -113,7 +118,6 @@
             end: this.end + ' 00:00:00'
           }
         }).then(response => {
-          console.log(response)
           if (response.status !== 200 || !response.data) {
             window.alert('请求失败')
           }
@@ -129,7 +133,6 @@
           window.alert("该用户在指定时间内无订单！")
           return
         }
-        console.log(response)
         this.userInfo = response.data.userInfo
         this.orderPageInfo = response.data.orderPageInfo
       },
@@ -159,7 +162,7 @@
 </script>
 
 <style scoped>
-  @import "../../static/css/buttonAndInput.css";
+  @import "../../../static/css/buttonAndInput.css";
 
   .user-order {
     height: 1200px;

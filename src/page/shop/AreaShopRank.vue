@@ -1,5 +1,8 @@
 <template>
   <div class="body">
+    <div>
+      <shop-index></shop-index>
+    </div>
     <h2>区域内商铺的销售量与销售额排名</h2>
     <div>
       <template>
@@ -75,11 +78,13 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
-  import {btnAnimation} from '../../static/js/buttonJS'
-  import {service} from "../js/api";
+  import {btnAnimation} from "../../../static/js/buttonJS";
+  import {service} from "../../js/api";
+  import ShopIndex from "../../components/ShopIndex";
 
   export default {
     name: 'AreaShopRank',
+    components: {ShopIndex},
     data() {
       return {
         areaId: 1,
@@ -104,7 +109,7 @@
       },
       search: function () {
         btnAnimation()
-        axios.get('/api/area/shop/rank', {
+        axios.get('/api/shop/area/rank', {
           params: {
             areaId: this.areaId,
             start: this.start + " 00:00:00",
@@ -314,7 +319,7 @@
   }
 </script>
 <style scoped>
-  @import "../../static/css/buttonAndInput.css";
+  @import "../../../static/css/buttonAndInput.css";
 
   .body {
     height: 2000px;

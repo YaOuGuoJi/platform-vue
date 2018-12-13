@@ -1,9 +1,13 @@
 <template>
   <div id="all">
+    <div>
+      <user-index></user-index>
+    </div>
     <template>
       <div class="row">
         <span>
-          <input v-model="userId" class="balloon" id="userId" type="text" placeholder="输入用户ID"/><label for="userId">用户ID</label>
+          <input v-model="userId" class="balloon" id="userId" type="text" placeholder="输入用户ID"/><label
+          for="userId">用户ID</label>
         </span>
         <span>
           <input v-model="year" class="balloon" id="year" type="text" placeholder="输入年份:例如2018"/><label
@@ -53,8 +57,8 @@
 </template>
 
 <style scoped>
+  @import "../../../static/css/buttonAndInput.css";
 
-  @import "../../static/css/buttonAndInput.css";
   #all {
     width: auto;
   }
@@ -102,10 +106,13 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
-  import {btnAnimation} from '../../static/js/buttonJS'
+  import {btnAnimation} from "../../../static/js/buttonJS";
+  import UserIndex from "../../components/UserIndex";
+
   export default {
     name: 'UserReport',
-    data () {
+    components: {UserIndex},
+    data() {
       return {
         userInfo: null,
         userReportData: null,

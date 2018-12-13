@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Welcome from '@/components/Welcome'
-import AreaPeople from '@/components/AreaPeople'
-import UserOrder from '@/components/UserOrder'
-import UserShopInfo from '@/components/UserShopInfo'
-import ShopCount from '@/components/ShopCount'
-import AreaShopRank from '@/components/AreaShopRank'
-import UserReport from '@/components/UserReport'
-import ShopOrder from '@/components/ShopOrder'
-import ActualData from '@/components/ActualData'
-import ShopLogin from '@/components/ShopLogin'
-import UserLogin from "../components/UserLogin";
 import Login from "../page/Login";
+import UserLogin from '../page/user/UserLogin'
+import ShopLogin from '../page/shop/ShopLogin'
+import ShopIndex from "../components/ShopIndex";
+import UserIndex from "../components/UserIndex";
+import UserReport from "../page/user/UserReport"
+import UserOrder from "../page/user/UserOrder"
+import AreaShopRank from "../page/shop/AreaShopRank"
+import ShopCount from "../page/shop/ShopCount"
+import ShopOrder from "../page/shop/ShopOrder"
+import UserShopInfo from "../page/shop/UserShopInfo"
+
+import UserAreaPeople from "../page/user/AreaPeople"
+import UserWelcome from "../page/user/Welcome"
+import ShopAreaPeople from "../page/shop/AreaPeople"
+import ShopWelcome from "../page/shop/Welcome"
+
 
 Vue.use(Router)
 
@@ -21,33 +26,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Welcome',
-      component: Welcome
+      name: 'Login',
+      component: Login
     },
     {
-      path: '/area/people',
-      name: 'AreaPeople',
-      component: AreaPeople
-    },
-    {
-      path: '/user/order',
-      name: 'UserOrder',
-      component: UserOrder
-    },
-    {
-      path: '/user/shopInfo',
-      name: 'UserShopInfo',
-      component: UserShopInfo
-    },
-    {
-      path: '/shop/count',
-      name: 'ShopCount',
-      component: ShopCount
-    },
-    {
-      path: '/area/shopRank',
-      name: 'AreaShopRank',
-      component: AreaShopRank
+      path: '/user/login',
+      name: 'UserLogin',
+      component: UserLogin
     },
     {
       path: '/user/report',
@@ -55,14 +40,19 @@ export default new Router({
       component: UserReport
     },
     {
-      path: '/shop/order',
-      name: 'ShopOrder',
-      component: ShopOrder
+      path: '/user/order',
+      name: 'UserOrder',
+      component: UserOrder
     },
     {
-      path: '/actual/data',
-      name: 'ActualData',
-      component: ActualData,
+      path: '/user/welcome',
+      name: 'UserWelcome',
+      component: UserWelcome
+    },
+    {
+      path: '/user/area/people',
+      name: 'UserAreaPeople',
+      component: UserAreaPeople
     },
     {
       path: '/shop/login',
@@ -70,9 +60,44 @@ export default new Router({
       component: ShopLogin
     },
     {
-      path: '/user/login',
-      name: 'UserLogin',
-      component: UserLogin
+      path: '/area/shopRank',
+      name: 'AreaShopRank',
+      component: AreaShopRank
+    },
+    {
+      path: '/shop/count',
+      name: 'ShopCount',
+      component: ShopCount
+    },
+    {
+      path: '/user/shopInfo',
+      name: 'UserShopInfo',
+      component: UserShopInfo
+    },
+    {
+      path: '/shop/order',
+      name: 'ShopOrder',
+      component: ShopOrder
+    },
+    {
+      path: '/shop/welcome',
+      name: 'ShopWelcome',
+      component: ShopWelcome
+    },
+    {
+      path: '/shop/area/people',
+      name: 'ShopAreaPeople',
+      component: ShopAreaPeople
+    },
+    {
+      path: '/shop/index',
+      name: 'ShopIndex',
+      component: ShopIndex
+    },
+    {
+      path: '/user/index',
+      name: 'UserIndex',
+      component: UserIndex
     }
   ]
 })

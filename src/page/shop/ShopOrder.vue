@@ -1,9 +1,13 @@
 <template>
   <div class="shop-order">
+    <div>
+      <shop-index></shop-index>
+    </div>
     <template>
       <div class="row">
         <span>
-          <input v-model="start" class="balloon" id="start" type="date" placeholder="请输入开始时间"/><label for="start">开始时间</label>
+          <input v-model="start" class="balloon" id="start" type="date" placeholder="请输入开始时间"/><label
+          for="start">开始时间</label>
         </span>
         <span>
           <input v-model="end" class="balloon" id="end" type="date" placeholder="请输入结束时间"/><label for="end">结束时间</label>
@@ -83,11 +87,13 @@
 
 <script type="text/javascript">
   import axios from 'axios'
-  import {btnAnimation} from '../../static/js/buttonJS'
+  import {btnAnimation} from "../../../static/js/buttonJS";
+  import ShopIndex from "../../components/ShopIndex";
 
   export default {
     name: 'ShopOrder',
-    data () {
+    components: {ShopIndex},
+    data() {
       return {
 //        shopId: 100009,
         start: '2018-01-01',
@@ -123,7 +129,6 @@
           window.alert(response.data)
           return
         }
-        console.log(response)
         if (!response.data.pageInfo) {
           window.alert('该商户在指定时间内无订单！')
           return
@@ -157,7 +162,7 @@
 </script>
 
 <style scoped>
-  @import "../../static/css/buttonAndInput.css";
+  @import "../../../static/css/buttonAndInput.css";
 
   .shop-order {
     height: 1600px;
@@ -179,7 +184,8 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .altrowstable{
+
+  .altrowstable {
     margin-left: 30%;
   }
 
@@ -233,9 +239,9 @@
   }
 
   table.altrowstable {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333333;
     border-width: 1px;
     border-color: #a9c6c9;
     border-collapse: collapse;
@@ -259,12 +265,12 @@
   }
 
   .on {
-    background-color:#d4e3e5;
+    background-color: #d4e3e5;
     border: 1px solid blue;
   }
 
   .off {
-    background-color:#c3dde0;
+    background-color: #c3dde0;
     border: 1px solid black;
   }
 </style>

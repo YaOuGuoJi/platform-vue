@@ -1,5 +1,8 @@
 <template>
   <div class="welcome-window">
+    <div>
+      <user-index></user-index>
+    </div>
     <div v-show="numberOfCar" id="car">
       <label><span class="no1">{{nowDate}}</span></label><br/>
       <label><span class="no2">{{nowTime}}</span></label><br/>
@@ -22,9 +25,11 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import UserIndex from "../../components/UserIndex";
 
   export default {
     name: 'Welcome',
+    components: {UserIndex},
     data() {
       return {
         welcome: 'Welcome to our vue!',
@@ -46,7 +51,7 @@
       this.getTime();
       this.interval1 = setInterval(this.getTime, 500);
     },
-    mounted () {
+    mounted() {
       this.draw()
       this.drawPeople()
       this.interval1 = setInterval(this.getTime, 1000)
@@ -95,7 +100,7 @@
             type: 'value'
           },
           series: [{
-            name:'人数',
+            name: '人数',
             data: (function () {
               let res = []
               let len = 30

@@ -1,5 +1,8 @@
 <template>
   <div class="area_people_chart">
+    <div>
+      <user-index></user-index>
+    </div>
     <div id="chart" :style="{ width: '800px', height: '600px'}"></div>
     <div id="pieChart" :style="{ width: '800px', height: '500px'}"></div>
   </div>
@@ -9,10 +12,12 @@
     text-align: center;
     margin: 0 auto;
   }
+
   #chart {
     display: block;
     margin: 0 auto;
   }
+
   #pieChart {
     display: block;
     margin: 0 auto;
@@ -21,21 +26,23 @@
 <script type="text/javascript">
   import axios from 'axios'
   import echarts from 'echarts'
+  import UserIndex from "../../components/UserIndex";
 
   export default {
     name: 'AreaPeople',
-    data () {
+    components: {UserIndex},
+    data() {
       return {
         areaPeopleList: '',
         interval: 0
       }
     },
-    created () {
+    created() {
       this.areaPeople();
-      this.interval = setInterval(this.areaPeople, 3*1000)
+      this.interval = setInterval(this.areaPeople, 3 * 1000)
     },
     methods: {
-      areaPeople () {
+      areaPeople() {
         axios.get('/api/selectAreaPeopleNumber')
           .then((response) => {
             if (response.status !== 200 || !response.data) {
@@ -44,7 +51,7 @@
             this.dataInvoker(response.data)
           })
       },
-      dataInvoker (response) {
+      dataInvoker(response) {
         if (!response.success || response.code !== 200) {
           window.alert(response.message)
           return
@@ -102,7 +109,7 @@
         })
       }
     },
-    beforeDestroy () {
+    beforeDestroy() {
       clearInterval(this.interval)
     }
   }

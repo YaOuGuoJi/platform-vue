@@ -1,38 +1,75 @@
 <template>
-  <div id="app">
+  <div id="userApp">
+    <div class="top-bar">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/user/welcome" tag="a" exact>Home</router-link>
+          </li>
+          <li>
+            <router-link to="/user/area/people" tag="a">区域人数</router-link>
+          </li>
+          <li>
+            <router-link to="/user/report" tag="a">用户报告</router-link>
+          </li>
+          <li>
+            <router-link to="/user/order" tag="a">用户订单</router-link>
+          </li>
+          <li>
+            <a @click="logout">退出登录</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+
+  import {service} from "../js/api";
+
   export default {
-    name: 'App'
+    name: 'UserIndex',
+    methods: {
+      logout: function () {
+        service('post', '/user/logout', {}).then(response => {
+          if (response === undefined) {
+            return
+          }
+          if (response.code !== 200) {
+            alert(response.message);
+          }
+          this.$router.push("/")
+        })
+      }
+    }
   }
 </script>
 
-<style>
-  #app {
+<style scoped>
+  #userApp {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    margin-top: 60px;
     position: relative;
   }
 
   body {
-    margin:0;
-    padding:0;
-    background:
-      linear-gradient(45deg,  transparent 0%, transparent 57%, #ffffff 100%) no-repeat,
-      linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%,  transparent 11% ) no-repeat,
-      linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20% ) no-repeat;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, transparent 0%, transparent 57%, #ffffff 100%) no-repeat,
+    linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%, transparent 11%) no-repeat,
+    linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20%) no-repeat;
     background-size: cover;
   }
 
   body > div {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) no-repeat;
     background-size: cover;
   }
@@ -87,9 +124,11 @@
     text-decoration: none;
     font-size: 16px;
   }
-  a:hover,a:active {
+
+  a:hover, a:active {
     background-color: #708296;
   }
+
   a.active {
     background-color: #2e768f;
   }

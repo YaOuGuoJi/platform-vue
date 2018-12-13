@@ -11,7 +11,6 @@ export function service(method, url, params = {}) {
     data: 'post' === method ? qs.stringify(params) : {},
     params: 'get' === method ? params : {}
   }).then(response => {
-      console.log(response);
       if (response === null || response.status !== 200) {
         window.alert('请求失败！');
         console.log('请求失败');

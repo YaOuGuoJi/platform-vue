@@ -59,7 +59,7 @@
           if (response.code !== 200) {
             alert('登录失败，请稍后再试')
           } else {
-            this.$router.push('/user/index')
+            this.$router.push('/user/welcome')
           }
         })
       }

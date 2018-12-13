@@ -24,7 +24,7 @@
   }
 </style>
 <script type="text/javascript">
-  import axios from 'axios'
+  import {service} from "../../js/api";
   import echarts from 'echarts'
   import ShopIndex from "../../components/ShopIndex";
 
@@ -43,13 +43,15 @@
     },
     methods: {
       areaPeople() {
-        axios.get('/api/selectAreaPeopleNumber')
-          .then((response) => {
-            if (response.status !== 200 || !response.data) {
-              window.alert('请求失败')
-            }
-            this.dataInvoker(response.data)
-          })
+        service('get', '/selectAreaPeopleNumber', {}).then(response => {
+          if (response === undefined) {
+            return
+          }
+          if (response.code !== 200) {
+            alert(response.message)
+          }
+          this.dataInvoker(response)
+        })
       },
       dataInvoker(response) {
         if (!response.success || response.code !== 200) {

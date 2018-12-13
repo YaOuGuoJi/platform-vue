@@ -108,6 +108,7 @@
   import echarts from 'echarts'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import UserIndex from "../../components/UserIndex";
+  import {service} from "../../js/api";
 
   export default {
     name: 'UserReport',
@@ -138,17 +139,15 @@
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/user/order/report', {
-          params: {
-            userId: this.userId,
-            year: this.year,
-            month: this.month
-          }
+        service('get', '/user/order/report', {
+          userId: this.userId,
+          year: this.year,
+          month: this.month
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
+          if (response.code !== 200) {
+            alert(response.message)
           }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker: function (response) {

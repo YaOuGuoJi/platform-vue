@@ -76,7 +76,6 @@
   </div>
 </template>
 <script type="text/javascript">
-  import axios from 'axios'
   import echarts from 'echarts'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import {service} from "../../js/api";
@@ -109,18 +108,16 @@
       },
       search: function () {
         btnAnimation()
-        axios.get('/api/shop/area/rank', {
-          params: {
-            areaId: this.areaId,
-            start: this.start + " 00:00:00",
-            end: this.end + " 23:59:59",
-            limit: this.limit
-          }
+        service('get', '/shop/area/rank', {
+          areaId: this.areaId,
+          start: this.start + " 00:00:00",
+          end: this.end + " 23:59:59",
+          limit: this.limit
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败!')
+          if (response.code !== 200) {
+            alert(response.message)
           }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker: function (response) {

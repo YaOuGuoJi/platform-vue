@@ -49,6 +49,7 @@
   import echarts from 'echarts'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import ShopIndex from "../../components/ShopIndex";
+  import {service} from "../../js/api";
 
 
   export default {
@@ -70,16 +71,14 @@
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/shop/consumer/analysis', {
-          params: {
-            start: this.start + " 00:00:00",
-            end: this.end + " 23:59:59"
+        service('get', '/shop/consume/analysis', {
+          start: this.start + " 00:00:00",
+          end: this.end + " 23:59:59"
+        }).then(response => {
+          if (response.code !== 200) {
+            alert(response.message)
           }
-        }).then((response) => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
-          }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker(response) {

@@ -83,6 +83,7 @@
 </template>
 <script type="text/javascript">
   import axios from 'axios'
+  import {service} from "../../js/api";
   import echarts from 'echarts'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import ShopIndex from "../../components/ShopIndex";
@@ -112,16 +113,14 @@
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/shop/count', {
-          params: {
-            year: this.year ? this.year : 0,
-            month: this.month ? this.month : '',
-          }
+        service('get', '/shop/count',{
+          year: this.year ? this.year : 0,
+          month: this.month ? this.month : '',
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
+          if (response.code !== 200) {
+            alert(response.message)
           }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker: function (response) {

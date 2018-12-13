@@ -88,6 +88,7 @@
   import axios from 'axios'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import UserIndex from "../../components/UserIndex";
+  import {service} from "../../js/api";
 
   export default {
     name: 'UserOrder',
@@ -109,19 +110,17 @@
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/user/order/page', {
-          params: {
-            userId: this.userId,
-            pageNum: this.pageNum,
-            pageSize: this.pageSize,
-            start: this.start + ' 00:00:00',
-            end: this.end + ' 00:00:00'
-          }
+        service('get', '/user/order/page', {
+          userId: this.userId,
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          start: this.start + ' 00:00:00',
+          end: this.end + ' 00:00:00'
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
+          if (response.code !== 200) {
+            alert(response.message)
           }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker: function (response) {

@@ -89,6 +89,7 @@
   import axios from 'axios'
   import {btnAnimation} from "../../../static/js/buttonJS";
   import ShopIndex from "../../components/ShopIndex";
+  import {service} from "../../js/api";
 
   export default {
     name: 'ShopOrder',
@@ -110,18 +111,16 @@
     methods: {
       search: function () {
         btnAnimation()
-        axios.get('/api/shop/order/page', {
-          params: {
-            pageNum: this.pageNum,
-            pageSize: this.pageSize,
-            start: this.start + ' 00:00:00',
-            end: this.end + ' 00:00:00'
-          }
+        service('get', '/shop/order/page', {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          start: this.start + ' 00:00:00',
+          end: this.end + ' 00:00:00'
         }).then(response => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败!')
+          if (response.code !== 200) {
+            alert(response.message)
           }
-          this.dataInvoker(response.data)
+          this.dataInvoker(response)
         })
       },
       dataInvoker: function (response) {

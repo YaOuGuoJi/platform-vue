@@ -43,7 +43,7 @@
         service('get', '/shop/verifyCode', {
           phoneNum: this.phoneNum
         }).then(response => {
-          if (response.code !== 200 || !response.data) {
+          if (response.code !== 200) {
             alert('获取验证码失败，请稍后再试')
           }
         })

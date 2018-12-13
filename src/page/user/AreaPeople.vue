@@ -44,7 +44,7 @@
     },
     methods: {
       areaPeople() {
-        service('get', 'selectAreaPeopleNumber', {}).then(response => {
+        service('get', '/selectAreaPeopleNumber', {}).then(response => {
           if (response.code !== 200) {
             alert(response.message)
           }

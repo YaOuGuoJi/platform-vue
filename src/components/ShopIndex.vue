@@ -22,7 +22,7 @@
             <router-link to="/shop/order" tag="a">商户订单列表</router-link>
           </li>
           <li>
-            <a @click="logout">退出登录</a>
+            <a style="color: red" @click="logout">退出登录</a>
           </li>
         </ul>
       </nav>

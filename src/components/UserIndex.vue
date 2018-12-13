@@ -16,7 +16,7 @@
             <router-link to="/user/order" tag="a">用户订单</router-link>
           </li>
           <li>
-            <a @click="logout">退出登录</a>
+            <a style="color: red" @click="logout">退出登录</a>
           </li>
         </ul>
       </nav>

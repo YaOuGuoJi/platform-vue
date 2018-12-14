@@ -32,7 +32,7 @@
       linear-gradient(45deg,  transparent 0%, transparent 57%, #ffffff 100%) no-repeat,
       linear-gradient(-45deg, #8f5611 0%, #9bd7ff 0.3%, #dbd55c 112%,  transparent 11% ) no-repeat,
       linear-gradient(-90deg, #a19b2e 100%, #a16226 65%, transparent 20% ) no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
   }
 
   body > div {

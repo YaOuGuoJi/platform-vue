@@ -70,7 +70,7 @@
 <style scoped>
   .all {
     width: 100%;
-    height: 938px;
+    height: 100%;
     background: url("../../assets/loginBackground.jpg") no-repeat;
     background-size: 100% 65%;
     margin: 0 auto;

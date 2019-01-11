@@ -30,3 +30,20 @@ export function service(method, url, params = {}) {
       console.log(error);
     });
 }
+
+export function weatherAPI() {
+  return axios({
+    url: '/forecast/s6/weather/now',
+    method: 'get',
+    params: {
+      location: 'CN101110101',
+      key: 'ec06086902554336bb1844482c103a06'
+    }
+  }).then(response => {
+    if (response.status !== 200) {
+      return null;
+    }
+    return response.data.HeWeather6[0]
+  })
+}
+

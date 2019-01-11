@@ -18,6 +18,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/forecast': {
+        target: 'https://free-api.heweather.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/forecast': ''
+        }
       }
     },
 
